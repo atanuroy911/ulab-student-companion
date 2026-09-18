@@ -1,0 +1,623 @@
+ourse Code	Course Name	Credit
+0031-000 -1110	Study Skills	0
+0031-000-1111	Healthy Life Skills	0
+0031-000-1112	Social Skills	0
+0031-000-1113	Professional Skills	0
+0031-017-2102	Presentation & Application of Bangla Writing	3
+0031-052-6017	Business Leadership	3
+0031-052-6050	Workshops (Rise to Shine: Essential Professional Skills)	1
+0031-052-6060	Workshops (Elevate 360: Mastering Modern Professional Skill)	1
+0031-052-6070	Workshops (Excel & Lead: Amplifying Organizational Impact)	1
+0031-052-6100	Workshops (Field Study)	1
+0188-000-3145	Education, Society and Development	3
+0200-017-1101	Socio- Culture and Literary History of Bengal : Ancient and Medieval Period	3
+0200-017-1201	An Introduction to Bangla Literature	3
+0200-017-1301	Oriental and Occidental Aesthetics	3
+0200-017-1302	Translation: Persion, Arabic and Indian Literature	3
+0200-017-2101	Kobita: Charja to Chondi	3
+0200-017-2103	History of Bangladesh Literature: From Colonial and Post-Colonial	3
+0200-017-2201	Bangla Novel: Colonial Period	3
+0200-017-2202	Bangla Short Story: Colonial to Post Liberation.	3
+0211-000-2112	Introduction to Photography	3
+0211-000-4108	Introduction to Animation	3
+0211-012-2102	Multimedia Communication 1	3
+0213-000-2201	Film History	3
+0213-000-3101	Aesthetic of Film	3
+0215-000-2109	Introduction to Drama	3
+0222-000-1201	History of the Emergence of Independent Bangladesh	3
+0222-000-2150	Introduction to Archaeology	3
+0222-000-2204	History of Modern South Asia	3
+0222-000-2281	Archaeological Sciences	3
+0222-000-3247	Islam and Islamism: A South Asian Perspective	3
+0223-000-1202	Ethics	3
+0223-000-2111	Introduction to Philosophy I	3
+0223-000-2159	Professional Ethics	3
+0223-000-2210	Logic	3
+0223-000-4148	Ethics in Media and Communication	3
+0223-054-5102	Ethics in Media and Communication	3
+0231-000-0099	Remedial English	0
+0231-000-1101	Academic English I	3
+0231-000-1201	Academic English II	3
+0231-000-1202	Advanced English Writing Skills	3
+0231-000-1203	Advanced Bangla Writing Skills	3
+0231-000-2103	Foreign Language: Chinese	3
+0231-051-088	Business English	1.5
+0231-051-098	Basic English	0
+0231-051-518	Communication Workshop	2
+0231-051-527	Business Communication	3
+0231-052-6001	Managerial Communication	3
+0231-054-5103	Technical Writing	3
+0232-000-1101	Bangla Bhasha O Sahitya	3
+0232-000-2106	History of Bangla Literature	3
+0232-000-2214	Qazi Nazrul Islam: Life and Works	3
+0232-000-2215	Rabindranath Tagore: Life and Works	3
+0232-013-1101	Introduction to Literary Genres	3
+0232-013-1201	Introduction to Poetry and Drama	3
+0232-013-1202	Introduction to Fiction and Non-fiction	3
+0232-013-1203	Pronunciation (Phonetics and Phonology)	3
+0232-013-2101	Elizabethan and Jacobean Drama	3
+0232-013-2102	Writing about Literature	3
+0232-013-2103	Morphology & Syntax	3
+0232-013-2201	Sociolinguistics	3
+0232-013-2202	Restoration and Eighteenth Century Literature	3
+0232-013-2203	Literary Criticism (Sidney to Leavis)	3
+0232-055-501	Research and Study Methods	3
+0232-055-502	Advanced Literary Theory	3
+0232-055-503	The Cultural Construction of Shakespeare	3
+0232-055-505	Approaches to Cultural Theory	3
+0232-055-506	Reading Contemporary Transnational Literature	3
+0232-055-507	Research Methods	3
+0232-055-509	Theories on First and Second Language Acquisition	3
+0232-055-510	Critical Approaches to Syllabus Design	3
+0232-055-512	Linguistics for English Language Teaching	3
+0232-055-513	Advanced Critical Reading I: Fiction & Creative Non-fiction	3
+0232-055-514	Advanced Critical Reading II: Poetry & Drama	3
+0232-055-524	Contemporary Literatures in English	3
+0232-055-531	History of Ideas	3
+0232-055-536	Technology and Learner Autonomy	3
+0232-055-539	Advanced Sociolinguistics	3
+0232-055-544	Discourse Analysis and Pragmatics	3
+0232-055-546	Teaching Practicum and Classroom Management	3
+0232-055-567	Digital Humanites	3
+0232-055-568	Language, Power and Gender	3
+0232-055-599	Dissertation	6
+0288-000-521	Technology and Ethics	3
+0288-017-1202	Literature in Film	3
+0310-000-2252	Living with Conflict	3
+0311-000-2158	Principles of Economics	3
+0311-051-514	Micro Economics	3
+0311-051-515	Macro Economics	3
+0311-052-6004	Managerial Economics	3
+0312-000-2155	Introduction to Public Policy and Governance	3
+0312-000-2250	International Relations	3
+0312-000-4143	Global Migration and Citizenship	3
+0313-000-2183	Introduction to Psychology	3
+0314-000-2115	World Civilization	3
+0314-000-2149	Introduction to Anthropology	3
+0314-000-2181	Evolutionary Theory and Human Behavior	3
+0314-000-3150	Seminar on Grassroots Economic Development	3
+0314-000-3252	Critical Thinking and Logic	3
+0314-000-3253	Reading Media Texts	3
+0314-000-3254	History of Bangladeshi Media	3
+0314-000-4142	Methods of Social Research	3
+0314-000-4147	Develompent Communication	3
+0314-054-6111	Proposal Writing	3
+0314-054-6115	Organizing Communities: Advocacy, Activism and Social Justice	3
+0314-054-6125	Crisis Communication	3
+0314-054-6126	Social Media Management	3
+0321-012-1101	Communication Concepts and Theories	3
+0321-012-1201	Communication Research	3
+0321-012-2101	Communication and Technology	3
+0321-054-5111	Communication Research	3
+0321-054-5221	Communication Theories	3
+0322-054-5223	Knowledge Creation and Management	3
+0388-000-2146	Globalization	3
+0410-011-1101	Introduction to Business	3
+0411-011-1301	Financial Accounting	3
+0411-051-511	Financial Accounting	3
+0411-051-516	Management Accounting	3
+0411-052-6002	Accounting for Managers	3
+0412-051-501	Financial Management	3
+0412-051-601	Investment Theory & Portfolio	3
+0412-051-602	Financial Institutions & Markets	3
+0412-051-603	International Financial Management	3
+0412-051-604	Corporate Finance	3
+0412-052-6012	Financial Management	3
+0413-000-3245	Entrepreneurship	3
+0413-000-501	Business Law & Ethics	3
+0413-000-502	Entrepreneurship	2
+0413-000-503	Entrepreneurship	3
+0413-011-2103	Principles of Management	3
+0413-051-501	Human Resource Management	3
+0413-051-512	Management & Organization	3
+0413-051-525	Organizational Behaviour	3
+0413-051-601	Manpower Planning & Personnel Policy	3
+0413-051-602	Training & Development	3
+0413-051-603	Compensation Management	3
+0413-051-604	Performance Management	3
+0413-052-6003	Organizational Behavior	3
+0413-052-6011	Human Resource Management	3
+0413-052-6016	Entrepreneurship	3
+0413-052-7000	Strategic Management	3
+0414-051-501	Marketing Management	3
+0414-051-601	Consumer Behavior	3
+0414-051-602	Integrated Marketing Communication	3
+0414-051-603	Personal Selling & Sales Force Management	3
+0414-051-604	Brand Management	3
+0414-051-605	Digital Marketing	3
+0414-052-6014	Marketing Management	3
+0415-051-501	Business in the Global Environment	3
+0415-051-502	International Business	3
+0416-051-501	Operations Management	3
+0416-051-602	Logistics Management	3
+0416-051-603	Project Management	3
+0416-051-604	Principles of Supply Chain Management	3
+0416-051-605	Procurement & Inventory Management	3
+0416-052-6015	Operations & Supply Chain Management	3
+0417-000-2248	Industrial Management	3
+0421-051-517	Legal Issues in Business	3
+0488-011-1201	Business Mathematics	3
+0488-011-1301	XYZ	3
+0488-011-1302	Micro Economics	3
+0488-011-2101	Macro Economics	3
+0488-011-2102	Business Statistics	3
+0488-011-2201	Quantitative Analysis for Business	3
+0488-011-2202	Business Communication	3
+0488-011-2203	Legal Environment of Business	3
+0500-000-2284	History and Methods of Science	3
+0500-000-3182	Introduction to Science Studies	3
+0511-000-4181	Genetics	3
+0521-000-2243	Environment and Sustainability	3
+0521-000-2283	Environmental Science	3
+0521-018-2157	Introduction to Sustainable Development	3
+0521-018-2283	Introduction to Environmental Science	3
+0522-000-2282	Biodiversity and Nature Conservation	3
+0531-016-1301	Chemistry	3
+0531-016-1302	Chemistry Lab	1
+0533-014-1101	Physics I	3
+0533-014-1102	Physics I Lab	1
+0533-014-1301	Physics II	3
+0541-000-4182	Mathematics	3
+0541-011-0099	Remedial Math	0
+0541-014-1103	Calculus and Differential Equation	3
+0541-014-1203	Coordinate Geometry and Complex Variables	3
+0541-014-2101	Differential Equations and Numerical Analysis	3
+0541-014-2103	Linear Algebra and Numerical Analysis	3
+0541-018-4182	Mathematics	3
+0541-051-089	Business Math	1.5
+0541-051-099	Basic Math	0
+0542-000-2101	Introduction to Data and Statistics	3
+0542-014-2101	Probability and Statistics	3
+0542-051-513	Analytical Techniques	3
+0542-051-526	Applied Business Statistics	3
+0542-052-6013	Quantitative Analysis for Business	3
+0613-014-1102	Introduction to Programming	1
+0613-014-1201	Structured Programming	3
+0613-014-1202	Structured Programming Lab	1
+0613-014-1203	Discrete Mathematics	3
+0613-014-1301	Data Structures	3
+0613-014-1302	Data Structures Lab	1
+0613-014-2101	Digital Logic Design	3
+0613-014-2102	Digital Logic Design Lab	1
+0613-014-2103	Object Oriented Programming	3
+0613-014-2104	Object Oriented Programming Lab	1
+0613-014-2200	Design Project-I	1
+0613-014-2201	Algorithms	3
+0613-014-2202	Algorithms Lab	1
+0613-014-2203	Computer Organization and Architecture	3
+0613-016-2105	Introduction to Python Programming	3
+0613-016-2106	Introduction to Python Programming Lab	1
+0700-000-3185	Technology and Development	3
+0712-000-2151	Introduction to Climate Change	3
+0712-000-2184	Renewable Energy	3
+0713-016-1101	Electrical Circuits I	3
+0713-016-1102	Electrical Circuits I Lab	1
+0714-016-1301	Electronic Circuits I	3
+0714-016-1302	Electronic Circuits Lab I	1
+0714-016-2103	Electronic Circuits II	3
+0714-016-2104	Electronic Circuits II Lab	1
+0715-016-2201	Introductory Mechanical Engineering	3
+0715-016-2205	Electrical Machines I	3
+0721-000-2182	Food and Nutrition	3
+0731-000-2114	World Art and Architecture	3
+0731-000-2157	Introduction to Sustainable Development	3
+0811-000-2185	Organic Farming/Sustainable Agriculture	3
+0912-000-3282	Public Health and Epidemiology	3
+3231-000-2102	Foreign Language : German I	3
+BBS2201	Bangla Novel: Colonial Period	3
+BGE501	Business in the Global Environment	3
+BGE502	International Business	3
+BLL2101	Kobita: Charja to Chondi	3
+BLL2102	Presentation & Application of Bangla Writing	3
+BLL2201	Bangla Novel: Colonial Period	3
+BLL2202	Bangla Short Story: Colonial to Post Liberation	3
+BLL2301	Bangla Drama: From Medieval to Modern	3
+BLL2302	Bangla Non Fiction: Origin and Develop.	3
+BLL2303	Ethnic Language & Literature	3
+BLL3101	Vernacular and Folk Literature	3
+BLL3102	Bangla Poem Colonial and Liberation Period	3
+BLL3103	Epic: Primary & Secondary	3
+BLL3201	Bangla Novel: Post Partition	3
+BLL3202	Applied Linguistic	3
+BLL3301	Bangladesher Shahitto	3
+BLL3302	Literary Criticism	3
+BLL3303	World Literature: LatinAmerica, Europe and African	3
+BLL4101	Short Story: Around the World	3
+BLL4102	World Drama	3
+BLL4103	Professional Bangla	3
+BLL4201	Woman in Literature	3
+BLL4202	Diaspora Literature	3
+BLL4203	Manuscript Studies	3
+BUS1101	Introduction to Business	3
+BUS1201	Business Mathematics	3
+BUS1301	Financial Accounting	3
+BUS1302	Micro Economics	3
+BUS207	Financial Accounting	3
+BUS2101	Macro Economics	3
+BUS2102	Business Statistics	3
+BUS2103	Principles of Management	3
+BUS2201	Quantitative Analysis for Business	3
+BUS2202	Business Communication	3
+BUS2203	Legal Environment of Business	3
+BUS2301	Marketing Management	3
+BUS2302	Organizational Behavior	3
+BUS2303	Financial Management	3
+BUS3101	Human Resource Management	3
+BUS3102	Entrepreneurship	3
+BUS3103	International Business	3
+BUS3104	Managerial Accounting	3
+BUS3201	Research Methodology	3
+BUS3202	Operations Management	3
+BUS4111	Cost Accounting	3
+BUS4112	Accouning Information System	3
+BUS4113	Intermediate Accounting I	3
+BUS4114	Intermediate Accounting II	3
+BUS4121	Assurance and Auditing	3
+BUS4131	Corporate Finance	3
+BUS4132	Financial Markets and Institutions	3
+BUS4133	Security Analysis and Portfolio Management	3
+BUS4141	Bank Management	3
+BUS4142	Project Finance	3
+BUS4151	Managerial Skills Development	3
+BUS4152	Industrial and Employee Relations	3
+BUS4153	Human Resource Planning	3
+BUS4154	Training and Development	3
+BUS4162	Strategic Human Resource Management	3
+BUS4171	Consumer Behavior	3
+BUS4172	Service Marketing	3
+BUS4173	Integrated Marketing Communication	3
+BUS4183	Brand Management	3
+BUS4184	Personal Selling & Sales Force Management	3
+BUS4399	Internship	3
+BUS498	Project	6
+BUS499	Internship	6
+BUS4999	Strategic Management	3
+CHEM1301	Chemistry	3
+CHEM1302	Chemistry Lab	1
+CSE101	Introduction to Computer Studies	3
+CSE1102	Introduction to Programming	1
+CSE1201	Structured Programming	3
+CSE1202	Structured Programming Lab	1
+CSE1203	Discrete Mathematics	3
+CSE1301	Data Structures	3
+CSE1302	Data Structures Lab	1
+CSE2101	Digital Logic Design	3
+CSE2102	Digital Logic Design Lab	1
+CSE2103	Object Oriented Programming	3
+CSE2104	Object Oriented Programming Lab	1
+CSE2105	Introduction to Python Programming	3
+CSE2106	Introduction to Python Programming Lab	1
+CSE2200	Design Project - I	1
+CSE2201	Algorithms	3
+CSE2202	Algorithms Lab	1
+CSE2203	Computer Organization and Architecture	3
+CSE2301	Database Management System	3
+CSE2302	Database Management System Lab	1
+CSE2303	Automata and Theory of Computation	3
+CSE2305	Operating Systems	3
+CSE2306	Operating Systems Lab	1
+CSE3101	Microprocessor and Microcontroller	3
+CSE3102	Microprocessor and Microcontroller Lab	1
+CSE3103	System Analysis and Design	3
+CSE3120	Web Programming	1
+CSE3200	Design Project-II	1
+CSE3201	Artificial Intelligence & Machine Learning	3
+CSE3202	Artificial Intelligence & Machine Learning Lab	1
+CSE3203	Software Engineering	3
+CSE3205	Computer Networks	3
+CSE3206	Computer Networks Lab	1
+CSE3209	Data Communication and Computer Networks	3
+CSE3210	Data Communication and Computer Networks Lab	1
+CSE3301	Cyber Security	3
+CSE4098-A	Capstone Project 1	1
+CSE4098-B	Capstone Project 2	1
+CSE4098-C	Capstone Project 3	2
+CSE4099-A	Internship	1
+CSE4099-B	Thesis	1
+CSE433	Computer Security	3
+CSE4415	Data Communication	3
+CSE4416	Data Communication Lab	1
+CSE4417	Internet of Things	3
+CSE4418	Internet of Things Lab	1
+CSE4419	Network Security	3
+CSE4421	Wireless and Cellular Communication	3
+CSE4459	Big Data Analytics	3
+CSE4460	Big Data Analysis Lab	1
+CSE4461	Digital Image Processing	3
+CSE4462	Digital Image Processing Lab	1
+CSE4463	Introduction to Bioinformatics	3
+CSE4465	Natural Language Processing	3
+CSE499	Project	4
+ECO4601	Principles of Economics	3
+ECO4602	Intermediate Economics	3
+ECO4603	Money and Banking	3
+ECO4604	International Trade	3
+ECO4605	Environmental Economics	3
+ECO4606	Development Economics	3
+EEE1101	Electrical Circuits I	3
+EEE1102	Electrical Circuits I Lab	1
+EEE1301	Electronics Circuits I	3
+EEE1302	Electronics Circuits Lab I	1
+EEE2103	Electronic Circuits II	3
+EEE2104	Electronic Circuits II Lab	1
+EEE2205	Electrical Machines I	3
+EEE2301	Digital Electronics	3
+EEE2302	Digital Electronics Lab	1
+EEE2309	Electrical Machines II	3
+EEE2310	Electrical Machines Lab II	1
+EEE2313	Signals and Systems	3
+EEE3103	Digital Signal Processing	3
+EEE3104	Digital Signal Processing Lab	1
+EEE3105	Electrical Properties of Materials	3
+EEE3109	Communication Systems	3
+EEE3110	Communication Systems Lab	1
+EEE3207	Power System I	3
+EEE3208	Power System Lab I	1
+EEE3209	Applied Machine Learning	3
+EEE3210	Applied Machine Learning Lab	3
+EEE3313	Electromagnetic Fields and Waves	3
+EEE3316	Electrical Service Design Lab	1
+EEE4103	Control System I	3
+EEE4104	Control System Lab I	1
+EEE4196-A	Final Year Capstone Project	1
+EEE4196-B	Final Year Capstone Project	1
+EEE4196-C	Final Year Capstone Project	2
+EEE4401	Solid State Devices	3
+EEE4425	VLSI I	3
+EEE4426	VLSI I Lab	1
+EEE4433	Power Electronics	3
+EEE4434	Power Electronics Lab	1
+EEE4467	Power System Protection	3
+EEE4468	Power System Protection Lab	1
+EEE4471	Power System Operation and Control	3
+ELL0099	Remedial English	0
+ENG103	Fundamentals of English -II	3
+ENG2101	Elizabethan and Jacobean Drama	3
+ENG2102	Writing about Literature	3
+ENG2103	Morphology & Syntax	3
+ENG2201	Sociolinguistics	3
+ENG2202	Restoration and Eighteenth Century Literature	3
+ENG2203	Literary Criticism (Sidney to Leavis)	3
+ENG2204	Romantic Poetry	3
+ENG2205	Semantics and Pragmatics	3
+ENG2206	American Literature	3
+ENG2820	English for Professional Purposes	3
+ENG2822	English in Media	3
+ENG3101	Victorian Literature	3
+ENG3102	Psycholinguistics	3
+ENG3103	Ancient Greek Literature	3
+ENG3108	Cinema and Literature	3
+ENG3201	American Literature II	3
+ENG3202	Modernism in Literature	3
+ENG3203	Theories of Language Acquisition	3
+ENG3204	Critical Theory	3
+ENG3205	Postcolonial Theories and Literature	3
+ENG3212	Methodology of English Language Teaching	3
+ENG4101	Research Methodology	3
+ENG4107	Syllabus Design and Materials Development	3
+ENG4108	Critical Literacy and Technology	3
+ENG4111	Eastern Classics in Translation	3
+ENG4112	Postmodernism in Literature	3
+ENG4118	Clinical and Forensic Linguistics (Concentration Elective for Applied Linguistics and TESOL	3
+ENG4201	Gender Theory and Literature	3
+ENG4206	Teaching Practicum	3
+ENG4208	Advanced Composition and Stylistics	3
+ENG4298	Internship	3
+ENG4299	Dissertation	3
+ENG510	Critical Approaches to Syllabus Design	3
+ENG524	Contemporary Literatures in English	3
+ENG531	History of Ideas	3
+ENG536	Technology and Learner Autonomy	3
+ENG567	Digital Humanites	3
+ENG568	Language, Power and Gender	3
+ENG599	Dissertation	6
+ESK1110	Study Skills	0
+ESK1111	Healthy Life Skills	0
+ESK1112	Social Skills	0
+ESK1113	Professional Skills	0
+FIN501	Financial Management	3
+FIN601	Investment Theory & Portfolio	3
+FIN602	Financial Institutions & Markets	3
+FIN603	International Financial Management	3
+FIN604	Corporate Finance	3
+GED205	Introduction to Sustainable Development	3
+GED2159	Professional Ethics	3
+GED228	Organic Farming	3
+GED467	Seminar on Grassroots Economic Development	3
+GED502	Entrepreneurship	2
+GEF1101	Academic English l	3
+GEF1201	Academic English II	3
+GEF1202	Advanced English Writing Skills	3
+GEF1203	Advanced Bangla Writing Skills	3
+GEF2101	Introduction to Data and Statistics	3
+HRM501	Human Resource Management	3
+HRM601	Manpower Planning & Personnel Policy	3
+HRM602	Training & Development	3
+HRM603	Compensation Management	3
+HRM604	Performance Management	3
+HUM2102	Foreign Language : German I	3
+HUM2103	Foreign Language: Chinese	3
+HUM2106	History of Bangla Literature	3
+HUM2109	Introduction to Drama	3
+HUM2111	Introduction to Philosophy I	3
+HUM2112	Introduction to Photography	3
+HUM2114	World Art and Architecture	3
+HUM2115	World Civilization	3
+HUM2201	Film History	3
+HUM2204	History of Modern South Asia	3
+HUM2210	Logic	3
+HUM2214	Qazi Nazrul Islam: Life and Works	3
+HUM2215	Rabindranath Tagore: Life and Works	3
+HUM3101	Aesthetic of Film	3
+HUM3206	South Asian Art Architecture	3
+HUM4108	Introduction to Animation	3
+MAT0099	Remedial Math	0
+MAT1101	Differential and Integral Calculus	3
+MAT1103	Calculus and Differential Equation	3
+MAT1201	Co-ordinate Geometry and Linear Algebra	3
+MAT1203	Coordinate Geometry and Complex Variables	3
+MAT2101	Differential Equations and Numerical Analysis	3
+MAT2103	Liner Algebra and Numerical Analysis	3
+MBA511	Financial Accounting	3
+MBA512	Management & Organization	3
+MBA513	Analytical Techniques	3
+MBA514	Micro Economics	3
+MBA515	Macro Economics	3
+MBA516	Management Accounting	3
+MBA517	Legal Issues in Business	3
+MBA518	Communication Workshop	2
+MBA519	IT Workshop	2
+MBA525	Organizational Behaviour	3
+MBA526	Applied Business Statistics	3
+MBA527	Business Communication	3
+MBA700	Strategic Management	3
+ME2201	Introductory Mechanical Engineering	3
+MKT501	Marketing Management	3
+MKT601	Consumer Behavior	3
+MKT602	Integrated Marketing Communication	3
+MKT603	Personal Selling & Sales Force Management	3
+MKT605	Digital Marketing	3
+MSJ1101	Communication Concepts and Theories	3
+MSJ11203	Communication and Technology	3
+MSJ11211	Mass Communication	3
+MSJ11215	Convergence Communication II	3
+MSJ11231	Visual Communication	3
+MSJ11241	Interpersonal and Intercultural Communication	3
+MSJ11301	Critical Thinking and Logic	3
+MSJ11331	Cinema Studies	3
+MSJ11336	TV Infotainment Production	3
+MSJ11341	Strategic Public Relations	3
+MSJ11343	Media Relations	3
+MSJ11346	Speech Writing and Public Speaking	3
+MSJ11350	History of Bangladesh Media	3
+MSJ11351	Reading Media Text	3
+MSJ11374	Introduction to Photography	3
+MSJ11375	Film History	3
+MSJ11376	Aesthetics of Film	3
+MSJ11401	Development Communication	3
+MSJ11402	Ethics in Media and Communication	3
+MSJ11411	Media and the Law	3
+MSJ11432	Fictional Narrative Production	3
+MSJ11442	Public Relations Campaign	3
+MSJ11456	Introduction to Animation	3
+MSJ11498	Internship I	3
+MSJ11499	Internship II	3
+MSJ1201	Communication Research	3
+MSJ2101	Communication and Technology	3
+MSJ2102	Convergence Communication I	3
+MSJ2201	Mass Communication	3
+MSJ2202	Convergence Communication II	3
+MSJ2231	Visual Communication	3
+MSJ2232	Cinema Studies	3
+MSJ2241	Interpersonal and Intercultural Comunication	3
+MSJ2242	Strategic Public Relations	3
+MSJ2251	Journalism and Society	3
+MSJ2252	Digital Audience	3
+MSJ2262	C4D Planning and Process	3
+MSJ3142	Media Relations	3
+MSJ3152	Online Journalism	3
+MSJ3162	Communication Approaches for C4D	3
+MSJ3233	TV Infotainment Production	3
+MSJ3243	Speech Writing and Public Speaking	3
+MSJ3253	Data Journalism	3
+MSJ3261	ICT for Development	3
+MSJ3263	Emergency Communication	3
+MSJ4101	Media and the Law	3
+MSJ4132	Fictional Narrative Production	3
+MSJ4142	Public Relations Campaign	3
+MSJ4152	Investigative Journalism-ll	3
+MSJ4162	Environmental Communication	3
+MSJ4298	Internship	3
+MSJ4299	Portfolio	3
+MSJ5102	Ethics in Media and Communication	3
+MSJ5103	Technical Writing	3
+MSJ5223	Knowledge Creation and Management	3
+MSJ6111	Proposal Writing	3
+MSJ6115	Organizing Communities: Advocacy, Activism and Social Justice	3
+MSJ6125	Crisis Communication	3
+MSJ6126	Social Media Management	3
+MSJ6231	Thesis Writing I	3
+MSJ6232	Thesis Writing II	3
+MSJ6233	Thesis Wrting III	3
+MSJ6234	Professional Development l	3
+MSJ6235	Professional Development ll	3
+MSJ6236	Professional Development lll	3
+MSJ6237	Comprehensive Exam l	3
+MSJ6238	Comprehensive Exam ll	3
+MSJ6239	Comprehensive Exam lll	3
+NSC2181	Evolutionary Theory and Human Behavior	3
+NSC2182	Food and Nutrition	3
+NSC2183	Introduction to Psychology	3
+NSC2184	Renewable Energy	3
+NSC2185	Sustainable Agriculture	3
+NSC2248	Industrial Management	3
+NSC2281	Archaeological Sciences	3
+NSC2282	Biodiversity and Nature Conservation	3
+NSC2283	Environmental Science	3
+NSC2284	History and Method of Science	3
+NSC3182	Introduction to Science Studies	3
+NSC3185	Technology and Development	3
+NSC3282	Public Health and Epidemiology	3
+NSC4181	Genetics	3
+NSC4182	Mathematics	3
+PHY1101	Physics l	3
+PHY1102	Physics l Lab	1
+PHY1301	Physics II	3
+PHY3101	Physics II	3
+SCM4501	Principles of Supply Chain Management	3
+SCM4502	Logistics Management	3
+SCM4503	Procurement Management	3
+SCM4507	Global Supply Chain Management	3
+SCM4510	Maritime Logistics	3
+SCM501	Operations Management	3
+SCM602	Logistics Management	3
+SCM603	Project Management	3
+SCM604	Principles of Supply Chain Management	3
+SCM605	Procurement & Inventory Management	3
+SSC2146	Globalization	3
+SSC2149	Introduction to Anthropology	3
+SSC2150	Introduction to Archaeology	3
+SSC2151	Introduction to Climate Change	3
+SSC2155	Introduction to Public Policy and Governance	3
+SSC2157	Introduction to Sustainable Development	3
+SSC2158	Principles of Economics	3
+SSC2243	Environment and Sustainability	3
+SSC2250	International Relations	3
+SSC2252	Living with Conflict	3
+SSC2254	Natural Hazard and Disaster Management	3
+SSC3145	Education, Society and Development	3
+SSC3149	Globalization and Social Conflict	3
+SSC3150	Seminar on Grassroots Economic Development	3
+SSC3245	Entrepreneurship	3
+SSC3247	Islam and Islamism: A South Asian Perspective	3
+SSC3252	Critical Thinking and Logic	3
+SSC3253	Reading Media Texts	3
+SSC3254	History of Bangladeshi Media	3
+SSC4142	Methods of Social Research	3
+SSC4143	Global Migration and Citizenship	3
+SSC4147	Develompent Communication	3
+SSC4148	Ethics in Media and Communication	3
+STA2101	Statistics and Probability	3
+UCC1101	Bangla Bhasha O Sahitya	3
+UCC1201	History of the Emergence of Independent Bangladesh	3
+UCC1202	Ethics	3

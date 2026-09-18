@@ -1,0 +1,87 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>ULAB Students Panel - Login</title>
+<link rel="stylesheet" type="text/css" href="new_page_1.css">
+<meta name="Microsoft Theme" content="none, default">
+<style type="text/css">
+.class1 {
+  border-width: 1px;
+  border-collapse: collapse;
+  color: #000000;
+  padding: 1pt;
+  font-size: 11pt;
+  border-color: black;
+  text-decoration: none;
+  border-style: solid;
+  background-color: transparent;
+  font-style: italic;
+  font-family: Arial, Arial, "Bookman Old Style";
+  margin: 1pt;
+}
+</style>
+
+</head>
+
+<body>
+<table class ="main" border="1" id="table1" align=center>
+	<tr >
+		<td >
+			<img border="0" src="images/header.jpg" width="800" height="100" />
+
+		</td>
+	</tr>
+	<tr >
+		<td class = "top_menu" align="center" background="images/footer_bg.jpg" >
+			<b><font size="2" color="#ffffff">Login</font></b>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" height =380px>
+                    <div>
+                                            </div>
+		<form method="POST" action="/index.php">
+
+
+    	<table class= "login" cellpadding="2" cellspacing="2" style="border-collapse: collapse" align=center width=300 height=200>
+    	  <tr>
+    	    <td width="100%" colspan="3">
+    	    <p align="center"><font face="Arial" color= "black" ><b>Please login!</b></font></td>
+    	  </tr>
+    	  <tr>
+    	    <td width="17%"><b><font face="Arial">StudentID</font></b></td>
+    	    <td width="6%"><b><font face="Arial">:</font></b></td>
+        <td width="77%"><input type="text" name="studentID" size="20" class=class1></td>
+    	  </tr>
+    	  <tr>
+    	    <td width="17%"><b><font face="Arial">Password</font></b></td>
+    	    <td width="6%"><b><font face="Arial">:</font></b></td>
+    	    <td width="77%"><input type="password" name="password" size="20" class=class1></td>
+    	  </tr>
+
+    	  <tr>
+    	    <td width="100%" colspan="3"><center><font size=2 face=tahoma><marquee BEHAVIOR=alternate>Please enter login information.</marquee></font></center><br>
+    	    <p align="center"><input type="submit" value="login" class=class1><input type='button' onclick='javascript:window.close();' value='close' class=class1></td>
+    	  </tr>
+          <tr>
+              <td width="100%" colspan="3" class="label">
+                <center>  <a class="label" href="forgotPassword.php">Forgot your password?</a> </center>
+              </td></tr>
+    	</table>
+	</form>
+
+		</td>
+    </tr>
+	<tr>
+		<td align="center" background="images/footer_bg.jpg" height=25px style="vertical-align: middle">
+	<p class="powered_by" href="http://www.vpcsbd.com" style="text-align: center">System developed by:
+	<a href="http://www.vpcsbd.com">ValuePLUS Computer Systems Ltd.</a></p></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

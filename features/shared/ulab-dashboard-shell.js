@@ -1315,9 +1315,7 @@
         if (pageBodyClass) wrapLegacyContent();
         const info = scrapeStudentInfo();
         buildAppChrome(info);
-        if (typeof onMount === 'function') {
-            try { onMount(info); } catch (e) { console.error('[Student Companion] onMount failed', e); }
-        }
+
         refreshProfileCache(info, (profile) => {
             const enriched = Object.assign({}, info, profile, {
                 studentName: profile.studentName || info.studentName,
@@ -1330,7 +1328,16 @@
                 if (typeof onMount === 'function') onMount(enriched);
             }
         });
-        chrome.storage.local.get([KEYS.modern, KEYS.theme, KEYS.collapsed, KEYS.fontScale, KEYS.navGroups], (result) => {
+
+        chrome.storage.local.get([KEYS.modern, KEYS.theme, KEYS.collapsed, KEYS.fontScale, KEYS.navGroups, KEYS.mode], (result) => {
+            currentUiMode = result[KEYS.mode] || 'simple';
+            document.body.classList.toggle('ulab-mode-simple', isSimpleMode());
+            document.body.classList.toggle('ulab-mode-advanced', !isSimpleMode());
+
+            if (typeof onMount === 'function') {
+                try { onMount(info); } catch (e) { console.error('[Student Companion] onMount failed', e); }
+            }
+
             const isOn = result[KEYS.modern] !== false; // default on
             const isDark = result[KEYS.theme] === 'dark';
             const isCollapsed = !!result[KEYS.collapsed];
@@ -1379,6 +1386,9 @@
                 }
                 if (changes[KEYS.theme]) {
                     setTheme(changes[KEYS.theme].newValue === 'dark');
+                }
+                if (changes[KEYS.mode]) {
+                    location.reload();
                 }
             });
 
@@ -1491,7 +1501,7 @@
     window.ULAB_SHELL = {
         KEYS, cloak, uncloak, mount, scrapeStudentInfo, STORAGE_KEY_INFO,
         wrapLegacyContent, renderHeaderCard, disableControl, applyDisabledControls,
-        printDocument,
+        printDocument, getUiMode, isSimpleMode,
     };
 
     // Cloak immediately at parse time (this file always loads first, at

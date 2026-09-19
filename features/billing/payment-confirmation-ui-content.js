@@ -60,15 +60,23 @@
             #${VIEW_ID} .confirmation-cancel:hover { color:var(--bento-primary); }
             @media (max-width:720px) { #${VIEW_ID} .confirmation-layout { grid-template-columns:1fr; } #${VIEW_ID} h1 { font-size:24px; } }
 
+            /* Lower shell header z-index when bKash modal is present so bKash overlay dominates */
+            body.ulab-bkash-active #ulab-app-header,
+            body:has(#app) #ulab-app-header,
+            body:has(.app[data-v-app]) #ulab-app-header,
+            body:has([data-v-eb2367ff]) #ulab-app-header {
+                z-index: 100 !important;
+            }
+
             /* bKash Merchant Modal Overlay */
-            #app.app, div[data-v-app] {
+            #app.app, div[data-v-app], #app {
                 position: fixed !important;
                 top: 0 !important;
                 left: 0 !important;
                 width: 100vw !important;
                 height: 100vh !important;
-                z-index: 9999999 !important;
-                background: rgba(11, 25, 87, 0.75) !important;
+                z-index: 2147483647 !important;
+                background: rgba(11, 25, 87, 0.8) !important;
                 backdrop-filter: blur(8px) !important;
                 display: flex !important;
                 align-items: center !important;
@@ -89,6 +97,7 @@
                 font-family: var(--bento-font-ui, system-ui, -apple-system, sans-serif) !important;
                 animation: ulabBkashPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
                 position: relative !important;
+                z-index: 2147483647 !important;
             }
             @keyframes ulabBkashPop {
                 from { opacity: 0; transform: scale(0.94) translateY(12px); }
@@ -125,6 +134,16 @@
 
     function observeBkashModal() {
         function checkAndLift() {
+            const hasBkashModal = document.getElementById('app') ||
+                                  document.querySelector('.app[data-v-app]') ||
+                                  document.querySelector('[data-v-eb2367ff]') ||
+                                  document.querySelector('#bKash_modal');
+            if (hasBkashModal) {
+                document.body.classList.add('ulab-bkash-active');
+            } else {
+                document.body.classList.remove('ulab-bkash-active');
+            }
+
             // Find bKash button or modal/app elements
             const targets = [
                 document.getElementById('bKash_button'),

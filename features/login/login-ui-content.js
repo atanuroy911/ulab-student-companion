@@ -53,7 +53,7 @@
         const style = document.createElement('style');
         style.id = STYLE_ID;
         style.textContent = `
-            body.ulab-modern-login { background: #f4f6fb; }
+            body.ulab-modern-login { background: #f4f7fa; }
             /* The real page is a single <table class="main"> with no
                header/footer wrapper elements to hide separately (unlike the
                faculty ASP.NET layout) — just push the whole stock table
@@ -78,7 +78,7 @@
             #${SHELL_ID} .ulab-visual {
                 position: relative;
                 overflow: hidden;
-                background: linear-gradient(160deg, #0D9488 0%, #0F766E 55%, #134E4A 100%);
+                background: linear-gradient(160deg, #0B2545 0%, #0069B4 55%, #005086 100%);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -89,16 +89,17 @@
                 position: absolute; border-radius: 50%; filter: blur(60px);
                 opacity: .35; pointer-events: none;
             }
-            #${SHELL_ID} .ulab-blob.b1 { width: 320px; height: 320px; background: #2DD4BF; top: -80px; right: -100px; }
-            #${SHELL_ID} .ulab-blob.b2 { width: 260px; height: 260px; background: #EA580C; bottom: -60px; left: -60px; opacity: .3; }
+            #${SHELL_ID} .ulab-blob.b1 { width: 340px; height: 340px; background: #3399FF; top: -80px; right: -100px; opacity: .4; }
+            #${SHELL_ID} .ulab-blob.b2 { width: 280px; height: 280px; background: #F58220; bottom: -60px; left: -60px; opacity: .35; }
             #${SHELL_ID} .ulab-grid-pattern {
                 position: absolute; inset: 0;
                 background-image: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1px);
                 background-size: 26px 26px;
                 mask-image: linear-gradient(180deg, rgba(0,0,0,.7), transparent 75%);
             }
-            #${SHELL_ID} .ulab-visual-top { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; }
-            #${SHELL_ID} .ulab-visual-top span { font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; }
+            #${SHELL_ID} .ulab-visual-top { position: relative; z-index: 1; display: flex; align-items: center; gap: 14px; }
+            #${SHELL_ID} .ulab-visual-top img { height: 36px; width: auto; background: #fff; padding: 4px 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+            #${SHELL_ID} .ulab-visual-top span { font-weight: 700; font-size: 1.05rem; letter-spacing: .02em; }
 
             #${SHELL_ID} .ulab-visual-mid { position: relative; z-index: 1; max-width: 420px; }
             #${SHELL_ID} .ulab-visual-mid h1 {
@@ -106,88 +107,89 @@
                 color: #fff !important;
                 -webkit-text-fill-color: #fff;
             }
-            #${SHELL_ID} .ulab-visual-mid p { font-size: .98rem; line-height: 1.55; color: rgba(255,255,255,.85); margin: 0; }
+            #${SHELL_ID} .ulab-visual-mid p { font-size: .98rem; line-height: 1.55; color: rgba(255,255,255,.88); margin: 0; }
 
             #${SHELL_ID} .ulab-visual-features { position: relative; z-index: 1; display: flex; flex-direction: column; gap: .7rem; margin-top: 1.6rem; }
-            #${SHELL_ID} .ulab-visual-features div { display: flex; align-items: center; gap: 10px; font-size: .88rem; color: rgba(255,255,255,.92); }
+            #${SHELL_ID} .ulab-visual-features div { display: flex; align-items: center; gap: 10px; font-size: .88rem; color: rgba(255,255,255,.94); }
             #${SHELL_ID} .ulab-visual-features div::before {
-                content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; flex-shrink: 0;
+                content: ''; width: 6px; height: 6px; border-radius: 50%; background: #F58220; flex-shrink: 0;
             }
 
-            #${SHELL_ID} .ulab-visual-bottom { position: relative; z-index: 1; font-size: .78rem; color: rgba(255,255,255,.65); }
+            #${SHELL_ID} .ulab-visual-bottom { position: relative; z-index: 1; font-size: .78rem; color: rgba(255,255,255,.7); }
 
             #${SHELL_ID} .ulab-formside {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 padding: 2.5rem;
-                background: #fafbfd;
+                background: #f8fafc;
             }
             #${SHELL_ID} .ulab-formbox {
                 width: 100%; max-width: 400px;
                 background: #fff;
-                border: 1px solid #eef1f6;
-                border-radius: 14px;
-                box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 12px 32px -8px rgba(16,24,40,.1);
+                border: 1px solid #e2e8f0;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(11,37,69,.08);
                 padding: 2.25rem 2.25rem 2rem;
             }
             #${SHELL_ID} .ulab-formbox h2 {
-                font-size: 1.6rem; font-weight: 700; color: #101828; margin: 0 0 .35rem; letter-spacing: -.01em;
+                font-size: 1.6rem; font-weight: 700; color: #0B2545; margin: 0 0 .35rem; letter-spacing: -.01em;
             }
-            #${SHELL_ID} .ulab-formbox .ulab-sub { color: #667085; font-size: .92rem; margin: 0 0 1.75rem; }
+            #${SHELL_ID} .ulab-formbox .ulab-sub { color: #64748b; font-size: .92rem; margin: 0 0 1.75rem; }
 
             #${SHELL_ID} .ulab-field { margin-bottom: 1.15rem; }
             #${SHELL_ID} .ulab-field label {
-                display: block; font-size: .8rem; font-weight: 600; color: #344054; margin-bottom: .4rem;
+                display: block; font-size: .8rem; font-weight: 700; color: #0B2545; margin-bottom: .4rem;
             }
             #${SHELL_ID} .ulab-input-wrap { position: relative; display: flex; align-items: center; }
             #${SHELL_ID} .ulab-input-wrap .ulab-icon {
-                position: absolute; left: 13px; color: #98a2b3; display: flex; pointer-events: none;
+                position: absolute; left: 13px; color: #64748b; display: flex; pointer-events: none;
             }
             #${SHELL_ID} .ulab-input-wrap input {
                 width: 100%; box-sizing: border-box;
                 padding: .72rem .95rem .72rem 2.5rem;
                 border: none;
-                border-bottom: 2px solid #d0d5dd;
-                border-radius: 4px 4px 0 0;
+                border-bottom: 2px solid #cbd5e1;
+                border-radius: 6px 6px 0 0;
                 font-size: .95rem;
-                background: #eef2fb;
-                color: #101828;
+                background: #f1f5f9;
+                color: #0B2545;
                 transition: border-color .15s ease, background .15s ease;
             }
-            #${SHELL_ID} .ulab-input-wrap input::placeholder { color: #98a2b3; }
+            #${SHELL_ID} .ulab-input-wrap input::placeholder { color: #94a3b8; }
             #${SHELL_ID} .ulab-input-wrap input:focus {
                 outline: none;
-                border-bottom-color: #0D9488;
-                background: #e7edf9;
+                border-bottom-color: #0069B4;
+                background: #eef6fc;
             }
             #${SHELL_ID} .ulab-input-wrap.password input { padding-right: 2.6rem; }
             #${SHELL_ID} .ulab-eye-btn {
                 position: absolute; right: 12px; background: none; border: none; padding: 4px;
-                color: #98a2b3; cursor: pointer; display: flex; border-radius: 50%;
+                color: #94a3b8; cursor: pointer; display: flex; border-radius: 50%;
             }
-            #${SHELL_ID} .ulab-eye-btn:hover { color: #0D9488; background: #f2f5fb; }
+            #${SHELL_ID} .ulab-eye-btn:hover { color: #0069B4; background: #eef6fc; }
 
             #${SHELL_ID} .ulab-submit {
-                width: 100%; border: none; border-radius: 4px; padding: .8rem 1rem;
-                background: #0D9488; margin-top: .3rem;
-                color: #fff; font-size: .9rem; font-weight: 600;
-                text-transform: uppercase; letter-spacing: .03em;
+                width: 100%; border: none; border-radius: 10px; padding: .85rem 1rem;
+                background: #0069B4; margin-top: .3rem;
+                color: #fff; font-size: .9rem; font-weight: 700;
+                text-transform: uppercase; letter-spacing: .04em;
                 display: flex; align-items: center; justify-content: center; gap: 8px;
-                box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+                box-shadow: 0 4px 14px rgba(0, 105, 180, 0.3);
                 cursor: pointer;
-                transition: box-shadow .15s ease, background .15s ease;
+                transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
             }
             #${SHELL_ID} .ulab-submit:hover {
-                background: #0F766E;
-                box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+                background: #005086;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 20px rgba(0, 105, 180, 0.4);
             }
 
             #${SHELL_ID} .ulab-formbox .ulab-footnote {
-                text-align: center; margin-top: 1.8rem; font-size: .78rem; color: #98a2b3;
+                text-align: center; margin-top: 1.8rem; font-size: .78rem; color: #94a3b8;
             }
             #${SHELL_ID} .ulab-forgot { text-align: center; margin-top: .9rem; }
-            #${SHELL_ID} .ulab-forgot a { font-size: .82rem; color: #0D9488; text-decoration: none; }
+            #${SHELL_ID} .ulab-forgot a { font-size: .82rem; color: #0069B4; font-weight: 600; text-decoration: none; }
             #${SHELL_ID} .ulab-forgot a:hover { text-decoration: underline; }
 
             @media (max-width: 991.98px) {
@@ -207,17 +209,17 @@
             #${TOGGLE_ID} {
                 position: fixed; right: 16px; bottom: 16px; z-index: 999999;
                 display: flex; align-items: center; gap: 8px;
-                background: #fff; border: 1px solid #e4e7ec; border-radius: 4px;
+                background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
                 padding: 6px 12px 6px 10px;
-                font: 500 11.5px/1 -apple-system, "Segoe UI", sans-serif;
-                color: #667085;
-                box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14);
-                opacity: .5; transition: opacity .2s ease, box-shadow .2s ease;
+                font: 600 11.5px/1 -apple-system, "Segoe UI", sans-serif;
+                color: #0B2545;
+                box-shadow: 0 4px 12px rgba(11,37,69,.12);
+                opacity: .85; transition: opacity .2s ease, box-shadow .2s ease;
                 cursor: pointer; user-select: none;
             }
-            #${TOGGLE_ID}:hover { opacity: 1; box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12); }
+            #${TOGGLE_ID}:hover { opacity: 1; box-shadow: 0 6px 18px rgba(11,37,69,.18); }
             #${TOGGLE_ID} .ulab-switch {
-                position: relative; width: 30px; height: 17px; border-radius: 999px; background: #d0d5dd;
+                position: relative; width: 30px; height: 17px; border-radius: 999px; background: #cbd5e1;
                 transition: background .2s ease; flex-shrink: 0;
             }
             #${TOGGLE_ID} .ulab-switch::after {
@@ -264,6 +266,7 @@
 
         const shell = document.createElement('div');
         shell.id = SHELL_ID;
+        const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
 
         const visual = document.createElement('div');
         visual.className = 'ulab-visual';
@@ -271,7 +274,7 @@
             <div class="ulab-grid-pattern"></div>
             <div class="ulab-blob b1"></div>
             <div class="ulab-blob b2"></div>
-            <div class="ulab-visual-top"><span>ULAB URMS</span></div>
+            <div class="ulab-visual-top"><img src="${logoUrl}" alt="ULAB Logo"><span>ULAB URMS PORTAL</span></div>
             <div class="ulab-visual-mid">
                 <h1>Reset your password</h1>
                 <p>Enter your Student ID and we'll send a password reset link to your registered email.</p>
@@ -376,6 +379,7 @@
 
         const shell = document.createElement('div');
         shell.id = SHELL_ID;
+        const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
 
         const visual = document.createElement('div');
         visual.className = 'ulab-visual';
@@ -383,7 +387,7 @@
             <div class="ulab-grid-pattern"></div>
             <div class="ulab-blob b1"></div>
             <div class="ulab-blob b2"></div>
-            <div class="ulab-visual-top"><span>ULAB URMS</span></div>
+            <div class="ulab-visual-top"><img src="${logoUrl}" alt="ULAB Logo"><span>ULAB URMS PORTAL</span></div>
             <div class="ulab-visual-mid">
                 <h1>Welcome back</h1>
                 <p>Sign in to check your schedule, billing, results, and everything else on the student portal.</p>

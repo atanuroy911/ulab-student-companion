@@ -125,9 +125,30 @@
 
     function observeBkashModal() {
         function checkAndLift() {
-            const bkashApp = document.getElementById('app') || document.querySelector('.app[data-v-app]');
-            if (bkashApp && bkashApp.parentElement && bkashApp.parentElement !== document.body) {
-                document.body.appendChild(bkashApp);
+            // Find bKash button or modal/app elements
+            const targets = [
+                document.getElementById('bKash_button'),
+                document.getElementById('app'),
+                document.querySelector('.app[data-v-app]'),
+                document.querySelector('[data-v-eb2367ff]'),
+                document.querySelector('#bKash_modal'),
+                document.querySelector('iframe[src*="bkash"]')
+            ].filter(Boolean);
+
+            for (const el of targets) {
+                // If element is inside a hidden legacy wrapper, move it to document.body
+                let ancestor = el.parentElement;
+                let insideHidden = false;
+                while (ancestor && ancestor !== document.body) {
+                    if (ancestor.classList.contains('ulab-legacy-content-wrap') || getComputedStyle(ancestor).display === 'none') {
+                        insideHidden = true;
+                        break;
+                    }
+                    ancestor = ancestor.parentElement;
+                }
+                if (insideHidden || (el.parentElement && el.parentElement !== document.body && (el.id === 'app' || el.classList.contains('app')))) {
+                    document.body.appendChild(el);
+                }
             }
         }
         checkAndLift();
@@ -138,6 +159,8 @@
         if (document.documentElement) {
             observer.observe(document.documentElement, { childList: true, subtree: true });
         }
+        // Short polling safety loop while user is on payment confirmation page
+        setInterval(checkAndLift, 250);
     }
 
     function init() {
@@ -173,12 +196,18 @@
                 e.preventDefault();
                 const btn = document.getElementById('bKash_button') || document.querySelector('[id*="bKash"]') || document.querySelector('[src*="bKash"]');
                 if (btn) {
+                    if (btn.parentElement && btn.parentElement !== document.body) {
+                        document.body.appendChild(btn);
+                    }
                     try { btn.click(); } catch(err) {}
                 }
                 const script = document.createElement('script');
                 script.textContent = `
                     (function() {
                         var b = document.getElementById('bKash_button') || document.querySelector('[id*="bKash"]');
+                        if (b && b.parentElement && b.parentElement !== document.body) {
+                            document.body.appendChild(b);
+                        }
                         if (typeof ClickPayButton === 'function') {
                             ClickPayButton();
                         } else if (b) {

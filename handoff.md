@@ -48,7 +48,7 @@ Pulled straight from `ulab-faculty-companion/docs/` and `ulab-faculty-companion/
 since the course catalogue / prerequisite / equivalence data is the same university-wide data,
 independent of which portal (faculty vs student) consumes it:
 
-- `docs/catalogues/*.js` — hand-transcribed prerequisite + lab/theory-pairing + UNESCO-code data,
+- `catalogues/*.js` — hand-transcribed prerequisite + lab/theory-pairing + UNESCO-code data,
   one file per program (CSE, BBA, English, MSJ, EEE, Bangla) + `registry.js`. This is the exact
   same format `features/advising/advising.js` in the faculty extension consumes — reuse these
   files directly for this project's course-recommendation feature rather than re-transcribing.
@@ -98,7 +98,7 @@ support.
 3. **Recommended courses / self-advising** — mirror `ulab-faculty-companion`'s Student Advising
    feature (`features/advising/`) but from the student's own point of view: warn the student
    themselves about prerequisite violations, labs registered without theory, probation-relevant
-   retakes, and degree-progress gaps, using the same `docs/catalogues/*.js` data already copied
+   retakes, and degree-progress gaps, using the same `catalogues/*.js` data already copied
    in here. This is a read-only, self-serve version of what faculty currently run on a student's
    behalf — reuse `advising.js`'s rule logic, rewrite the UI/copy for a first-person student
    audience instead of an adviser audience.

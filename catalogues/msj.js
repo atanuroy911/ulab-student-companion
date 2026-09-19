@@ -122,7 +122,53 @@
         return 'OptionalMinor';
     }
 
-    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern });
+    // Standard semester plan for BSS in Media Studies & Journalism (8 semesters).
+    // Derived from the curriculum structure in
+    // \"Course-Catalogue-Undergraduate-Summer-2026.pdf\" (MSJ section).
+    // MSJ has 4 major streams (Digital Journalism, Film & TV, PR, C4D) — only
+    // the Communication Foundation and GED courses are fixed; the 9 major
+    // courses depend on which stream the student chooses.
+    const SEMESTER_PLAN = [
+        {
+            label: 'Semester 1',
+            courses: ['GEF1101', 'UCC1101', 'ESK1110', 'MSJ1101', 'GEF1202', 'GEF1203'],
+        },
+        {
+            label: 'Semester 2',
+            courses: ['GEF1201', 'UCC1201', 'ESK1111', 'MSJ1201', 'GEF2101'],
+        },
+        {
+            label: 'Semester 3',
+            courses: ['UCC1202', 'ESK1112', 'MSJ2101', 'MSJ2102', 'MSJ2201'],
+        },
+        {
+            label: 'Semester 4',
+            courses: ['ESK1113', 'MSJ2202', 'MSJ4101'],
+            note: 'Start taking your major stream courses (3 of 9 required).',
+        },
+        {
+            label: 'Semester 5',
+            note: 'Continue major stream courses (3 more) + HUM/SSC/NSC electives.',
+            courses: [],
+        },
+        {
+            label: 'Semester 6',
+            note: 'Complete major stream courses (final 3) + HUM/SSC/NSC electives.',
+            courses: [],
+        },
+        {
+            label: 'Semester 7',
+            note: 'Optional/minor courses (5 of 5 required).',
+            courses: [],
+        },
+        {
+            label: 'Semester 8 (Final)',
+            courses: ['MSJ4298', 'MSJ4299'],
+            note: 'Complete Internship (MSJ4298) and Portfolio (MSJ4299).',
+        },
+    ];
+
+    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern, semesterPlan: SEMESTER_PLAN });
 
     window.ULAB_CATALOGUES = window.ULAB_CATALOGUES || {};
     window.ULAB_CATALOGUES.MSJ = catalogue;

@@ -259,7 +259,58 @@
         return 'OptionalMinor';
     }
 
-    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern });
+    // Standard semester plan for BSc CSE (10 teaching semesters, ~15 cr each).
+    // Derived from the prerequisite dependency graph in this catalogue and the
+    // standard curriculum order in \"UD Course Catalogue -UNESCO CODE (CSE)_updated (1).pdf\".
+    // ESK (Essential Skills) courses are non-credit but appear on transcripts —
+    // they're included here so they show up in the typical plan display.
+    const SEMESTER_PLAN = [
+        {
+            label: 'Semester 1',
+            courses: ['GEF1101', 'UCC1101', 'ESK1110', 'CSE1101', 'CSE1102', 'CSE1201', 'CSE1202', 'CSE1203', 'MAT1103', 'PHY1101', 'PHY1102'],
+        },
+        {
+            label: 'Semester 2',
+            courses: ['GEF1201', 'ESK1111', 'CSE1301', 'CSE1302', 'CSE2101', 'CSE2102', 'MAT1203', 'EEE1101', 'EEE1102'],
+        },
+        {
+            label: 'Semester 3',
+            courses: ['UCC1201', 'ESK1112', 'CSE2103', 'CSE2104', 'CSE2203', 'STA2101', 'PHY1301'],
+        },
+        {
+            label: 'Semester 4',
+            courses: ['ESK1113', 'CSE2201', 'CSE2202', 'CSE2200', 'CSE2301', 'CSE2302', 'MAT2103', 'EEE1301', 'EEE1302'],
+        },
+        {
+            label: 'Semester 5',
+            courses: ['GED2159', 'CSE2303', 'CSE2305', 'CSE2306', 'CSE3101', 'CSE3102', 'CSE3120'],
+        },
+        {
+            label: 'Semester 6',
+            courses: ['SSC2243', 'CSE3103', 'CSE3104', 'CSE3205', 'CSE3206', 'CSE3201', 'CSE3202'],
+        },
+        {
+            label: 'Semester 7',
+            courses: ['NSC2248', 'CSE3200', 'CSE3203', 'CSE3301'],
+        },
+        {
+            label: 'Semester 8 (Electives + Capstone I)',
+            courses: ['CSE4098A'],
+            note: 'Take 4 elective theory + 1 elective lab (13 cr) from your chosen concentration group.',
+        },
+        {
+            label: 'Semester 9 (Capstone II + Electives)',
+            courses: ['CSE4098B'],
+            note: 'Continue or complete concentration electives.',
+        },
+        {
+            label: 'Semester 10 (Capstone III + Internship/Thesis)',
+            courses: ['CSE4098C', 'CSE4099A'],
+            note: 'Complete CSE4098C, then take CSE4099A (Internship) or CSE4099B (Thesis).',
+        },
+    ];
+
+    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern, semesterPlan: SEMESTER_PLAN });
 
     window.ULAB_CATALOGUES = window.ULAB_CATALOGUES || {};
     window.ULAB_CATALOGUES.CSE = catalogue;

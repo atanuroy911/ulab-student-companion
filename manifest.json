@@ -1,0 +1,226 @@
+{
+  "manifest_version": 3,
+  "name": "ULAB Student Companion",
+  "version": "0.1.0",
+  "description": "Self-advising (prerequisite/retake/degree-progress checks) and a modern reskin for ULAB students on URMS",
+  "permissions": [
+    "storage",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://urms-online.ulab.edu.bd/*",
+    "https://mms.ulab.edu.bd/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/",
+        "https://urms-online.ulab.edu.bd/index.php*"
+      ],
+      "js": [
+        "features/login/login-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/",
+        "https://urms-online.ulab.edu.bd/index.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/home/home-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/Preregistration.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/advising/catalogue-factory.js",
+        "catalogues/cse.js",
+        "catalogues/bba.js",
+        "catalogues/english.js",
+        "catalogues/msj.js",
+        "catalogues/eee.js",
+        "catalogues/bangla.js",
+        "catalogues/registry.js",
+        "features/preregistration/preregistration-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/Status.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/status/status-ui-content.js",
+        "features/status/results-view.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/schedule.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/schedule/schedule-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/Billing.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/billing/billing-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/PaymentInfo.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/billing/payment-info-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/HostedCheckoutReturnToMerchant_NVP.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/billing/payment-confirmation-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/profile.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/profile/profile-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/TeacherEvaluation.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/evaluation/evaluation-shared.js",
+        "features/teacher-evaluation/teacher-evaluation-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://urms-online.ulab.edu.bd/CourseEvaluation.php*"
+      ],
+      "css": [
+        "features/common/bento-ui.css"
+      ],
+      "js": [
+        "features/shared/ulab-portal-parsers.js",
+        "features/shared/ulab-portal-data.js",
+        "features/shared/ulab-dashboard-shell.js",
+        "features/evaluation/evaluation-shared.js",
+        "features/course-evaluation/course-evaluation-ui-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://mms.ulab.edu.bd/student/check-marks*"
+      ],
+      "js": [
+        "features/marks/mms-marks-content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "ULAB Student Companion"
+  },
+  "side_panel": {
+    "default_path": "sidebar/sidebar.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "256": "icons/icon256.png",
+    "512": "icons/icon512.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidebar/sidebar.html",
+        "icons/ulab.svg",
+        "icons/icon128.png"
+      ],
+      "matches": [
+        "https://urms-online.ulab.edu.bd/*",
+        "https://mms.ulab.edu.bd/*"
+      ]
+    }
+  ]
+}

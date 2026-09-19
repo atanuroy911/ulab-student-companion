@@ -1,0 +1,620 @@
+/* features/common/bento-ui.css — shared "Bento Grid" design-token stylesheet
+ * for the UI-revamp phase. Loaded on every reskinned URMS page (via
+ * manifest.json content_scripts "css") and in the side panel
+ * (sidebar/sidebar.html), alongside features/common/wizard.css.
+ *
+ * Design direction (see ui-feedback.md): rounded cards, soft shadows,
+ * off-white surfaces, teal/orange palette, Plus Jakarta Sans headings.
+ * Answers student complaint #4 ("boxy, too many sharp edges") and
+ * #5/7/9 ("group by semester in collapsible sections") — see
+ * .semester-section below.
+ *
+ * Two theming contexts exist in this extension and both are supported here:
+ *   1. Content scripts (Status.php/Billing.php/Preregistration.php/profile)
+ *      toggle dark mode via `body.ulab-dark` (see ulab-dashboard-shell.js).
+ *   2. The side panel (sidebar.html) toggles via `:root[data-theme="dark"]`
+ *      / `:root[data-theme="light"]`, falling back to
+ *      `prefers-color-scheme` when no explicit choice was made — the exact
+ *      pattern already used in sidebar/sidebar.css. We follow that pattern
+ *      instead of inventing a third one.
+ */
+
+/* ── Light (default) tokens ─────────────────────────────────────────── */
+:root {
+    --bento-bg:          #F0FDFA;
+    --bento-bg-alt:      #F8FAFC;
+    --bento-card:        #FFFFFF;
+    --bento-card-alt:    #F5F5F7;
+    --bento-border:      #99F6E4;
+    --bento-border-soft: rgba(13, 148, 136, 0.14);
+    --bento-fg:          #134E4A;
+    --bento-fg-muted:    #4B7A76;
+    --bento-fg-subtle:   #6B8E8B;
+
+    --bento-primary:     #0D9488;
+    --bento-primary-alt: #14B8A6;
+    --bento-accent:      #EA580C;
+    --bento-accent-fg:   #FFFFFF;
+    --bento-destructive: #DC2626;
+    --bento-success:     #16A34A;
+    --bento-warning:     #D97706;
+
+    --bento-shadow-rgb:  15, 42, 40;
+    --bento-shadow-sm:   0 1px 2px rgba(var(--bento-shadow-rgb), 0.06);
+    --bento-shadow-md:   0 4px 14px rgba(var(--bento-shadow-rgb), 0.08);
+    --bento-shadow-hover:0 10px 24px rgba(var(--bento-shadow-rgb), 0.12);
+
+    --bento-radius-lg:   20px;
+    --bento-radius-md:   16px;
+    --bento-radius-sm:   10px;
+    --bento-radius-xs:   8px;
+
+    --bento-space-1: 4px;
+    --bento-space-2: 8px;
+    --bento-space-3: 16px;
+    --bento-space-4: 24px;
+    --bento-space-5: 32px;
+    --bento-space-6: 48px;
+    --bento-space-7: 64px;
+
+    --bento-font-ui: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --bento-motion:  180ms ease;
+
+    color-scheme: light;
+}
+
+/* ── Dark tokens — content-script pages (body.ulab-dark) ──────────────── */
+body.ulab-dark {
+    --bento-bg:          #0f141b;
+    --bento-bg-alt:      #151c25;
+    --bento-card:        #1b2430;
+    --bento-card-alt:    #222d3a;
+    --bento-border:      #405064;
+    --bento-border-soft: rgba(148, 163, 184, 0.28);
+    --bento-fg:          #f4f7fb;
+    --bento-fg-muted:    #c4ceda;
+    --bento-fg-subtle:   #91a0b2;
+
+    --bento-primary:     #2DD4BF;
+    --bento-primary-alt: #14B8A6;
+    --bento-accent:      #FB923C;
+    --bento-accent-fg:   #14100B;
+    --bento-destructive: #F87171;
+    --bento-success:     #4ADE80;
+    --bento-warning:     #FBBF24;
+
+    --bento-shadow-rgb:  0, 0, 0;
+    --bento-shadow-sm:   0 1px 2px rgba(0,0,0,0.35);
+    --bento-shadow-md:   0 4px 14px rgba(0,0,0,0.4);
+    --bento-shadow-hover:0 10px 24px rgba(0,0,0,0.5);
+    color-scheme: dark;
+}
+
+/* ── Dark tokens — side panel (data-theme + prefers-color-scheme fallback) */
+/* Scoped to html.ulab-panel (sidebar.html only — see its <html class>) so
+ * this OS-preference fallback never leaks onto content-script pages
+ * (Home/Preregistration/Schedule/Billing/Status/Profile/Teacher+Course
+ * Evaluation), which have their OWN explicit light/dark control (the
+ * sidebar footer's "Dark mode" switch, toggling body.ulab-dark — see
+ * ulab-dashboard-shell.js's setTheme()). Before this scope existed, a
+ * student whose OS/browser was set to dark mode would see every
+ * content-script page forced dark regardless of that switch's state,
+ * because :root has no data-theme attribute at all outside the panel. */
+@media (prefers-color-scheme: dark) {
+    html.ulab-panel:not([data-theme]) {
+        --bento-bg:          #0f141b;
+        --bento-bg-alt:      #151c25;
+        --bento-card:        #1b2430;
+        --bento-card-alt:    #222d3a;
+        --bento-border:      #405064;
+        --bento-border-soft: rgba(148, 163, 184, 0.28);
+        --bento-fg:          #f4f7fb;
+        --bento-fg-muted:    #c4ceda;
+        --bento-fg-subtle:   #91a0b2;
+        --bento-primary:     #2DD4BF;
+        --bento-primary-alt: #14B8A6;
+        --bento-accent:      #FB923C;
+        --bento-accent-fg:   #14100B;
+        --bento-destructive: #F87171;
+        --bento-success:     #4ADE80;
+        --bento-warning:     #FBBF24;
+        --bento-shadow-rgb:  0, 0, 0;
+        --bento-shadow-sm:   0 1px 2px rgba(0,0,0,0.35);
+        --bento-shadow-md:   0 4px 14px rgba(0,0,0,0.4);
+        --bento-shadow-hover:0 10px 24px rgba(0,0,0,0.5);
+        color-scheme: dark;
+    }
+}
+:root[data-theme="dark"] {
+    --bento-bg:          #0f141b;
+    --bento-bg-alt:      #151c25;
+    --bento-card:        #1b2430;
+    --bento-card-alt:    #222d3a;
+    --bento-border:      #405064;
+    --bento-border-soft: rgba(148, 163, 184, 0.28);
+    --bento-fg:          #f4f7fb;
+    --bento-fg-muted:    #c4ceda;
+    --bento-fg-subtle:   #91a0b2;
+    --bento-primary:     #2DD4BF;
+    --bento-primary-alt: #14B8A6;
+    --bento-accent:      #FB923C;
+    --bento-accent-fg:   #14100B;
+    --bento-destructive: #F87171;
+    --bento-success:     #4ADE80;
+    --bento-warning:     #FBBF24;
+    --bento-shadow-rgb:  0, 0, 0;
+    --bento-shadow-sm:   0 1px 2px rgba(0,0,0,0.35);
+    --bento-shadow-md:   0 4px 14px rgba(0,0,0,0.4);
+    --bento-shadow-hover:0 10px 24px rgba(0,0,0,0.5);
+    color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
+
+@media (prefers-reduced-motion: reduce) {
+    :root { --bento-motion: 1ms; }
+    .bento-card, .stat-tile, .semester-section, .pill, .bento-btn { transition: none !important; animation: none !important; }
+}
+
+/* ── Layout primitives ─────────────────────────────────────────────── */
+.bento-root {
+    font-family: var(--bento-font-ui);
+    color: var(--bento-fg);
+    background: var(--bento-bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--bento-space-3);
+    margin: var(--bento-space-3) 0;
+}
+
+.bento-stack { display: flex; flex-direction: column; gap: var(--bento-space-3); }
+
+.bento-card {
+    background: var(--bento-card);
+    border: 1px solid var(--bento-border-soft);
+    border-radius: var(--bento-radius-lg);
+    box-shadow: var(--bento-shadow-md);
+    padding: var(--bento-space-4);
+    transition: transform var(--bento-motion), box-shadow var(--bento-motion);
+}
+.bento-card.hoverable:hover {
+    transform: scale(1.02);
+    box-shadow: var(--bento-shadow-hover);
+}
+
+.bento-section-title {
+    font-family: var(--bento-font-ui);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--bento-fg);
+    margin: var(--bento-space-4) 0 var(--bento-space-2);
+}
+
+/* ── Stat tiles (CGPA / totals / summary numbers) ─────────────────── */
+.stat-tile {
+    background: var(--bento-card);
+    border: 1px solid var(--bento-border-soft);
+    border-radius: var(--bento-radius-md);
+    box-shadow: var(--bento-shadow-sm);
+    padding: var(--bento-space-3) var(--bento-space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform var(--bento-motion), box-shadow var(--bento-motion);
+}
+.stat-tile:hover { transform: scale(1.02); box-shadow: var(--bento-shadow-hover); }
+.stat-tile .stat-label {
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.3px;
+    text-transform: uppercase; color: var(--bento-fg-subtle);
+}
+.stat-tile .stat-value {
+    font-size: 24px; font-weight: 800; color: var(--bento-primary);
+    font-family: var(--bento-font-ui);
+}
+.stat-tile .stat-sub { font-size: 11.5px; color: var(--bento-fg-muted); }
+.stat-tile.accent .stat-value { color: var(--bento-accent); }
+.stat-tile.destructive .stat-value { color: var(--bento-destructive); }
+
+/* ── Collapsible semester section ────────────────────────────────── */
+.semester-section {
+    background: var(--bento-card);
+    border: 1px solid var(--bento-border-soft);
+    border-radius: var(--bento-radius-lg);
+    box-shadow: var(--bento-shadow-sm);
+    overflow: hidden;
+    transition: box-shadow var(--bento-motion);
+}
+.semester-section[open] { box-shadow: var(--bento-shadow-md); }
+.semester-section > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: var(--bento-space-3) var(--bento-space-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bento-space-2);
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--bento-fg);
+    user-select: none;
+}
+.semester-section > summary::-webkit-details-marker { display: none; }
+.semester-section > summary::after {
+    content: '▾';
+    color: var(--bento-fg-subtle);
+    transition: transform var(--bento-motion);
+    font-size: 12px;
+}
+.semester-section[open] > summary::after { transform: rotate(180deg); }
+.semester-section .semester-summary-meta {
+    font-weight: 500; font-size: 11.5px; color: var(--bento-fg-muted);
+}
+.semester-section .semester-body {
+    padding: 0 var(--bento-space-4) var(--bento-space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--bento-space-2);
+}
+
+/* ── Pills / badges ──────────────────────────────────────────────── */
+.pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2px;
+    background: var(--bento-card-alt);
+    color: var(--bento-fg-muted);
+    border: 1px solid var(--bento-border-soft);
+    white-space: nowrap;
+}
+.pill-primary  { background: rgba(13,148,136,0.12); color: var(--bento-primary); border-color: rgba(13,148,136,0.28); }
+.pill-accent   { background: rgba(234,88,12,0.12);  color: var(--bento-accent);  border-color: rgba(234,88,12,0.28); }
+.pill-success  { background: rgba(22,163,74,0.12);  color: var(--bento-success); border-color: rgba(22,163,74,0.28); }
+.pill-warning  { background: rgba(217,119,6,0.12);  color: var(--bento-warning); border-color: rgba(217,119,6,0.28); }
+.pill-destructive { background: rgba(220,38,38,0.12); color: var(--bento-destructive); border-color: rgba(220,38,38,0.28); }
+.pill-muted    { opacity: 0.75; }
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.bento-btn {
+    font-family: var(--bento-font-ui);
+    font-size: 12.5px; font-weight: 700;
+    padding: 9px 16px;
+    border-radius: var(--bento-radius-xs);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform var(--bento-motion), box-shadow var(--bento-motion), background var(--bento-motion);
+}
+.bento-btn-primary { background: var(--bento-primary); color: #fff; box-shadow: var(--bento-shadow-sm); }
+.bento-btn-primary:hover { background: var(--bento-primary-alt); transform: scale(1.02); }
+.bento-btn-accent { background: var(--bento-accent); color: var(--bento-accent-fg); box-shadow: var(--bento-shadow-sm); }
+.bento-btn-accent:hover { transform: scale(1.02); }
+.bento-btn-ghost { background: transparent; color: var(--bento-primary); border-color: var(--bento-border); }
+.bento-btn-ghost:hover { background: rgba(13,148,136,0.08); }
+
+/* Inputs, for anything reused in a bento context */
+.bento-input, .bento-select {
+    font-family: var(--bento-font-ui);
+    background: var(--bento-card-alt);
+    border: 1px solid var(--bento-border);
+    border-radius: var(--bento-radius-xs);
+    padding: 8px 12px;
+    color: var(--bento-fg);
+    font-size: 12.5px;
+}
+
+/* ── Table reset for anything still tabular inside a bento card ────── */
+.bento-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.bento-table th {
+    text-align: left; font-weight: 700; font-size: 11px; letter-spacing: 0.3px;
+    text-transform: uppercase; color: var(--bento-fg-subtle);
+    padding: 6px 8px; border-bottom: 1px solid var(--bento-border-soft);
+}
+.bento-table td { padding: 8px; border-bottom: 1px solid var(--bento-border-soft); color: var(--bento-fg); }
+.bento-table tr:last-child td { border-bottom: none; }
+
+/* Course row used inside semester sections (Result / Preregistration) */
+.course-row {
+    display: flex; align-items: center; gap: var(--bento-space-2);
+    padding: 10px 12px;
+    background: var(--bento-card-alt);
+    border-radius: var(--bento-radius-sm);
+    border: 1px solid var(--bento-border-soft);
+    transition: transform var(--bento-motion), box-shadow var(--bento-motion);
+}
+.course-row:hover { transform: scale(1.01); box-shadow: var(--bento-shadow-sm); }
+.course-row .course-code { font-weight: 700; font-size: 12.5px; min-width: 84px; color: var(--bento-primary); }
+.course-row .course-title { flex: 1; min-width: 0; font-size: 12.5px; color: var(--bento-fg); }
+.course-row .course-credit { font-size: 11.5px; color: var(--bento-fg-muted); min-width: 44px; text-align: right; }
+
+/* ── Combobox (custom listbox replacing native <select>) ────────────
+ * Reusable across the extension wherever a native <select> would render
+ * with washed-out/disabled-looking OS chrome against a dark bento card
+ * (see features/advising/advising-feature.js's program picker, the first
+ * consumer) — a button that shows the current selection and toggles a
+ * styled dropdown panel, each option with a small inline-SVG icon slot
+ * instead of an emoji glyph, per this project's no-emoji-icon rule. */
+.bento-combobox { position: relative; width: 100%; }
+.bento-combobox-btn {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: var(--bento-card-alt); border: 1px solid var(--bento-border);
+    border-radius: var(--bento-radius-xs); padding: 9px 12px;
+    font-family: var(--bento-font-ui); font-size: 12.5px; color: var(--bento-fg);
+    cursor: pointer; text-align: left;
+}
+.bento-combobox-btn:hover { border-color: var(--bento-primary); }
+.bento-combobox-btn:focus-visible, .bento-combobox.open .bento-combobox-btn {
+    outline: none; border-color: var(--bento-primary);
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.18);
+}
+.bento-combobox-btn .bento-combobox-value { display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bento-combobox-btn .bento-combobox-value svg { flex-shrink: 0; color: var(--bento-primary); }
+.bento-combobox-btn .bento-combobox-placeholder { color: var(--bento-fg-subtle); }
+.bento-combobox-btn .bento-combobox-chevron { flex-shrink: 0; color: var(--bento-fg-subtle); transition: transform var(--bento-motion); }
+.bento-combobox.open .bento-combobox-btn .bento-combobox-chevron { transform: rotate(180deg); }
+
+.bento-combobox-panel {
+    display: none;
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 40;
+    background: var(--bento-card); border: 1px solid var(--bento-border-soft);
+    border-radius: var(--bento-radius-sm); box-shadow: var(--bento-shadow-hover);
+    max-height: 260px; overflow-y: auto; padding: 6px;
+}
+.bento-combobox.open .bento-combobox-panel { display: block; }
+.bento-combobox-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: var(--bento-radius-xs);
+    font-family: var(--bento-font-ui); font-size: 12.5px; color: var(--bento-fg);
+    cursor: pointer;
+}
+.bento-combobox-option svg { flex-shrink: 0; color: var(--bento-fg-muted); }
+.bento-combobox-option:hover, .bento-combobox-option.active { background: rgba(13,148,136,0.12); color: var(--bento-primary); }
+.bento-combobox-option:hover svg, .bento-combobox-option.active svg { color: var(--bento-primary); }
+.bento-combobox-option.selected { font-weight: 700; }
+.bento-combobox-option.selected::after { content: '✓'; margin-left: auto; color: var(--bento-primary); font-weight: 800; }
+
+.bento-empty {
+    padding: var(--bento-space-5) var(--bento-space-3);
+    text-align: center;
+    color: var(--bento-fg-subtle);
+    font-size: 12.5px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+ * COMPACT ("Pingala") COMPONENT LAYER
+ * ──────────────────────────────────────────────────────────────────────
+ * The information-dense language the Preregistration rebuild introduced,
+ * promoted here verbatim so every reskinned page shares ONE source of
+ * truth instead of each growing its own copy. These are deliberately
+ * GLOBAL (unprefixed by any #view id): the Preregistration recommendation
+ * modal is appended to <body>, outside its page view, and previously
+ * needed a dual-scoping `S()` helper to reach it. Being global removes
+ * that problem entirely — modal-contained markup picks the rules up for
+ * free — and is safe because none of these class names appear in the
+ * legacy URMS markup.
+ *
+ * Every colour resolves through a --bento-* custom property, so light
+ * (:root), content-page dark (body.ulab-dark) and panel dark
+ * (:root[data-theme="dark"]) all work with no hardcoded hex. color-mix()
+ * is used instead of literal rgba() tints so tinted surfaces follow the
+ * token too.
+ *
+ * Density floor: body text 11.5px, cell padding 6–8px, interactive
+ * targets ≥ 22px tall. Compact, not unreadable.
+ * ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Title bar + panel (the page's identity block) ─────────────────── */
+.bento-titlebar {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 6px 10px;
+    background: var(--bento-primary); color: var(--bento-accent-fg);
+    border-radius: var(--bento-radius-xs) var(--bento-radius-xs) 0 0;
+    font-size: 12px; font-weight: 800; letter-spacing: .02em;
+}
+.bento-titlebar-sub { font-weight: 600; font-size: 11px; opacity: .92; }
+.bento-panel {
+    border: 1px solid var(--bento-border-soft); border-top: 0;
+    border-radius: 0 0 var(--bento-radius-xs) var(--bento-radius-xs);
+    background: var(--bento-card);
+    margin-bottom: 12px;
+}
+/* A panel used without a title bar above it keeps all four corners. */
+.bento-panel.standalone { border-top: 1px solid var(--bento-border-soft); border-radius: var(--bento-radius-xs); }
+
+/* ── Compact two-column "Label : Value" info grid ──────────────────── */
+.bento-infogrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0; margin: 0; }
+.bento-infogrid > div { display: flex; gap: 6px; padding: 4px 10px; font-size: 11.5px; border-bottom: 1px solid var(--bento-border-soft); min-width: 0; }
+.bento-infogrid dt { flex: 0 0 38%; color: var(--bento-fg-muted); font-weight: 600; margin: 0; }
+.bento-infogrid dt::after { content: ':'; }
+.bento-infogrid dd { margin: 0; flex: 1; min-width: 0; color: var(--bento-fg); font-weight: 700; overflow-wrap: anywhere; }
+
+/* ── Status pill strip ─────────────────────────────────────────────── */
+.bento-pillstrip { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 7px 10px; }
+
+/* ── Compact stat strip (replaces the big .stat-tile grid) ─────────── */
+.bento-statstrip { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--bento-border-soft); }
+.bento-stat {
+    flex: 1 1 140px; min-width: 0; padding: 6px 10px;
+    border-right: 1px solid var(--bento-border-soft);
+}
+.bento-stat:last-child { border-right: 0; }
+.bento-stat .bento-stat-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--bento-fg-subtle); }
+.bento-stat .bento-stat-value { display: block; margin-top: 1px; font-size: 15px; font-weight: 800; color: var(--bento-primary); font-variant-numeric: tabular-nums; }
+.bento-stat .bento-stat-sub { display: block; font-size: 10.5px; color: var(--bento-fg-muted); }
+.bento-stat.accent .bento-stat-value { color: var(--bento-accent); }
+.bento-stat.destructive .bento-stat-value { color: var(--bento-destructive); }
+.bento-stat.success .bento-stat-value { color: var(--bento-success); }
+
+/* ── Horizontal meter ──────────────────────────────────────────────── */
+.bento-meterwrap { padding: 8px 10px 10px; border-top: 1px solid var(--bento-border-soft); }
+.bento-meter-head { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: var(--bento-fg-muted); font-weight: 700; margin-bottom: 4px; }
+.bento-meter-head b { color: var(--bento-fg); }
+.bento-meter { display: block; height: 8px; border-radius: 999px; background: var(--bento-card-alt); border: 1px solid var(--bento-border-soft); overflow: hidden; }
+.bento-meter i { display: block; height: 100%; background: var(--bento-primary); }
+.bento-meter.at i { background: var(--bento-warning); }
+.bento-meter.over i { background: var(--bento-destructive); }
+.bento-meter-note { margin: 4px 0 0; font-size: 10.5px; color: var(--bento-fg-subtle); }
+
+/* ── Notice blocks ─────────────────────────────────────────────────── */
+.bento-notice {
+    display: flex; gap: 7px; align-items: flex-start;
+    padding: 6px 10px; margin-bottom: 6px; font-size: 11.5px;
+    border: 1px solid var(--bento-border-soft); border-left: 3px solid var(--bento-primary);
+    border-radius: var(--bento-radius-xs); background: var(--bento-card); color: var(--bento-fg-muted);
+}
+.bento-notice.info { border-left-color: var(--bento-primary); }
+.bento-notice.warn { border-left-color: var(--bento-warning); }
+.bento-notice.danger { border-left-color: var(--bento-destructive); }
+.bento-notice.success { border-left-color: var(--bento-success); }
+.bento-notice svg { flex: 0 0 auto; margin-top: 1px; color: inherit; }
+.bento-notice a { color: var(--bento-primary); font-weight: 700; }
+.bento-notice b { color: var(--bento-fg); }
+
+/* ── Toolbar: filter chips + compact search ────────────────────────── */
+.bento-toolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 10px 0 6px; }
+.bento-search {
+    display: flex; align-items: center; gap: 6px; padding: 4px 8px;
+    border: 1px solid var(--bento-border-soft); border-radius: var(--bento-radius-xs);
+    background: var(--bento-card); min-width: 220px; flex: 1 1 220px;
+}
+.bento-search svg { color: var(--bento-primary); flex: 0 0 auto; }
+.bento-search input, .bento-search select {
+    flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+    color: var(--bento-fg); font: 600 11.5px var(--bento-font-ui);
+}
+.bento-search input::placeholder { color: var(--bento-fg-subtle); font-weight: 500; }
+.bento-chip {
+    padding: 4px 9px; border: 1px solid var(--bento-border-soft); border-radius: 999px;
+    background: var(--bento-card); color: var(--bento-fg-muted);
+    font: 700 11px var(--bento-font-ui); cursor: pointer; white-space: nowrap;
+}
+.bento-chip:hover { border-color: var(--bento-primary); color: var(--bento-primary); }
+.bento-chip.on { background: var(--bento-primary); border-color: var(--bento-primary); color: var(--bento-accent-fg); }
+.bento-chip.accent { background: var(--bento-accent); border-color: var(--bento-accent); color: var(--bento-accent-fg); }
+.bento-chip.accent:hover { filter: brightness(1.06); color: var(--bento-accent-fg); }
+.bento-chip span { opacity: .75; font-weight: 600; }
+.bento-count { font-size: 11px; color: var(--bento-fg-subtle); margin: 0 0 6px; }
+
+/* ── Compact data table ────────────────────────────────────────────── */
+.bento-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--bento-border-soft); border-radius: var(--bento-radius-xs);
+    background: var(--bento-card);
+}
+table.bento-compact { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+table.bento-compact th {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--bento-primary); color: #fff;
+    text-align: left; font-weight: 800; font-size: 10.5px; letter-spacing: .03em; text-transform: uppercase;
+    padding: 6px 8px; white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.22);
+}
+table.bento-compact th:last-child { border-right: 0; }
+table.bento-compact td { padding: 6px 8px; border-bottom: 1px solid var(--bento-border-soft); color: var(--bento-fg); vertical-align: top; }
+table.bento-compact tbody tr:hover td { background: color-mix(in srgb, var(--bento-primary) 8%, transparent); }
+table.bento-compact tbody tr:last-child td { border-bottom: 0; }
+table.bento-compact tbody tr.is-ok td { background: color-mix(in srgb, var(--bento-success) 9%, transparent); }
+table.bento-compact tbody tr.is-ok:hover td { background: color-mix(in srgb, var(--bento-success) 16%, transparent); }
+/* Sub-header row inside a table body (e.g. a semester / month group). */
+table.bento-compact tbody tr.is-group td {
+    background: var(--bento-card-alt); font-weight: 800; font-size: 11px;
+    color: var(--bento-fg); border-bottom: 1px solid var(--bento-border-soft);
+}
+table.bento-compact tbody tr.is-total td { font-weight: 800; background: var(--bento-card-alt); }
+table.bento-compact .pill { padding: 1px 7px; font-size: 10px; }
+
+/* Cell modifiers */
+.c-num   { color: var(--bento-fg-subtle); text-align: right; font-variant-numeric: tabular-nums; width: 1%; }
+.c-code  { font-weight: 800; color: var(--bento-primary); white-space: nowrap; }
+.c-center{ text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.c-right { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.c-nowrap{ white-space: nowrap; }
+.c-sub   { color: var(--bento-fg-muted); font-size: 11px; }
+.c-muted { color: var(--bento-fg-subtle); }
+.c-over  { color: var(--bento-destructive); font-weight: 800; }
+
+/* Inline tags that ride alongside a cell's text. */
+.bento-tag {
+    display: inline-block; margin-left: 5px; padding: 0 5px; border-radius: 999px;
+    font-size: 9.5px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase;
+    border: 1px solid var(--bento-border-soft); color: var(--bento-fg-muted);
+    background: var(--bento-card-alt); vertical-align: 1px;
+}
+.bento-tag.mand { color: var(--bento-accent); border-color: color-mix(in srgb, var(--bento-accent) 40%, transparent); background: color-mix(in srgb, var(--bento-accent) 12%, transparent); }
+.bento-tag.gap  { color: var(--bento-primary); border-color: color-mix(in srgb, var(--bento-primary) 40%, transparent); background: color-mix(in srgb, var(--bento-primary) 12%, transparent); }
+
+/* ── Section heading + advisory footnote ───────────────────────────── */
+.bento-sectitle { margin: 18px 0 6px; font-size: 12.5px; font-weight: 800; color: var(--bento-fg); }
+.bento-sectitle:first-child { margin-top: 0; }
+.bento-footnote { margin: 8px 0 0; font-size: 10.5px; color: var(--bento-fg-subtle); line-height: 1.5; }
+.bento-footnote b { color: var(--bento-fg-muted); }
+
+/* ── Portal action controls ────────────────────────────────────────── */
+/* .bento-action-control WRAPS scraped portal markup verbatim (anchors,
+ * onclick images, inputs) — it only positions it, never replaces its
+ * behaviour. .bento-action is the styled fallback link this extension
+ * emits when the portal rendered a non-interactive state. */
+.bento-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 6px; }
+.bento-action-control { display: inline-flex; align-items: center; justify-content: center; max-width: 100%; min-height: 22px; cursor: pointer; }
+.bento-action-control img { max-width: 96px; max-height: 26px; object-fit: contain; }
+.bento-action {
+    display: inline-flex; align-items: center; min-height: 22px; padding: 3px 8px;
+    border: 1px solid var(--bento-border-soft); border-radius: var(--bento-radius-xs);
+    color: var(--bento-primary); background: var(--bento-card-alt); text-decoration: none;
+    font: 800 10px var(--bento-font-ui); white-space: nowrap;
+}
+.bento-action:hover { border-color: var(--bento-primary); }
+.bento-action.active { color: var(--bento-success); border-color: color-mix(in srgb, var(--bento-success) 45%, transparent); }
+
+/* A completed (or registration-locked) step's control. See
+ * ulab-dashboard-shell.js's disableControl(): the "not clickable" part is
+ * enforced in JS (href/onclick removed, tabindex -1, capture-phase blocker,
+ * aria-disabled), NOT by this stylesheet. These rules only carry the visual
+ * half — reduced emphasis and a default cursor — so the control still reads
+ * as present-but-done rather than missing. Pointer-events is belt-and-braces
+ * on top of the JS, never the only defence. Both light and dark resolve
+ * through --bento-* tokens; no hardcoded colour. */
+.bento-action-control.is-disabled,
+.bento-action.is-disabled,
+.bento-action-control.is-disabled * {
+    cursor: default;
+    pointer-events: none;
+}
+.bento-action-control.is-disabled {
+    opacity: .55;
+    filter: grayscale(1);
+}
+.bento-action.is-disabled,
+.bento-action-control.is-disabled .bento-action {
+    background: var(--bento-card-alt);
+    border-color: var(--bento-border-soft);
+    border-style: dashed;
+    color: var(--bento-fg-subtle);
+    text-decoration: none;
+}
+.bento-action.is-disabled:hover { border-color: var(--bento-border-soft); }
+
+/* ── Segmented view switch (e.g. schedule Table / Calendar) ─────────── */
+/* Built from .bento-chip so it inherits the chip tokens; the group just
+ * removes the gap between members and squares the shared edges. */
+.bento-segmented { display: inline-flex; align-items: center; gap: 0; }
+.bento-segmented .bento-chip { border-radius: 0; margin-left: -1px; }
+.bento-segmented .bento-chip:first-child { border-radius: 999px 0 0 999px; margin-left: 0; }
+.bento-segmented .bento-chip:last-child { border-radius: 0 999px 999px 0; }
+.bento-segmented .bento-chip.on { position: relative; z-index: 1; }
+.bento-segmented .bento-chip svg { vertical-align: -2px; margin-right: 4px; }
+
+/* ── Compact form field (date / number / select inline controls) ───── */
+.bento-field { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--bento-fg-muted); }
+.bento-field input, .bento-field select {
+    min-height: 24px; padding: 3px 7px;
+    border: 1px solid var(--bento-border-soft); border-radius: var(--bento-radius-xs);
+    background: var(--bento-card); color: var(--bento-fg);
+    font: 600 11.5px var(--bento-font-ui);
+}
+
+/* Row-level visibility toggle used by every filter/search implementation. */
+.bento-hidden { display: none !important; }

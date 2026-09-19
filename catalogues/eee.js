@@ -203,7 +203,56 @@
         return 'OptionalMinor';
     }
 
-    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern });
+    // Standard semester plan for BSc EEE (10 teaching semesters).
+    // Derived from the prerequisite dependency graph in this catalogue and the
+    // standard curriculum in \"Course-Catalogue-Undergraduate-Summer-2026.pdf\".
+    const SEMESTER_PLAN = [
+        {
+            label: 'Semester 1',
+            courses: ['GEF1101', 'UCC1101', 'ESK1110', 'EEE1101', 'EEE1102', 'MAT1103', 'PHY1101', 'PHY1102', 'CHEM1301', 'CHEM1302'],
+        },
+        {
+            label: 'Semester 2',
+            courses: ['GEF1201', 'ESK1111', 'EEE1203', 'EEE1204', 'EEE1301', 'EEE1302', 'MAT1203', 'MAT1201'],
+        },
+        {
+            label: 'Semester 3',
+            courses: ['UCC1201', 'ESK1112', 'EEE2103', 'EEE2104', 'EEE2205', 'CSE2105', 'CSE2106', 'ME2201'],
+        },
+        {
+            label: 'Semester 4',
+            courses: ['ESK1113', 'EEE2301', 'EEE2302', 'EEE2309', 'EEE2310', 'MAT2103', 'STA2101'],
+        },
+        {
+            label: 'Semester 5',
+            courses: ['GED2159', 'EEE2313', 'EEE2216', 'EEE3313', 'EEE3105', 'EEE3207', 'EEE3208'],
+        },
+        {
+            label: 'Semester 6',
+            courses: ['GED2243', 'EEE3103', 'EEE3104', 'EEE3109', 'EEE3110', 'EEE3311', 'EEE3312', 'EEE3316'],
+        },
+        {
+            label: 'Semester 7',
+            courses: ['GED2248', 'PHY3101', 'EEE3209', 'EEE3210', 'EEE4103', 'EEE4104'],
+        },
+        {
+            label: 'Semester 8 (Electives + Capstone I)',
+            courses: ['EEE4196A'],
+            note: 'Take concentration electives (4 theory + 2 lab / 14 cr) from your chosen group.',
+        },
+        {
+            label: 'Semester 9 (Capstone II + Electives)',
+            courses: ['EEE4196B'],
+            note: 'Continue or complete concentration electives and optional/minor courses.',
+        },
+        {
+            label: 'Semester 10 (Capstone III)',
+            courses: ['EEE4196C'],
+            note: 'Complete Final Year Capstone Project Part C.',
+        },
+    ];
+
+    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern, semesterPlan: SEMESTER_PLAN });
 
     window.ULAB_CATALOGUES = window.ULAB_CATALOGUES || {};
     window.ULAB_CATALOGUES.EEE = catalogue;

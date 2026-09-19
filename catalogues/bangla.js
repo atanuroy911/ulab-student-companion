@@ -93,7 +93,49 @@
         return 'OptionalMinor';
     }
 
-    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern });
+    // Standard semester plan for BA in Bangla Language and Literature (8 semesters).
+    // This catalogue is intentionally partial (see file header: course codes
+    // were transcribed from URMS scrape data, not the full PDF). The plan below
+    // covers the courses that could be confirmed; many core courses may be
+    // missing from the catalogue data — Tab 1 will show what is known.
+    const SEMESTER_PLAN = [
+        {
+            label: 'Semester 1',
+            courses: ['GEF1101', 'UCC1101', 'ESK1110', 'BLL2101', 'BLL2102'],
+        },
+        {
+            label: 'Semester 2',
+            courses: ['GEF1201', 'UCC1201', 'ESK1111', 'BLL2201', 'BLL2202'],
+        },
+        {
+            label: 'Semester 3',
+            courses: ['UCC1202', 'ESK1112', 'BLL2301', 'BLL2302', 'BLL2303'],
+        },
+        {
+            label: 'Semester 4',
+            courses: ['ESK1113', 'BLL3101', 'BLL3102', 'BLL3103'],
+        },
+        {
+            label: 'Semester 5',
+            courses: ['BLL3201', 'BLL3202', 'BLL3301', 'BLL3302', 'BLL3303'],
+        },
+        {
+            label: 'Semester 6',
+            courses: ['BLL4101', 'BLL4102', 'BLL4103'],
+            note: 'Optional/minor courses (5 of 5 required) in parallel.',
+        },
+        {
+            label: 'Semester 7',
+            courses: ['BLL4201', 'BLL4202', 'BLL4203'],
+        },
+        {
+            label: 'Semester 8 (Final)',
+            courses: [],
+            note: 'Complete Research Methodology and Fieldwork (4 cr).',
+        },
+    ];
+
+    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern, semesterPlan: SEMESTER_PLAN });
 
     window.ULAB_CATALOGUES = window.ULAB_CATALOGUES || {};
     window.ULAB_CATALOGUES.BANGLA = catalogue;

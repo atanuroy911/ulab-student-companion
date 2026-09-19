@@ -1,0 +1,204 @@
+* , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Theme ─────────────────────────────────────────────────────────────
+ * Bento-UI revamp: local vars below are now just aliases onto the shared
+ * design tokens defined in features/common/bento-ui.css (loaded above this
+ * file in sidebar.html), so existing selectors here don't need renaming.
+ * bento-ui.css itself follows the SAME data-theme/prefers-color-scheme
+ * pattern this file used before — dark is the fallback default, explicit
+ * light/dark come from :root[data-theme], auto follows the OS. Routing
+ * logic in sidebar.js is untouched; only the visual layer changed. ── */
+:root {
+    --bg:        var(--bento-bg);
+    --surface:   var(--bento-card);
+    --surface2:  var(--bento-card-alt);
+    --border:    var(--bento-border-soft);
+    --text:      var(--bento-fg);
+    --muted:     var(--bento-fg-subtle);
+    --accent:    var(--bento-primary);
+    --accent2:   var(--bento-accent);
+    --overlay-rgb:     15,42,40;
+    --shadow-rgb:      var(--bento-shadow-rgb);
+    --text-strong:     var(--bento-fg);
+    --text-secondary:  var(--bento-fg-muted);
+    --text-tertiary:   var(--bento-fg-subtle);
+    --placeholder:     var(--bento-fg-subtle);
+}
+:root[data-theme="dark"] {
+    --overlay-rgb: 255,255,255;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) { --overlay-rgb: 255,255,255; }
+}
+
+html, body { height: 100%; }
+body {
+    font-family: var(--bento-font-ui, 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+}
+
+/* Column, not row: the feature nav is now a horizontal pill bar ACROSS the
+ * top rather than a 68px vertical rail down the left. That is the layout the
+ * user asked for (icon + label pills), and it also gives the content area the
+ * full panel width back — which matters a lot at side-panel width. */
+#app { display: flex; flex-direction: column; height: calc(100vh - 40px); overflow: hidden; }
+
+#ulab-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 0 12px;
+    min-width: 0;
+}
+
+#ulab-credit {
+    font-size: 10.5px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: color var(--bento-motion, 180ms ease);
+}
+#ulab-credit:hover { color: var(--accent); }
+
+#ulab-theme-toggle {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--bento-radius-xs, 8px);
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--bento-shadow-sm);
+    transition: color var(--bento-motion, 180ms ease), border-color var(--bento-motion, 180ms ease), transform var(--bento-motion, 180ms ease);
+}
+#ulab-theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: scale(1.05); }
+
+.ulab-fontctl {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 2px 4px; border: 1px solid var(--border); border-radius: var(--bento-radius-xs, 8px);
+    background: var(--surface2);
+}
+.ulab-fontctl-btn {
+    width: 20px; height: 20px; padding: 0;
+    border: none; border-radius: 4px; background: transparent;
+    color: var(--text); font-weight: 800; font-size: 13px; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.ulab-fontctl-btn:hover { background: var(--border); color: var(--accent); }
+.ulab-fontctl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.ulab-fontctl-val { font-size: 10px; font-weight: 700; color: var(--muted); min-width: 28px; text-align: center; }
+
+/* ── Feature nav — icon + label pills ──────────────────────────────────
+ * The format the user pointed at in ../ulab-faculty-companion's tools frame
+ * (.tf-dot): a horizontal, wrapping row of rounded pills, each an icon and a
+ * text label, with the active one highlighted. The icons are inline SVG built
+ * in sidebar.js — this project's rule is SVG only, so the faculty version's
+ * emoji are NOT carried across, only the geometry. The previous 68px rail of
+ * bare single letters ('C' / 'B' / 'M' / 'R') is gone.
+ * Every colour resolves through a --bento-* token via the aliases at the top
+ * of this file, so light, dark and auto all follow the panel theme. */
+#rail {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+.nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background var(--bento-motion, 180ms ease), color var(--bento-motion, 180ms ease),
+                border-color var(--bento-motion, 180ms ease);
+}
+.nav-pill:hover { background: var(--surface2); color: var(--text); }
+.nav-pill.active {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+    color: var(--accent);
+}
+.nav-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nav-pill-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Only reached by the unknown-icon fallback, which renders an initial. */
+    font-size: 11px;
+    font-weight: 800;
+}
+/* Labels are what make these pills rather than icon buttons, so they stay.
+ * At the narrowest panel widths they ellipsise instead of forcing the row to
+ * overflow — the pills wrap onto more lines first. */
+.nav-pill-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Content area */
+#content {
+    flex: 1;
+    overflow-y: auto;
+    min-width: 0;
+    background: var(--bg);
+}
+#content::-webkit-scrollbar { width: 6px; }
+#content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.feature-header {
+    padding: 20px 20px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-radius: 0 0 var(--bento-radius-md, 16px) var(--bento-radius-md, 16px);
+    box-shadow: var(--bento-shadow-sm);
+}
+.feature-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: var(--bento-font-ui, 'Plus Jakarta Sans', sans-serif);
+    color: var(--accent);
+}
+.feature-header p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.feature-body { padding: 20px; }
+
+.empty-state {
+    padding: 64px 24px;
+    text-align: center;
+    color: var(--muted);
+}
+.empty-state .icon { display: flex; justify-content: center; color: var(--muted); margin-bottom: 10px; }

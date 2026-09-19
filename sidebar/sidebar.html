@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="ulab-panel">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULAB Student Companion</title>
+    <link rel="stylesheet" href="../features/common/bento-ui.css">
+    <link rel="stylesheet" href="../features/common/wizard.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <div id="app">
+        <nav id="rail"></nav>
+        <main id="content"></main>
+    </div>
+    <div id="ulab-footer">
+        <button id="ulab-theme-toggle" title="Toggle light / dark theme"></button>
+        <div class="ulab-fontctl" title="Adjust text size">
+            <button type="button" class="ulab-fontctl-btn" id="ulab-font-dec" aria-label="Decrease text size">−</button>
+            <span class="ulab-fontctl-val" id="ulab-font-val">100%</span>
+            <button type="button" class="ulab-fontctl-btn" id="ulab-font-inc" aria-label="Increase text size">+</button>
+        </div>
+        <a id="ulab-credit" href="https://atanusroy.com" target="_blank" rel="noopener" title="Made by Atanu Shuvam Roy">
+            Made by Atanu Shuvam Roy
+        </a>
+    </div>
+
+    <script src="../features/advising/catalogue-factory.js"></script>
+    <script src="../catalogues/cse.js"></script>
+    <script src="../catalogues/bba.js"></script>
+    <script src="../catalogues/english.js"></script>
+    <script src="../catalogues/msj.js"></script>
+    <script src="../catalogues/eee.js"></script>
+    <script src="../catalogues/bangla.js"></script>
+    <script src="../catalogues/registry.js"></script>
+    <script src="../features/advising/self-advising.js"></script>
+    <!-- Portal data layer: parsers must load before the data module, and both
+         before any feature that reads portal data. Loading them here makes
+         the side panel's lazy-injection fallback a no-op (the modules are
+         idempotent) — see features/shared/ulab-portal-data.js. -->
+    <script src="../features/shared/ulab-portal-parsers.js"></script>
+    <script src="../features/shared/ulab-portal-data.js"></script>
+    <!-- Feature registration order below = sidebar tab order. -->
+    <script src="../features/advising/advising-feature.js"></script>
+    <script src="../features/capstone/capstone-feature.js"></script>
+    <script src="../features/catalogue/catalogue-feature.js"></script>
+    <!-- Routine & Export (feature id 'schedule-tools', kept from the file it
+         replaced so ulab-dashboard-shell.js's My Tools entry keeps working).
+         routine-docx.js must load first — it defines window.ULAB_RoutineDocx. -->
+    <script src="../features/routine/routine-docx.js"></script>
+    <script src="../features/routine/routine-feature.js"></script>
+    <script src="../features/marks/marks-feature.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

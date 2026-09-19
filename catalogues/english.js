@@ -344,7 +344,52 @@
         return 'OptionalMinor';
     }
 
-    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern });
+    // Standard semester plan for BA in English and Humanities (8 semesters).
+    // Derived from the curriculum structure in
+    // \"Course-Catalogue-Undergraduate-Summer-2026.pdf\" (English section).
+    // No formal prerequisites are declared for this program, so the ordering
+    // below is based on the catalogue's implied level-grouping (1101/1201 =
+    // Yr 1, 2101/2201 = Yr 2, 3101/3201 = Yr 3, 4101/4201 = Yr 4).
+    const SEMESTER_PLAN = [
+        {
+            label: 'Semester 1',
+            courses: ['GEF1101', 'UCC1101', 'ESK1110', 'ENG1101', 'ENG1201', 'ENG1203'],
+        },
+        {
+            label: 'Semester 2',
+            courses: ['GEF1201', 'ESK1111', 'ENG1202', 'ENG1301', 'ENG1303'],
+        },
+        {
+            label: 'Semester 3',
+            courses: ['UCC1201', 'ESK1112', 'ENG2101', 'ENG2102', 'ENG2103', 'ENG2107', 'ENG2108'],
+        },
+        {
+            label: 'Semester 4',
+            courses: ['UCC1202', 'ESK1113', 'ENG2201', 'ENG2202', 'ENG2203', 'ENG2204', 'ENG2205', 'ENG2206'],
+        },
+        {
+            label: 'Semester 5',
+            courses: ['ENG2301', 'ENG3101', 'ENG3102', 'ENG3103', 'ENG3104'],
+            note: 'Also pick 1 concentration elective (3 cr) from your chosen group.',
+        },
+        {
+            label: 'Semester 6',
+            courses: ['ENG3201', 'ENG3202', 'ENG3203', 'ENG3204', 'ENG3218'],
+            note: 'Pick 2 more concentration electives (6 cr).',
+        },
+        {
+            label: 'Semester 7',
+            courses: ['ENG4101', 'ENG4103', 'ENG4218'],
+            note: 'Pick 2 more concentration electives (6 cr) and 5 optional/minor courses (15 cr).',
+        },
+        {
+            label: 'Semester 8 (Final)',
+            courses: [],
+            note: 'Complete Dissertation / Internship / Project / Non-thesis (3 cr).',
+        },
+    ];
+
+    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern, semesterPlan: SEMESTER_PLAN });
 
     window.ULAB_CATALOGUES = window.ULAB_CATALOGUES || {};
     window.ULAB_CATALOGUES.ENGLISH = catalogue;

@@ -1,0 +1,99 @@
+<html>
+                <head>
+                <meta http-equiv="Content-Language" content="en-us">
+                <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+                <title>ULAB Students Panel - Preregistration</title>
+                <link rel="stylesheet" type="text/css" href="new_page_1.css">
+                <meta name="Microsoft Theme" content="none, default">
+                <script src="js/jquery-1.12.3.min.js" language="JavaScript" type="text/javascript"></script>
+                <script id = "myScript" src="https://scripts.pay.bka.sh/versions/1.2.0-beta/checkout/bKash-checkout.js"></script>
+                </head>
+                <body>
+                <table class="main" border="1" id="table1" align=center>
+                    <tr>
+                        <td>
+                            <img border="0" src="images/header.jpg" width="800" height="100" />
+                        </td>
+                    </tr>
+            <tr>
+                <td class = "top_menu" align="center" background="images/footer_bg.jpg" >
+                        <b>
+            <ul id='menubar'><li><a href='index.php'>Home</a></li><li><a href='TeacherEvaluation.php'>Teacher Evaluation</a></li><li><a href='CourseEvaluation.php'>Course Evaluation</a></li><li class='current'><span>Preregistration</span></li><li><a href='schedule.php'>Schedule</a></li><li><a href='Billing.php'>Billing</a></li><li><a href='Status.php'>Result</a></li><li><a href='profile.php'>Profile</a></li><li><a href='index.php?logout=1'>Logout</a></li></ul></b>
+                </td>
+            </tr>
+            <tr>
+                <td class="content" align="center" height ="380px">
+                <br /><br /><font size='4' face='Arial'>Preregistration&nbsp;&nbsp;&nbsp; </font></b><br /><p><b>Semester: </b>263 (<i>Fall 2026</i>) <b>Student: </b>233014123 Mahdia Hossain<br /><b>Adviser: </b>Mr. Md. Nazmul Abdal <b>Email: </b>nazmul.abdal@ulab.edu.bd</p><hr style='border:1px solid #dfe8f3;'/><br /><p class='info'>Registration complete. No changes can be made.</p><table class='noborder' width='40%'>
+                <tr>
+                        <td><img src='images/tick.png' border='0' alt=''/></td>
+                        <td><font size ='3'>  Pre-advising Complete </font></td>
+                </tr></table><p><font face="Arial"><b>Maximum credit limit :</b>16.0<br></font><font face="Arial"><b>Total taken courses :</b>4<br></font><font face="Arial"><b>Total used credit :</b>8.0<br></font></p><p font-size:25px><a  href='#ccc'>See Co-curricular Courses</a></p></p>
+    <table class = "content" cellpadding="2" cellspacing="0" width="90%">
+            <tr>
+                            <th width="20%" align="center" height="18">Course ID</th>
+            <th width="50%" align="center" height="18">Course Name</th>
+                    <th width="10%" align="center" height="18">Credits</th>
+            <th width="10%" align="center" height="18">Mandatory?</th>
+            <th width="10%" align="center" height="18">Taken?</th>
+            </tr><tr>
+            <td width='10%'>NSC2248</td>
+            <td width='60%'>Industrial Management</td>
+            <td width='10%' align= 'center'>3.0</td>
+            <td width='10%' align= 'center'>No</td>
+            <td width='10%' align= 'center'><img src='images/publish_x.png' border='0' alt=''/></td></tr>
+            <!-- ... (remaining preregistration rows identical in structure, truncated for storage) ... -->
+            <tr>
+            <td width='10%'>CSE3301</td>
+            <td width='60%'>Cyber Security</td>
+            <td width='10%' align= 'center'>3.0</td>
+            <td width='10%' align= 'center'>No</td>
+            <td width='10%' align= 'center'><img src='images/tick.png' border='0' alt=''/></td></tr><tr>
+            <td width='10%'>CSE4098-B</td>
+            <td width='60%'>Capstone Project 2</td>
+            <td width='10%' align= 'center'>1.0</td>
+            <td width='10%' align= 'center'>No</td>
+            <td width='10%' align= 'center'><img src='images/tick.png' border='0' alt=''/></td></tr><tr>
+            <td width='10%'>CSE4462</td>
+            <td width='60%'>Digital Image Processing Lab</td>
+            <td width='10%' align= 'center'>1.0</td>
+            <td width='10%' align= 'center'>No</td>
+            <td width='10%' align= 'center'><img src='images/tick.png' border='0' alt=''/></td></tr><tr>
+            <td width='10%'>CSE4465</td>
+            <td width='60%'>Natural Language Processing</td>
+            <td width='10%' align= 'center'>3.0</td>
+            <td width='10%' align= 'center'>No</td>
+            <td width='10%' align= 'center'><img src='images/tick.png' border='0' alt=''/></td></tr></table><p id="ccc"><h5>Co-curricular Courses: </h5></p></p>
+    <table class = "content" cellpadding="2" cellspacing="0" width="90%">
+            <tr>
+                            <th width="20%" align="center" height="18">Course ID</th>
+            <th width="50%" align="center" height="18">Course Name</th>
+                    <th width="10%" align="center" height="18">Credits</th>
+            <th width="10%" align="center" height="18">Mandatory?</th>
+            <th width="10%" align="center" height="18">Taken?</th>
+            </tr></table><p><font face='Trebuchet MS' color='gray'>Click here to add retake courses</font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" background="images/footer_bg.jpg" height=25px style="vertical-align: middle">
+                        <p class="powered_by" href="http://www.vpcsbd.com" style="text-align: center">System developed by:
+                        <a href="http://www.vpcsbd.com">ValuePLUS Computer Systems Ltd.</a></p>
+                    </td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+        </body>
+        <script language="javascript">
+        function callPhpFunction(studentID, courseID, task){
+            var url = "/Preregistration.php?task=changeTakenStatus&studentID="+studentID+"&course="+courseID+"&taken="+task;
+            window.open(url, "_self");
+        }
+        function callAdvFunction(studentID, task){
+            var url = "/Preregistration.php?task=changeAdvStatus&studentID="+studentID+"&select="+task;
+            window.open(url, "_self");
+        }
+        function callPreAdvFunction(studentID, task){
+            var url = "/Preregistration.php?task=changePreAdvStatus&studentID="+studentID+"&select="+task;
+            window.open(url, "_self");
+        }
+    </script>
+    </html>

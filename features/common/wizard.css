@@ -1,0 +1,266 @@
+/* ── Typeform-style step shell (features/advising-billing/wizard.js) ──── */
+.ulab-progress-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+}
+.ulab-progress-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--muted);
+    white-space: nowrap;
+}
+.ulab-progress-dots { display: flex; gap: 6px; flex: 1; }
+.ulab-progress-dot {
+    height: 4px; border-radius: 2px; flex: 1; background: rgba(var(--overlay-rgb),0.1);
+    transition: background 0.25s;
+}
+.ulab-progress-dot.done   { background: linear-gradient(135deg, #818cf8, #6366f1); }
+.ulab-progress-dot.active { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+
+.ulab-step-stage { position: relative; overflow: hidden; }
+.ulab-step-slide {
+    animation: ulabSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.ulab-step-slide.back { animation-name: ulabSlideInBack; }
+@keyframes ulabSlideIn {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes ulabSlideInBack {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.ulab-step-title {
+    font-size: 17px; font-weight: 700; color: var(--text-strong); margin-bottom: 6px; line-height: 1.35;
+}
+.ulab-step-subtitle {
+    font-size: 12.5px; color: var(--text-tertiary); margin-bottom: 18px; line-height: 1.5;
+}
+
+.ulab-choice-tiles { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.ulab-choice-tile {
+    display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+    background: rgba(var(--overlay-rgb),0.03); border: 1.5px solid rgba(var(--overlay-rgb),0.08);
+    border-radius: 14px; cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+.ulab-choice-tile:hover { border-color: rgba(56,189,248,0.4); background: rgba(56,189,248,0.05); transform: translateY(-1px); }
+.ulab-choice-tile.selected { border-color: #38bdf8; background: rgba(56,189,248,0.09); }
+.ulab-choice-tile-icon { font-size: 26px; flex-shrink: 0; }
+.ulab-choice-tile-body { flex: 1; min-width: 0; }
+.ulab-choice-tile-title { font-size: 14px; font-weight: 700; color: var(--text-strong); }
+.ulab-choice-tile-sub { font-size: 11.5px; color: var(--text-tertiary); margin-top: 2px; }
+
+.ulab-wizard-nav {
+    display: flex; gap: 8px; align-items: center; margin-top: 20px;
+    padding-top: 14px; border-top: 1px solid rgba(var(--overlay-rgb),0.06);
+}
+.ulab-wizard-nav .ulab-primary-btn { flex: 1; }
+.ulab-wizard-nav .ulab-secondary-btn { flex: 0 0 auto; }
+
+/* ── Time feature (Free Time Finder) ─────────────────────────── */
+.ulab-step-icon { font-size: 34px; text-align: center; margin-bottom: 14px; }
+.ulab-step-desc { font-size: 13px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px; }
+.ulab-step-desc strong { color: var(--text-strong); font-weight: 600; }
+/* ── How-to steps ─────────────────────────────────────────────────── */
+.ulab-howto {
+    display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px;
+}
+.ulab-howto-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: rgba(var(--overlay-rgb),0.03); border: 1px solid rgba(var(--overlay-rgb),0.06);
+    border-radius: 12px; padding: 10px 14px;
+}
+.ulab-howto-badge {
+    flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, #818cf8, #6366f1); color: #fff;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center;
+    justify-content: center; margin-top: 1px;
+}
+.ulab-howto-body { flex: 1; min-width: 0; }
+.ulab-howto-title { font-size: 13px; font-weight: 600; color: var(--text-strong); line-height: 1.4; }
+.ulab-howto-sub { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; margin-top: 3px; }
+.ulab-howto-sub strong { color: var(--text-secondary); font-weight: 600; }
+.ulab-link-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 6px; padding: 4px 10px; font-size: 11.5px; font-weight: 600;
+    color: #a5b4fc; background: rgba(129,140,248,0.12);
+    border: 1px solid rgba(129,140,248,0.3); border-radius: 999px;
+    text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.ulab-link-chip:hover { background: rgba(129,140,248,0.22); color: #c7d2fe; }
+.ulab-step-hint { font-size: 11.5px; color: var(--muted); margin-bottom: 16px; }
+kbd {
+    display: inline-block; padding: 2px 6px; background: rgba(var(--overlay-rgb),0.08);
+    border: 1px solid rgba(var(--overlay-rgb),0.15); border-radius: 4px;
+    font-size: 11px; font-family: monospace; color: var(--text-tertiary);
+}
+
+.ulab-primary-btn {
+    display: block; width: 100%; padding: 10px 16px;
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: #fff;
+    font-weight: 700; font-size: 13px; border: none; border-radius: 10px;
+    cursor: pointer; transition: opacity 0.2s, transform 0.15s; font-family: inherit;
+}
+.ulab-primary-btn:hover:not(:disabled) { opacity: 0.9; }
+.ulab-primary-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ulab-secondary-btn {
+    display: block; padding: 10px 14px; background: rgba(var(--overlay-rgb),0.05);
+    border: 1px solid rgba(var(--overlay-rgb),0.1); color: var(--text-tertiary); font-size: 13px;
+    font-weight: 600; border-radius: 10px; cursor: pointer;
+    transition: background 0.2s; font-family: inherit;
+}
+.ulab-secondary-btn:hover { background: rgba(var(--overlay-rgb),0.09); color: var(--text-strong); }
+
+.ulab-btn-row { display: flex; gap: 8px; align-items: center; }
+.ulab-btn-row .ulab-primary-btn { flex: 1; }
+
+.ulab-format-box {
+    background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.18);
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 12px;
+}
+.ulab-format-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: #38bdf8; margin-bottom: 6px;
+}
+.ulab-format-example {
+    background: rgba(var(--shadow-rgb),0.25); border-radius: 7px; padding: 8px 10px;
+    font-family: 'Courier New', monospace; font-size: 11px; color: var(--text-tertiary);
+    white-space: pre; line-height: 1.6; margin-bottom: 8px; border: 1px solid rgba(var(--overlay-rgb),0.06);
+    overflow-x: auto;
+}
+.ulab-format-hint { font-size: 11px; color: var(--muted); line-height: 1.55; }
+.ulab-format-hint strong { color: var(--text-tertiary); }
+.ulab-format-hint em { color: #38bdf8; font-style: normal; }
+
+#ulab-paste-box {
+    width: 100%; height: 120px; background: rgba(var(--overlay-rgb),0.04);
+    border: 1px solid rgba(var(--overlay-rgb),0.1); border-radius: 10px; padding: 10px;
+    color: var(--text-secondary); font-size: 12px; font-family: monospace; resize: vertical;
+    outline: none; margin-bottom: 10px; transition: border-color 0.2s;
+}
+#ulab-paste-box:focus { border-color: rgba(56,189,248,0.5); }
+#ulab-paste-box::placeholder { color: var(--placeholder); }
+
+.ulab-preview-ok   { font-size: 12px; color: #34d399; margin-bottom: 12px; }
+.ulab-preview-warn { font-size: 12px; color: #f59e0b; margin-bottom: 12px; }
+
+#ulab-student-list { max-height: 260px; overflow-y: auto; margin-bottom: 4px; }
+#ulab-student-list::-webkit-scrollbar { width: 5px; }
+#ulab-student-list::-webkit-scrollbar-thumb { background: rgba(var(--overlay-rgb),0.1); border-radius: 4px; }
+
+.ulab-student-row {
+    display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 9px;
+    margin-bottom: 6px; background: rgba(var(--overlay-rgb),0.03); border: 1px solid rgba(var(--overlay-rgb),0.06);
+}
+.ulab-student-idx {
+    width: 20px; height: 20px; border-radius: 6px; background: rgba(56,189,248,0.15);
+    color: #38bdf8; font-size: 10px; font-weight: 700; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+}
+.ulab-student-details { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ulab-id-input, .ulab-name-input {
+    background: rgba(var(--overlay-rgb),0.05); border: 1px solid rgba(var(--overlay-rgb),0.08);
+    border-radius: 6px; padding: 4px 8px; color: var(--text-strong); font-size: 11.5px;
+    font-family: monospace; outline: none; transition: border-color 0.2s; width: 100%;
+}
+.ulab-name-input { font-family: inherit; }
+.ulab-id-input:focus, .ulab-name-input:focus { border-color: rgba(56,189,248,0.4); }
+
+.ulab-remove-btn {
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #f87171;
+    border-radius: 6px; width: 22px; height: 22px; font-size: 11px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: background 0.2s;
+}
+.ulab-remove-btn:hover { background: rgba(239,68,68,0.2); }
+
+.ulab-row-save-btn {
+    background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc;
+    border-radius: 6px; padding: 0 8px; height: 22px; font-size: 10.5px; font-weight: 600;
+    cursor: pointer; flex-shrink: 0; white-space: nowrap; transition: background 0.2s;
+    font-family: inherit;
+}
+.ulab-row-save-btn:hover:not(:disabled) { background: rgba(99,102,241,0.22); }
+.ulab-row-save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.ulab-row-status {
+    font-size: 10px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+    color: var(--text-tertiary); max-width: 92px; overflow: hidden; text-overflow: ellipsis;
+}
+.ulab-row-status-ok   { color: #4ade80; }
+.ulab-row-status-fail { color: #f87171; }
+.ulab-row-status-skip { color: #fbbf24; }
+.ulab-row-status-pending { color: #38bdf8; }
+
+.ulab-threshold-box {
+    background: rgba(129,140,248,0.05); border: 1px solid rgba(129,140,248,0.18);
+    border-radius: 10px; padding: 10px 12px; margin-top: 12px;
+}
+.ulab-threshold-presets { display: flex; gap: 6px; margin-bottom: 10px; }
+.ulab-threshold-preset {
+    flex: 1; padding: 6px 0; background: rgba(var(--overlay-rgb),0.05); border: 1px solid rgba(var(--overlay-rgb),0.1);
+    color: var(--text-tertiary); font-size: 11px; font-weight: 600; border-radius: 7px; cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s; font-family: inherit;
+}
+.ulab-threshold-preset:hover { background: rgba(var(--overlay-rgb),0.09); color: var(--text-strong); }
+.ulab-threshold-preset.active {
+    background: rgba(129,140,248,0.18); border-color: rgba(129,140,248,0.5); color: #818cf8;
+}
+.ulab-threshold-custom { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-tertiary); }
+#ulab-threshold-input {
+    width: 56px; background: rgba(var(--overlay-rgb),0.05); border: 1px solid rgba(var(--overlay-rgb),0.1);
+    border-radius: 6px; padding: 4px 8px; color: var(--text-strong); font-size: 12px; font-family: monospace; outline: none;
+}
+#ulab-threshold-input:focus { border-color: rgba(129,140,248,0.5); }
+
+.ulab-run-status-msg {
+    margin-top: 12px; font-size: 12.5px; color: var(--text-tertiary); text-align: center;
+    padding: 8px; background: rgba(var(--overlay-rgb),0.03); border-radius: 8px;
+}
+
+/* ── Danger / Bulk Save ──────────────────────────────────────────── */
+.ulab-info-box {
+    background: rgba(129,140,248,0.08); border: 1px solid rgba(129,140,248,0.3);
+    color: #c7d2fe; border-radius: 10px; padding: 12px 14px; margin-top: 14px;
+    font-size: 12.5px; line-height: 1.6;
+}
+.ulab-checkbox-row {
+    font-size: 12.5px; color: var(--text-secondary); cursor: pointer;
+}
+.ulab-danger-box {
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5; border-radius: 10px; padding: 12px 14px; margin-top: 14px;
+    font-size: 12.5px; line-height: 1.6;
+}
+.ulab-danger-btn {
+    display: block; width: 100%; padding: 10px 16px;
+    background: linear-gradient(135deg, #dc2626, #b91c1c); color: #fff;
+    font-weight: 700; font-size: 13px; border: none; border-radius: 10px;
+    cursor: pointer; transition: opacity 0.2s; font-family: inherit; flex: 1;
+}
+.ulab-danger-btn:hover:not(:disabled) { opacity: 0.9; }
+.ulab-danger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#ulab-run-log {
+    margin-top: 12px; max-height: 220px; overflow-y: auto; font-family: 'Courier New', monospace;
+    font-size: 11.5px; border: 1px solid rgba(var(--overlay-rgb),0.08); border-radius: 8px;
+    padding: 8px 10px; background: rgba(var(--shadow-rgb),0.2);
+}
+.ulab-log-row { padding: 3px 0; border-bottom: 1px solid rgba(var(--overlay-rgb),0.04); }
+.ulab-log-row:last-child { border-bottom: none; }
+.ulab-log-ok { color: #34d399; }
+.ulab-log-fail { color: #f87171; }
+.ulab-log-skip { color: #f59e0b; }
+
+/* ── Saved-schedule history pills (features/class-schedule) ──────────── */
+.ulab-history-pill {
+    display: inline-flex; align-items: center; gap: 6px; margin: 0 6px 6px 0;
+    padding: 5px 6px 5px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
+    background: rgba(129,140,248,0.12); border: 1px solid rgba(129,140,248,0.3); color: #a5b4fc;
+}
+.ulab-history-pill-open { cursor: pointer; }
+.ulab-history-pill-open:hover { color: #c7d2fe; }
+.ulab-history-pill-remove {
+    width: 16px; height: 16px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,0.08); color: inherit; font-size: 11px; line-height: 1;
+}
+.ulab-history-pill-remove:hover { background: rgba(239,68,68,0.35); color: #fff; }

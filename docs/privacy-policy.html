@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ULAB Student Companion — Privacy Policy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root, [data-theme="dark"] {
+    --bg:            #0c1220;
+    --surface:       #131e30;
+    --surface2:      #1a2840;
+    --border:        rgba(255,255,255,0.08);
+    --border2:       rgba(255,255,255,0.04);
+    --text:          #e2e8f0;
+    --muted:         #94a3b8;
+    --muted2:        #64748b;
+    --accent:        #38bdf8;
+    --accent2:       #818cf8;
+    --badge-bg:      rgba(56,189,248,0.12);
+    --badge-border:  rgba(56,189,248,0.25);
+    --ok-bg:         rgba(52,211,153,0.10);
+    --ok-border:     rgba(52,211,153,0.25);
+    --ok-text:       #34d399;
+    --warn-bg:       rgba(245,158,11,0.10);
+    --warn-border:   rgba(245,158,11,0.3);
+    --warn-text:     #f59e0b;
+    --code-bg:       rgba(0,0,0,0.28);
+    --hero-grad:     linear-gradient(135deg, #f8fafc 30%, #94a3b8);
+    --glow1:         rgba(56,189,248,0.08);
+    --glow2:         rgba(129,140,248,0.06);
+}
+[data-theme="light"] {
+    --bg:            #f1f5f9;
+    --surface:       #ffffff;
+    --surface2:      #f8fafc;
+    --border:        rgba(0,0,0,0.08);
+    --border2:       rgba(0,0,0,0.05);
+    --text:          #0f172a;
+    --muted:         #475569;
+    --muted2:        #94a3b8;
+    --accent:        #0284c7;
+    --accent2:       #6366f1;
+    --badge-bg:      rgba(2,132,199,0.08);
+    --badge-border:  rgba(2,132,199,0.25);
+    --ok-bg:         rgba(16,185,129,0.06);
+    --ok-border:     rgba(16,185,129,0.2);
+    --ok-text:       #059669;
+    --warn-bg:       rgba(245,158,11,0.08);
+    --warn-border:   rgba(245,158,11,0.3);
+    --warn-text:     #b45309;
+    --code-bg:       rgba(0,0,0,0.05);
+    --hero-grad:     linear-gradient(135deg, #0f172a 30%, #334155);
+    --glow1:         rgba(2,132,199,0.04);
+    --glow2:         rgba(99,102,241,0.04);
+}
+
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    background-image:
+        radial-gradient(ellipse 80% 40% at 50% -10%, var(--glow1), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 10%, var(--glow2), transparent);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+    min-height: 100vh;
+}
+
+.theme-toggle {
+    position: fixed; top: 16px; right: 20px; z-index: 300;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: 7px 14px;
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; font-size: 12.5px; font-weight: 600;
+    color: var(--muted); box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+.toggle-sun  { display: inline; }
+.toggle-moon { display: none; }
+[data-theme="light"] .toggle-sun  { display: none; }
+[data-theme="light"] .toggle-moon { display: inline; }
+
+.page { max-width: 760px; margin: 0 auto; padding: 64px 24px 100px; }
+
+.back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 24px; }
+.back-link:hover { color: var(--accent); }
+
+.hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--badge-bg); border: 1px solid var(--badge-border);
+    color: var(--accent); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+}
+h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800;
+    background: var(--hero-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -1px; margin-bottom: 10px;
+}
+.subtitle { color: var(--muted); font-size: 13.5px; margin-bottom: 8px; }
+.updated { color: var(--muted2); font-size: 12px; margin-bottom: 40px; }
+
+section { margin-bottom: 36px; }
+h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+p { margin-bottom: 12px; }
+ul { margin: 0 0 12px 20px; }
+li { margin-bottom: 6px; }
+strong { color: var(--text); }
+code {
+    font-family: 'Courier New', monospace; font-size: 0.88em; background: var(--code-bg);
+    padding: 1px 6px; border-radius: 5px; color: var(--accent);
+}
+
+.summary-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px 22px; margin-bottom: 40px;
+}
+.summary-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+.summary-row:last-child { margin-bottom: 0; }
+.summary-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.summary-ok .summary-icon { color: var(--ok-text); }
+
+.callout {
+    background: var(--warn-bg); border: 1px solid var(--warn-border); color: var(--warn-text);
+    border-radius: 10px; padding: 12px 16px; font-size: 13.5px; margin: 16px 0;
+}
+
+footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted2); }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="theme-toggle">
+    <span class="toggle-sun">☀️</span>
+    <span class="toggle-moon">🌙</span>
+    <span id="toggle-label">Light mode</span>
+</button>
+
+<div class="page">
+    <a class="back-link" href="index.html">← Back to Documentation</a>
+    <div class="hero-eyebrow">Privacy</div>
+    <h1>Privacy Policy</h1>
+    <p class="subtitle">ULAB Student Companion — Chrome extension for the URMS student portal.</p>
+    <p class="updated">Last updated: 2026-09-18</p>
+
+    <div class="summary-card">
+        <div class="summary-row summary-ok"><span class="summary-icon">✅</span><span>No data is sent to any server other than URMS (<code>urms-online.ulab.edu.bd</code>), which you're already logged into.</span></div>
+        <div class="summary-row summary-ok"><span class="summary-icon">✅</span><span>No analytics, tracking, telemetry, or advertising of any kind.</span></div>
+        <div class="summary-row summary-ok"><span class="summary-icon">✅</span><span>No account system, no credentials collected or stored by the extension.</span></div>
+        <div class="summary-row summary-ok"><span class="summary-icon">✅</span><span>Everything you paste into the self-advising check (your grades, courses) stays in your browser's local extension storage and is never transmitted anywhere.</span></div>
+    </div>
+
+    <section>
+        <h2>What this extension does</h2>
+        <p>
+            ULAB Student Companion is a Chrome side-panel extension for students at the University of Liberal Arts
+            Bangladesh. It adds a light visual reskin on top of the student URMS portal's login/home pages, and a
+            self-advising checker that reviews your own academic record for prerequisite gaps, courses you still
+            need to retake, labs registered without their theory course, and remaining degree-requirement credits —
+            entirely on your device. It is an independent tool built for student convenience and is
+            <strong>not affiliated with or endorsed by URMS or the university's IT department.</strong>
+        </p>
+    </section>
+
+    <section>
+        <h2>What data the extension accesses</h2>
+        <p>The extension requests browser permission for exactly one external host:</p>
+        <ul>
+            <li><code>https://urms-online.ulab.edu.bd/*</code> — used only to inject the visual reskin on the login and home pages, reading page text (semester, your name, adviser) already visible to you on the page you're looking at.</li>
+        </ul>
+        <p>It also requests two Chrome API permissions:</p>
+        <ul>
+            <li><code>storage</code> — to remember your theme/UI preferences and a small cache of the semester/student info scraped from the page (<code>chrome.storage.local</code>), and to hold the self-advising results in the side panel.</li>
+            <li><code>sidePanel</code> — to render the extension as a Chrome side panel instead of a popup.</li>
+        </ul>
+        <p>
+            The extension does not fetch or submit anything to URMS on its own initiative — the reskin only reads
+            and restyles what's already rendered on the page you visited, and never modifies the real login
+            form's submission or any other page behavior.
+        </p>
+        <p>The extension does not request access to your browsing history, other websites, bookmarks, or any Google/Chrome account data.</p>
+    </section>
+
+    <section>
+        <h2>The self-advising checker</h2>
+        <p>
+            The self-advising feature does not scrape anything automatically (URMS's schedule/results/preregistration
+            pages haven't been mapped out for this yet — see the project's development notes). You manually paste in
+            your own completed-course history and this semester's registration list, and the check runs entirely in
+            the side panel using course-catalogue data bundled with the extension. Nothing you paste is sent
+            anywhere — it stays in the side panel's memory for that session unless you close it.
+        </p>
+        <div class="callout">
+            <strong>Accuracy note:</strong> the prerequisite/degree-requirement data bundled with the extension was
+            hand-transcribed from official catalogue documents, not pulled live from URMS — always confirm your
+            remaining requirements with your academic advisor or the official course catalogue before finalizing any
+            registration decision.
+        </div>
+    </section>
+
+    <section>
+        <h2>Third parties</h2>
+        <p>
+            This extension does not integrate with any third-party analytics, advertising, or data-collection
+            service. The only external destinations any part of the extension communicates with are:
+        </p>
+        <ul>
+            <li><code>urms-online.ulab.edu.bd</code> — the university's own student portal, for the visual reskin only.</li>
+            <li><code>fonts.googleapis.com</code> — used purely to load a web font for this documentation page's styling; no user data is sent in these requests.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Changes to this policy</h2>
+        <p>
+            As this is an internally-distributed tool rather than a Chrome Web Store listing, this document is
+            updated directly in the project repository whenever the extension's data handling changes. Check the
+            "Last updated" date above.
+        </p>
+    </section>
+
+    <footer>
+        ULAB Student Companion — internal tool, not affiliated with or endorsed by URMS/ValuePLUS Computer Systems Ltd.
+    </footer>
+</div>
+
+<script>
+    const htmlEl = document.documentElement;
+    const lbl = document.getElementById('toggle-label');
+    const saved = localStorage.getItem('ulab-theme') || 'dark';
+    applyTheme(saved);
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        applyTheme(htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    function applyTheme(t) {
+        htmlEl.setAttribute('data-theme', t);
+        localStorage.setItem('ulab-theme', t);
+        lbl.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+    }
+</script>
+</body>
+</html>

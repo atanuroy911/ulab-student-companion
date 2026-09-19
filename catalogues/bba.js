@@ -233,7 +233,49 @@
         return 'OptionalMinor';
     }
 
-    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern });
+    // Standard semester plan for BBA (8 teaching semesters, ~15 cr each).
+    // Derived from the prerequisite chain in this catalogue and the BBA
+    // curriculum structure in \"Course-Catalogue-Undergraduate-Summer-2026.pdf\".
+    const SEMESTER_PLAN = [
+        {
+            label: 'Semester 1',
+            courses: ['GEF1101', 'UCC1101', 'ESK1110', 'BUS1101', 'BUS1201', 'BUS1301', 'BUS1302'],
+        },
+        {
+            label: 'Semester 2',
+            courses: ['GEF1201', 'ESK1111', 'BUS2101', 'BUS2102', 'BUS2103', 'BUS2202', 'BUS2203'],
+        },
+        {
+            label: 'Semester 3',
+            courses: ['UCC1201', 'ESK1112', 'BUS2201', 'BUS2301', 'BUS2302', 'BUS2303'],
+        },
+        {
+            label: 'Semester 4',
+            courses: ['UCC1202', 'ESK1113', 'BUS3101', 'BUS3102', 'BUS3103', 'BUS3104'],
+        },
+        {
+            label: 'Semester 5',
+            courses: ['BUS3201', 'BUS3202', 'BUS4999'],
+            note: 'Start taking concentration electives (3 of 6 required courses).',
+        },
+        {
+            label: 'Semester 6',
+            note: 'Continue concentration electives (3 more of 6 required).',
+            courses: [],
+        },
+        {
+            label: 'Semester 7',
+            note: 'Minor/optional courses (5 of 5 required).',
+            courses: [],
+        },
+        {
+            label: 'Semester 8 (Final)',
+            courses: ['BUS4398', 'BUS4399'],
+            note: 'Complete Project (BUS4398) or Internship (BUS4399).',
+        },
+    ];
+
+    const catalogue = window.buildUlabCatalogue({ courses: COURSES, degreeRequirements: DEGREE_REQUIREMENTS, classifyByPattern, semesterPlan: SEMESTER_PLAN });
 
     window.ULAB_CATALOGUES = window.ULAB_CATALOGUES || {};
     window.ULAB_CATALOGUES.BBA = catalogue;

@@ -96,6 +96,10 @@
             #${VIEW_ID} { display: none; padding: 10px 0 28px; text-align: left; font-family: var(--bento-font-ui); color: var(--bento-fg); }
             body.${BODY_CLASS}.ulab-shell-mounted #${VIEW_ID} { display: block; }
             #${VIEW_ID} .home-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(188px,1fr)); gap:8px; }
+            @media (max-width: 480px) {
+                #${VIEW_ID} .home-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+                #${VIEW_ID} .home-tile { padding: 6px 8px; font-size: 11px; min-height: 38px; }
+            }
             #${VIEW_ID} .home-tile {
                 display: flex; align-items: center; gap: 9px;
                 padding: 8px 10px; text-decoration: none !important;

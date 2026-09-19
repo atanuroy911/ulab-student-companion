@@ -623,3 +623,165 @@ table.bento-compact .pill { padding: 1px 7px; font-size: 10px; }
 
 /* Row-level visibility toggle used by every filter/search implementation. */
 .bento-hidden { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+ * RESPONSIVE & MOBILE OPTIMIZATIONS LAYER
+ * ──────────────────────────────────────────────────────────────────────
+ * Comprehensive media queries for smartphones (portrait/landscape),
+ * tablets, foldables, and desktop viewports.
+ * ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Large Desktop & Wide Displays (>= 1280px) ───────────────────────── */
+@media (min-width: 1280px) {
+    .bento-infogrid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .bento-stat { flex: 1 1 160px; }
+}
+
+/* ── Medium Desktop / Laptops (901px – 1279px) ───────────────────────── */
+@media (min-width: 901px) and (max-width: 1279px) {
+    .bento-infogrid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+}
+
+/* ── Tablets & Mobile Viewports (<= 900px) ───────────────────────────── */
+@media (max-width: 900px) {
+    body.ulab-shell-mounted td.content {
+        padding: 0 16px 36px !important;
+    }
+    .bento-infogrid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .bento-statstrip {
+        flex-wrap: wrap;
+    }
+    .bento-stat {
+        flex: 1 1 130px;
+    }
+    .bento-actions {
+        gap: 6px 4px;
+    }
+}
+
+/* ── Smartphones & Small Tablets (<= 680px) ──────────────────────────── */
+@media (max-width: 680px) {
+    body.ulab-shell-mounted td.content {
+        padding: 0 12px 28px !important;
+    }
+    .bento-titlebar {
+        padding: 8px 10px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .bento-titlebar-sub {
+        width: 100%;
+        font-size: 10.5px;
+        opacity: 0.9;
+    }
+    .bento-infogrid {
+        grid-template-columns: 1fr;
+    }
+    .bento-infogrid > div {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+    .bento-infogrid dt {
+        flex: 0 0 38%;
+        font-size: 11px;
+    }
+    .bento-statstrip {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .bento-stat {
+        border-right: 1px solid var(--bento-border-soft);
+        border-bottom: 1px solid var(--bento-border-soft);
+        padding: 6px 8px;
+    }
+    .bento-stat:nth-child(2n) {
+        border-right: none;
+    }
+    .bento-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    .bento-search {
+        width: 100%;
+        flex: 1 1 100%;
+        box-sizing: border-box;
+    }
+    .bento-search input {
+        width: 100%;
+    }
+    .bento-chip {
+        padding: 6px 10px;
+        font-size: 11px;
+        min-height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .bento-actions {
+        gap: 6px 4px;
+    }
+    .bento-action, .bento-action-control {
+        min-height: 28px;
+        font-size: 10.5px;
+    }
+    .bento-tablewrap {
+        -webkit-overflow-scrolling: touch;
+        margin: 4px 0;
+    }
+    table.bento-compact th, table.bento-compact td {
+        padding: 6px 6px;
+        font-size: 11px;
+    }
+    .bento-notice {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    .bento-segmented {
+        width: 100%;
+        justify-content: center;
+    }
+    .bento-segmented .bento-chip {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+    }
+    .bento-field {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .bento-field input, .bento-field select {
+        flex: 1;
+    }
+}
+
+/* ── Small Mobile Phones (<= 440px) ──────────────────────────────────── */
+@media (max-width: 440px) {
+    body.ulab-shell-mounted td.content {
+        padding: 0 8px 20px !important;
+    }
+    .bento-statstrip {
+        grid-template-columns: 1fr;
+    }
+    .bento-stat {
+        border-right: none !important;
+    }
+    .bento-infogrid dt {
+        flex: 0 0 42%;
+    }
+    .bento-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .bento-pillstrip {
+        gap: 4px;
+    }
+    .pill {
+        font-size: 10px;
+        padding: 2px 7px;
+    }
+}
+

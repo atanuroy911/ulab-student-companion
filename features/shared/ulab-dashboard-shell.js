@@ -642,11 +642,17 @@
                     justify-content: flex-start; padding-left: 16px; padding-right: 16px; margin-left: 8px; margin-right: 8px; gap: 12px;
                 }
 
-                #${FLOATING_TOGGLE_ID} { right: 10px; bottom: 10px; padding: 5px 12px 5px 8px; }
-                body.ulab-shell-mounted td.content { padding-left: 14px !important; padding-right: 14px !important; }
-                #ulab-app-header { padding: 10px 14px 10px 58px; }
+                #${FLOATING_TOGGLE_ID} { right: 10px; bottom: 10px; padding: 4px 10px 4px 6px; font-size: 10.5px; }
+                body.ulab-shell-mounted td.content { padding-left: 12px !important; padding-right: 12px !important; }
+                #ulab-app-header { padding: 8px 12px; height: 56px; min-height: 56px; }
                 #ulab-app-header .ulab-app-context { display:none; }
-                #ulab-app-footer { padding:16px 14px; flex-wrap:wrap; }
+                #ulab-app-footer { padding:14px 12px; flex-wrap:wrap; gap: 8px; }
+            }
+
+            @media (max-width: 540px) {
+                #ulab-app-header .ulab-app-brand small { display: none !important; }
+                #ulab-app-header .ulab-app-brand strong { font-size: 12.5px; }
+                #ulab-app-header .ulab-app-logo-img { width: 30px; height: 30px; }
             }
 
             /* Dark mode (body.ulab-dark, toggled from the sidebar footer) —

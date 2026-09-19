@@ -18,7 +18,7 @@
         const wordsMatch = text.match(/IN WORD\s*:?\s*([A-Za-z\s,]+?)(?=\s*Var|\s*function|\s*\$|\s*Summary|\s*City|\s*Amount|\s*Tk|\d|$)/i);
         const amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : null;
         const cityLink = Array.from(cell.querySelectorAll('a')).find(link => /CityCreateOrder/i.test(link.href || ''));
-        const cancelLink = Array.from(cell.querySelectorAll('a')).find(link => /PaymentInfo/i.test(link.href || ''));
+        const cancelLink = Array.from(cell.querySelectorAll('a')).find(link => /PaymentInfo/i.test(link.href || '') || /Cancel/i.test(link.textContent || ''));
         const bkashButton = cell.querySelector('#bKash_button');
         const cityImage = cityLink && cityLink.querySelector('img');
         const bkashImage = bkashButton && bkashButton.querySelector('img');
@@ -26,7 +26,7 @@
             amount,
             words: wordsMatch ? wordsMatch[1].trim() : '',
             cityHref: cityLink ? cityLink.href : '#',
-            cancelHref: cancelLink ? cancelLink.href : '/PaymentInfo.php',
+            cancelHref: (cancelLink && cancelLink.href && /PaymentInfo/i.test(cancelLink.href)) ? cancelLink.href : 'https://urms-online.ulab.edu.bd/PaymentInfo.php',
             bkashButton,
             cityImage: cityImage ? cityImage.src : new URL('images/City-Bank-Logo.jpg', location.href).href,
             bkashImage: bkashImage ? bkashImage.src : new URL('images/bKashPayment.png', location.href).href,

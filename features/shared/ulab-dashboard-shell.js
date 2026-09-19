@@ -300,7 +300,7 @@
                own (fixed, pixel) sizing. */
             body.ulab-shell-mounted {
                 margin-left: var(--ulab-sidebar-w) !important;
-                transition: margin-left .18s ease;
+                transition: margin-left .22s cubic-bezier(0.4, 0, 0.2, 1);
             }
             body.ulab-shell-mounted.ulab-sidebar-collapsed {
                 margin-left: var(--ulab-sidebar-w-collapsed) !important;
@@ -342,10 +342,14 @@
             #ulab-app-header {
                 position: sticky; top: 0; z-index: 100010;
                 display: flex; align-items: center; justify-content: space-between;
-                min-height: 66px; padding: 12px 28px 12px 68px;
+                height: 64px; min-height: 64px; padding: 0 24px; box-sizing: border-box;
                 background: rgba(255,255,255,.94); border-bottom: 1px solid var(--bento-border-soft, rgba(13,136,120,.14));
                 box-shadow: 0 4px 18px rgba(15,42,40,.06); backdrop-filter: blur(12px);
                 font-family: var(--bento-font-ui, -apple-system, "Segoe UI", sans-serif);
+                transition: background-color .2s ease, border-color .2s ease;
+            }
+            #ulab-app-header .ulab-app-header-left {
+                display: flex; align-items: center; gap: 14px;
             }
             #ulab-app-header .ulab-app-brand { display:flex; align-items:center; gap:12px; color:var(--bento-fg,#134E4A); text-decoration:none; }
             #ulab-app-header .ulab-app-brand strong { display:block; font-size:14px; letter-spacing:.01em; }
@@ -367,6 +371,32 @@
             body.ulab-dark #ulab-app-footer { background:#151C25; border-top-color:#3B4C60; color:#AEBCCC; }
             body.ulab-dark #ulab-app-footer strong { color:#F4F7FB; }
 
+            /* Topbar embedded hamburger toggle button */
+            #${TOPBAR_TOGGLE_ID} {
+                display: none; align-items: center; justify-content: center;
+                width: 38px; height: 38px; border-radius: 10px;
+                background: var(--bento-card-alt, #F4F4F7); color: var(--bento-fg, #134E4A);
+                border: 1px solid var(--bento-border-soft, rgba(13,136,120,.18));
+                cursor: pointer; flex-shrink: 0; outline: none;
+                appearance: none; -webkit-appearance: none;
+                transition: background .18s ease, color .18s ease, border-color .18s ease, transform .15s ease, box-shadow .18s ease;
+            }
+            body.ulab-shell-mounted #${TOPBAR_TOGGLE_ID} { display: inline-flex; }
+            #${TOPBAR_TOGGLE_ID}:hover {
+                background: var(--bento-primary-light, #E6FFFA);
+                color: var(--bento-primary, #0D9488);
+                border-color: var(--bento-primary, #0D9488);
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(13,148,136,.15);
+            }
+            #${TOPBAR_TOGGLE_ID}:active { transform: translateY(0); }
+            body.ulab-dark #${TOPBAR_TOGGLE_ID} {
+                background: #24303F; color: #F4F7FB; border-color: #3B4C60;
+            }
+            body.ulab-dark #${TOPBAR_TOGGLE_ID}:hover {
+                background: #2D3D50; color: #5EEAD4; border-color: #5EEAD4;
+            }
+
             /* The stock #menubar row is replaced by the sidebar's own nav —
                hide it (never remove: links inside stay usable to any script
                that still reads them, e.g. scrapeStudentInfo runs on the same
@@ -386,13 +416,11 @@
                 z-index: 100030;
                 flex-direction: column;
                 overflow-y: auto; overflow-x: hidden;
-                transition: width .18s ease;
+                transition: width .22s cubic-bezier(0.4, 0, 0.2, 1);
                 font-family: var(--bento-font-ui, -apple-system, "Segoe UI", sans-serif);
                 border-right: 1px solid var(--ulab-rail-border);
             }
             body.ulab-shell-mounted #${SIDEBAR_ID} { display: flex; }
-            #${TOPBAR_TOGGLE_ID} { display: none; }
-            body.ulab-shell-mounted #${TOPBAR_TOGGLE_ID} { display: flex; }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} { width: var(--ulab-sidebar-w-collapsed); }
 
             #${SIDEBAR_ID} .ulab-sb-text,
@@ -400,39 +428,44 @@
             #${SIDEBAR_ID} .ulab-sb-group-label,
             #${SIDEBAR_ID} .ulab-sb-user span {
                 opacity: 1; max-width: 160px;
-                transition: opacity .14s ease, max-width .18s ease;
+                transition: opacity .14s ease, max-width .22s cubic-bezier(0.4, 0, 0.2, 1);
             }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-text,
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-brand span,
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-label,
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-user span {
                 opacity: 0; max-width: 0; margin: 0; pointer-events: none;
-                transition: opacity .08s ease, max-width .18s ease;
+                transition: opacity .08s ease, max-width .22s cubic-bezier(0.4, 0, 0.2, 1);
             }
             #${SIDEBAR_ID} .ulab-sb-link, #${SIDEBAR_ID} .ulab-sb-row, #${SIDEBAR_ID} .ulab-sb-logout,
             #${SIDEBAR_ID} .ulab-sb-brand, #${SIDEBAR_ID} .ulab-sb-user {
-                transition: background .12s ease, color .12s ease, gap .18s ease, padding .18s ease;
+                transition: background .12s ease, color .12s ease, gap .22s cubic-bezier(0.4, 0, 0.2, 1), padding .22s cubic-bezier(0.4, 0, 0.2, 1), width .22s cubic-bezier(0.4, 0, 0.2, 1), margin .22s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             #${SIDEBAR_ID} .ulab-sb-brand {
-                display: flex; align-items: center; gap: 10px;
-                padding: 16px 16px; flex-shrink: 0;
+                display: flex; align-items: center; gap: 12px;
+                height: 64px; min-height: 64px; padding: 0 16px; flex-shrink: 0; box-sizing: border-box;
                 border-bottom: 1px solid var(--ulab-rail-border);
             }
             #${SIDEBAR_ID} .ulab-sb-brand .ulab-sb-logo-dot {
-                width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
-                background: #fff; padding: 3px; object-fit: contain;
+                width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+                background: #fff; padding: 4px; object-fit: contain; box-sizing: border-box;
+                box-shadow: 0 2px 8px rgba(0,0,0,.22);
+                transition: transform .2s ease;
             }
-            #${SIDEBAR_ID} .ulab-sb-brand span { font-weight: 700; font-size: .92rem; color: #fff; white-space: nowrap; overflow: hidden; display: inline-block; }
-            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-brand { justify-content: center; padding-left: 0; padding-right: 0; }
+            #${SIDEBAR_ID} .ulab-sb-brand:hover .ulab-sb-logo-dot {
+                transform: scale(1.05);
+            }
+            #${SIDEBAR_ID} .ulab-sb-brand span { font-weight: 700; font-size: .94rem; color: #fff; white-space: nowrap; overflow: hidden; display: inline-block; }
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-brand {
+                justify-content: center; padding: 0; width: var(--ulab-sidebar-w-collapsed);
+            }
 
             #${SIDEBAR_ID} .ulab-sb-group-label {
                 padding: 14px 16px 4px; font-size: .68rem; font-weight: 700;
                 text-transform: uppercase; letter-spacing: .06em; color: var(--ulab-rail-fg-muted);
                 white-space: nowrap; overflow: hidden; display: block;
             }
-            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-label { padding-top: 0; padding-bottom: 0; }
-
             #${SIDEBAR_ID} .ulab-sb-group-header {
                 display: flex; align-items: center; justify-content: space-between;
                 cursor: pointer; user-select: none;
@@ -447,25 +480,33 @@
             #${SIDEBAR_ID} .ulab-sb-group-header.collapsed .ulab-sb-group-chevron { transform: rotate(-90deg); }
             #${SIDEBAR_ID} .ulab-sb-group-items { overflow: hidden; }
             #${SIDEBAR_ID} .ulab-sb-group-items.collapsed { display: none; }
-            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-chevron { display: none; }
+
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-header {
+                height: 1px; margin: 12px 14px; padding: 0;
+                background: var(--ulab-rail-border); pointer-events: none; border: none; overflow: hidden;
+            }
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-header .ulab-sb-group-label,
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-chevron { display: none !important; }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-group-items.collapsed { display: block; }
 
-            #${SIDEBAR_ID} nav { flex: 1; padding-bottom: 8px; }
+            #${SIDEBAR_ID} nav { flex: 1; padding: 6px 0 8px; }
             #${SIDEBAR_ID} .ulab-sb-link {
-                display: flex; align-items: center; gap: 12px; width: 100%;
-                padding: 8px 12px; margin: 1px 8px; border-radius: 8px;
+                display: flex; align-items: center; gap: 12px;
+                width: calc(100% - 16px); height: 40px;
+                padding: 0 12px; margin: 3px 8px; border-radius: 10px; box-sizing: border-box;
                 color: var(--ulab-rail-fg-muted); text-decoration: none !important; font-size: .85rem; font-weight: 500;
                 white-space: nowrap; overflow: hidden;
                 background: none; border: none; font-family: inherit; text-align: left; cursor: pointer;
             }
-            #${SIDEBAR_ID} .ulab-sb-link svg { flex-shrink: 0; opacity: .85; }
-            #${SIDEBAR_ID} .ulab-sb-link:hover { background: rgba(45,212,191,.10); color: #fff; }
+            #${SIDEBAR_ID} .ulab-sb-link svg { flex-shrink: 0; opacity: .88; }
+            #${SIDEBAR_ID} .ulab-sb-link:hover { background: rgba(45,212,191,.12); color: #fff; }
             #${SIDEBAR_ID} .ulab-sb-link.active {
                 background: var(--ulab-rail-active-bg); color: #fff;
-                box-shadow: inset 2px 0 0 var(--ulab-rail-accent);
+                box-shadow: inset 3px 0 0 var(--ulab-rail-accent);
             }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-link {
-                justify-content: center; padding-left: 0; padding-right: 0; margin-left: 8px; margin-right: 8px; gap: 0;
+                width: 44px; height: 40px; padding: 0; margin: 3px auto;
+                justify-content: center; border-radius: 10px; gap: 0;
             }
 
             #${SIDEBAR_ID} .ulab-sb-footer {
@@ -473,30 +514,32 @@
                 padding: 10px 8px; flex-shrink: 0;
             }
             #${SIDEBAR_ID} .ulab-sb-user {
-                display: flex; align-items: center; gap: 8px;
-                padding: 8px; font-size: .78rem; color: #9aa7c4;
-                white-space: nowrap; overflow: hidden;
+                display: flex; align-items: center; gap: 10px;
+                padding: 8px 10px; font-size: .78rem; color: #9aa7c4;
+                white-space: nowrap; overflow: hidden; border-radius: 8px;
             }
             #${SIDEBAR_ID} .ulab-sb-user span { white-space: nowrap; overflow: hidden; display: inline-block; }
-            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-user { justify-content: center; padding-left: 0; padding-right: 0; }
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-user {
+                justify-content: center; width: 44px; height: 38px; margin: 0 auto; padding: 0; gap: 0;
+            }
             #${SIDEBAR_ID} .ulab-sb-row {
                 display: flex; align-items: center; justify-content: space-between;
-                padding: 7px 8px; border-radius: 6px; cursor: pointer;
+                padding: 8px 10px; border-radius: 8px; cursor: pointer;
                 font-size: .8rem; color: var(--ulab-rail-fg-muted);
                 transition: background .12s ease, padding .18s ease;
             }
-            #${SIDEBAR_ID} .ulab-sb-row:hover { background: rgba(255,255,255,.06); }
+            #${SIDEBAR_ID} .ulab-sb-row:hover { background: rgba(255,255,255,.06); color: #fff; }
             #${SIDEBAR_ID} .ulab-sb-row .ulab-sb-row-label { display: flex; align-items: center; gap: 10px; white-space: nowrap; overflow: hidden; transition: gap .18s ease; }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-row .ulab-sb-row-label { gap: 0; }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-row {
-                justify-content: center; padding-left: 0; padding-right: 0;
+                justify-content: center; width: 44px; height: 36px; margin: 2px auto; padding: 0; border-radius: 8px;
             }
-            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-row .ulab-switch-sm {
-                opacity: 0; max-width: 0; overflow: hidden; pointer-events: none;
-                transition: opacity .08s ease, max-width .18s ease;
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-row .ulab-switch-sm,
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-row .ulab-fontctl {
+                display: none !important;
             }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-logout {
-                justify-content: center; padding-left: 0; padding-right: 0; gap: 0;
+                justify-content: center; width: 44px; height: 36px; margin: 2px auto; padding: 0; gap: 0; border-radius: 8px;
             }
             #${SIDEBAR_ID} .ulab-switch-sm {
                 position: relative; width: 30px; height: 17px; border-radius: 999px; background: #3f3f46;
@@ -523,12 +566,12 @@
                 min-width: 32px; text-align: center; font-size: .72rem;
                 color: var(--ulab-rail-fg-muted); font-variant-numeric: tabular-nums;
             }
-            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-row .ulab-fontctl { display: none; }
 
             #${SIDEBAR_ID} .ulab-sb-logout {
                 display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
                 background: none; border: none; color: var(--ulab-rail-danger); font-size: .8rem; font-weight: 500;
-                padding: 7px 8px; border-radius: 6px; cursor: pointer; text-decoration: none !important;
+                padding: 8px 10px; border-radius: 8px; cursor: pointer; text-decoration: none !important;
+                box-sizing: border-box;
             }
             #${SIDEBAR_ID} .ulab-sb-logout:hover { background: rgba(255,255,255,.06); }
 
@@ -558,21 +601,6 @@
             }
             #${FLOATING_TOGGLE_ID} .ulab-switch-sm.on { background: var(--bento-primary, #0D9488); }
             #${FLOATING_TOGGLE_ID} .ulab-switch-sm.on::after { transform: translateX(13px); }
-
-            /* Hamburger: fixed top-left. There's no Bootstrap-style navbar
-               seam on this legacy table layout to dock it into (see file
-               header comment), so it's a small floating button instead —
-               present whenever the shell is mounted. */
-            #${TOPBAR_TOGGLE_ID} {
-                position: fixed; top: 12px; left: 12px; z-index: 100031;
-                background: var(--ulab-rail-bg); color: #fff; border: 1px solid var(--ulab-rail-border);
-                padding: 8px; border-radius: 8px; cursor: pointer; align-items: center;
-                appearance: none; -webkit-appearance: none; outline: none;
-                box-shadow: 0 2px 8px rgba(0,0,0,.25);
-            }
-            #${TOPBAR_TOGGLE_ID}:hover { background: var(--ulab-rail-bg-alt); }
-            body.ulab-sidebar-collapsed #${TOPBAR_TOGGLE_ID} { left: calc(var(--ulab-sidebar-w-collapsed) + 8px); }
-            body:not(.ulab-sidebar-collapsed) #${TOPBAR_TOGGLE_ID} { left: calc(var(--ulab-sidebar-w) + 8px); }
 
             #${SIDEBAR_BACKDROP_ID} {
                 display: none;
@@ -832,6 +860,7 @@
             group.items.forEach((item) => {
                 const el = document.createElement(item.href ? 'a' : 'button');
                 el.className = 'ulab-sb-link';
+                el.setAttribute('title', item.label);
                 if (item.href) {
                     if (isActiveHref(item.href)) el.classList.add('active');
                     el.href = item.href;
@@ -855,24 +884,28 @@
             : 'Signed in';
         const userRow = document.createElement('div');
         userRow.className = 'ulab-sb-user';
+        userRow.setAttribute('title', userLabel);
         userRow.innerHTML = `${svg('people', 14)}<span>${userLabel}</span>`;
         footer.appendChild(userRow);
 
         const themeRow = document.createElement('div');
         themeRow.className = 'ulab-sb-row';
         themeRow.id = 'ulab-theme-row';
+        themeRow.setAttribute('title', 'Toggle Dark mode');
         themeRow.innerHTML = `<span class="ulab-sb-row-label">${svg('moon', 14)}<span class="ulab-sb-text">Dark mode</span></span><span class="ulab-switch-sm"></span>`;
         footer.appendChild(themeRow);
 
         const modernRow = document.createElement('div');
         modernRow.className = 'ulab-sb-row';
         modernRow.id = 'ulab-modern-row';
+        modernRow.setAttribute('title', 'Toggle Modern UI');
         modernRow.innerHTML = `<span class="ulab-sb-row-label">${svg('grid', 14)}<span class="ulab-sb-text">Modern UI</span></span><span class="ulab-switch-sm"></span>`;
         footer.appendChild(modernRow);
 
         const fontRow = document.createElement('div');
         fontRow.className = 'ulab-sb-row';
         fontRow.id = 'ulab-font-row';
+        fontRow.setAttribute('title', 'Text size');
         fontRow.innerHTML = `<span class="ulab-sb-row-label">${svg('type-size', 14)}<span class="ulab-sb-text">Text size</span></span>
             <span class="ulab-fontctl">
                 <button type="button" class="ulab-fontctl-btn" id="ulab-font-dec" aria-label="Decrease text size">−</button>
@@ -889,6 +922,7 @@
         const logoutLink = document.createElement('a');
         logoutLink.className = 'ulab-sb-logout';
         logoutLink.href = LOGOUT_HREF;
+        logoutLink.setAttribute('title', 'Logout');
         logoutLink.innerHTML = `${svg('logout', 14)}<span class="ulab-sb-text">Logout</span>`;
         footer.appendChild(logoutLink);
 
@@ -933,9 +967,8 @@
         btn.id = TOPBAR_TOGGLE_ID;
         btn.type = 'button';
         btn.setAttribute('aria-label', 'Toggle sidebar');
-        // Three bars, not the ULAB logo: this control's job is "open/close the
-        // menu", and a brand mark reads as a home/logo affordance instead.
-        btn.innerHTML = svg('menu', 24);
+        btn.setAttribute('title', 'Toggle sidebar (Ctrl+B)');
+        btn.innerHTML = svg('menu', 18);
         btn.addEventListener('click', () => {
             if (window.matchMedia(MOBILE_QUERY).matches) {
                 document.body.classList.toggle('ulab-sidebar-open');
@@ -945,7 +978,31 @@
             document.body.classList.toggle('ulab-sidebar-collapsed', collapsed);
             chrome.storage.local.set({ [KEYS.collapsed]: collapsed });
         });
-        document.body.appendChild(btn);
+
+        const headerLeft = document.querySelector('#ulab-app-header .ulab-app-header-left');
+        if (headerLeft) {
+            headerLeft.insertBefore(btn, headerLeft.firstChild);
+        } else {
+            const header = document.getElementById('ulab-app-header');
+            if (header) {
+                header.insertBefore(btn, header.firstChild);
+            } else {
+                document.body.appendChild(btn);
+            }
+        }
+
+        if (!window._ulabKeyShortcutBound) {
+            window._ulabKeyShortcutBound = true;
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+                    const tag = document.activeElement ? document.activeElement.tagName : '';
+                    if (tag === 'INPUT' || tag === 'TEXTAREA' || (document.activeElement && document.activeElement.isContentEditable)) return;
+                    e.preventDefault();
+                    const toggleBtn = document.getElementById(TOPBAR_TOGGLE_ID);
+                    if (toggleBtn) toggleBtn.click();
+                }
+            });
+        }
 
         window.matchMedia(MOBILE_QUERY).addEventListener('change', (e) => {
             if (!e.matches) closeMobileDrawer();
@@ -1197,7 +1254,7 @@
         header.id = 'ulab-app-header';
         const name = info && info.studentName ? `Signed in as ${esc(info.studentName)}` : 'Student portal';
         const avatar = info && info.photoUrl ? `<img class="ulab-app-avatar" src="${esc(info.photoUrl)}" alt="${esc(info.studentName || 'Student')}">` : '<span class="ulab-app-avatar"></span>';
-        header.innerHTML = `<a class="ulab-app-brand" href="/index.php"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a><span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;
+        header.innerHTML = `<div class="ulab-app-header-left"><a class="ulab-app-brand" href="/index.php"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a></div><span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;
         document.body.insertBefore(header, document.body.firstChild);
         const footer = document.createElement('footer');
         footer.id = 'ulab-app-footer';

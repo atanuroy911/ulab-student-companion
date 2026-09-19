@@ -26,7 +26,7 @@
             amount,
             words: wordsMatch ? wordsMatch[1].trim() : '',
             cityHref: cityLink ? cityLink.href : '#',
-            cancelHref: (cancelLink && cancelLink.href && /PaymentInfo/i.test(cancelLink.href)) ? cancelLink.href : 'https://urms-online.ulab.edu.bd/PaymentInfo.php',
+            cancelHref: 'https://urms-online.ulab.edu.bd/PaymentInfo.php',
             bkashButton,
             cityImage: cityImage ? cityImage.src : new URL('images/City-Bank-Logo.jpg', location.href).href,
             bkashImage: bkashImage ? bkashImage.src : new URL('images/bKashPayment.png', location.href).href,
@@ -60,12 +60,31 @@
             #${VIEW_ID} .confirmation-cancel:hover { color:var(--bento-primary); }
             @media (max-width:720px) { #${VIEW_ID} .confirmation-layout { grid-template-columns:1fr; } #${VIEW_ID} h1 { font-size:24px; } }
 
-            /* Lower shell header z-index when bKash modal is present so bKash overlay dominates */
+            /* Lower shell header & sidebar z-index when bKash modal or iframe wrapper is present so bKash overlay dominates */
             body.ulab-bkash-active #ulab-app-header,
+            body.ulab-bkash-active #ulab-sidebar,
             body:has(#app) #ulab-app-header,
+            body:has(#app) #ulab-sidebar,
             body:has(.app[data-v-app]) #ulab-app-header,
-            body:has([data-v-eb2367ff]) #ulab-app-header {
+            body:has(.app[data-v-app]) #ulab-sidebar,
+            body:has([data-v-eb2367ff]) #ulab-app-header,
+            body:has([data-v-eb2367ff]) #ulab-sidebar,
+            body:has(#bKashFrameWrapper) #ulab-app-header,
+            body:has(#bKashFrameWrapper) #ulab-sidebar,
+            body:has(iframe[name="bKash_checkout_app"]) #ulab-app-header,
+            body:has(iframe[name="bKash_checkout_app"]) #ulab-sidebar,
+            body:has(iframe[src*="bka.sh"]) #ulab-app-header,
+            body:has(iframe[src*="bka.sh"]) #ulab-sidebar {
                 z-index: 100 !important;
+            }
+
+            /* bKash iframe wrapper & container z-index override */
+            #bKashFrameWrapper,
+            #bKashFrameWrapper iframe,
+            iframe[name="bKash_checkout_app"],
+            iframe[src*="bka.sh"],
+            iframe[src*="bkash"] {
+                z-index: 2147483647 !important;
             }
 
             /* bKash Merchant Modal Overlay */
@@ -135,22 +154,33 @@
     function observeBkashModal() {
         function checkAndLift() {
             const hasBkashModal = document.getElementById('app') ||
+                                  document.getElementById('bKashFrameWrapper') ||
                                   document.querySelector('.app[data-v-app]') ||
                                   document.querySelector('[data-v-eb2367ff]') ||
-                                  document.querySelector('#bKash_modal');
+                                  document.querySelector('#bKash_modal') ||
+                                  document.querySelector('iframe[name="bKash_checkout_app"]') ||
+                                  document.querySelector('iframe[src*="bka.sh"]');
             if (hasBkashModal) {
                 document.body.classList.add('ulab-bkash-active');
             } else {
                 document.body.classList.remove('ulab-bkash-active');
             }
 
+            const frameWrapper = document.getElementById('bKashFrameWrapper');
+            if (frameWrapper && frameWrapper.style) {
+                frameWrapper.style.setProperty('z-index', '2147483647', 'important');
+            }
+
             // Find bKash button or modal/app elements
             const targets = [
                 document.getElementById('bKash_button'),
                 document.getElementById('app'),
+                document.getElementById('bKashFrameWrapper'),
                 document.querySelector('.app[data-v-app]'),
                 document.querySelector('[data-v-eb2367ff]'),
                 document.querySelector('#bKash_modal'),
+                document.querySelector('iframe[name="bKash_checkout_app"]'),
+                document.querySelector('iframe[src*="bka.sh"]'),
                 document.querySelector('iframe[src*="bkash"]')
             ].filter(Boolean);
 
@@ -165,7 +195,7 @@
                     }
                     ancestor = ancestor.parentElement;
                 }
-                if (insideHidden || (el.parentElement && el.parentElement !== document.body && (el.id === 'app' || el.classList.contains('app')))) {
+                if (insideHidden || (el.parentElement && el.parentElement !== document.body && (el.id === 'app' || el.id === 'bKashFrameWrapper' || el.classList.contains('app')))) {
                     document.body.appendChild(el);
                 }
             }

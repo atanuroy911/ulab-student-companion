@@ -271,12 +271,18 @@ body.ulab-dark {
     border: 1px solid var(--bento-border-soft);
     white-space: nowrap;
 }
-.pill-primary  { background: rgba(13,148,136,0.12); color: var(--bento-primary); border-color: rgba(13,148,136,0.28); }
-.pill-accent   { background: rgba(234,88,12,0.12);  color: var(--bento-accent);  border-color: rgba(234,88,12,0.28); }
-.pill-success  { background: rgba(22,163,74,0.12);  color: var(--bento-success); border-color: rgba(22,163,74,0.28); }
-.pill-warning  { background: rgba(217,119,6,0.12);  color: var(--bento-warning); border-color: rgba(217,119,6,0.28); }
-.pill-destructive { background: rgba(220,38,38,0.12); color: var(--bento-destructive); border-color: rgba(220,38,38,0.28); }
-.pill-muted    { opacity: 0.75; }
+.pill-primary  { background: rgba(0,105,180,0.12); color: #005086; border-color: rgba(0,105,180,0.28); }
+.pill-accent   { background: rgba(245,130,32,0.14); color: #C25E00; border-color: rgba(245,130,32,0.35); }
+.pill-success  { background: rgba(0,104,55,0.12); color: #005C2B; border-color: rgba(0,104,55,0.28); }
+.pill-warning  { background: rgba(217,119,6,0.14); color: #B45309; border-color: rgba(217,119,6,0.32); }
+.pill-destructive { background: rgba(225,29,72,0.12); color: #BE123C; border-color: rgba(225,29,72,0.28); }
+.pill-muted    { opacity: 0.85; }
+
+body.ulab-dark .pill-primary  { background: rgba(51,153,255,0.2); color: #70B8FF; border-color: rgba(51,153,255,0.4); }
+body.ulab-dark .pill-accent   { background: rgba(245,130,32,0.22); color: #FF9D42; border-color: rgba(245,130,32,0.45); }
+body.ulab-dark .pill-success  { background: rgba(0,168,89,0.2); color: #4DE094; border-color: rgba(0,168,89,0.4); }
+body.ulab-dark .pill-warning  { background: rgba(251,191,36,0.2); color: #FCD34D; border-color: rgba(251,191,36,0.4); }
+body.ulab-dark .pill-destructive { background: rgba(251,113,133,0.2); color: #FDA4AF; border-color: rgba(251,113,133,0.4); }
 
 /* ── Buttons ─────────────────────────────────────────────────────── */
 .bento-btn {
@@ -600,11 +606,10 @@ table.bento-compact .pill { padding: 1px 7px; font-size: 10px; }
 /* ── Segmented view switch (e.g. schedule Table / Calendar) ─────────── */
 /* Built from .bento-chip so it inherits the chip tokens; the group just
  * removes the gap between members and squares the shared edges. */
-.bento-segmented { display: inline-flex; align-items: center; gap: 0; }
-.bento-segmented .bento-chip { border-radius: 0; margin-left: -1px; }
-.bento-segmented .bento-chip:first-child { border-radius: 999px 0 0 999px; margin-left: 0; }
-.bento-segmented .bento-chip:last-child { border-radius: 0 999px 999px 0; }
-.bento-segmented .bento-chip.on { position: relative; z-index: 1; }
+.bento-segmented { display: inline-flex; align-items: center; gap: 2px; background: var(--bento-card-alt); padding: 3px; border-radius: 999px; border: 1px solid var(--bento-border-soft); }
+.bento-segmented .bento-chip { border-radius: 999px !important; border: none !important; background: transparent; color: var(--bento-fg-muted); padding: 4px 12px; margin: 0 !important; font-weight: 700; transition: all 0.15s ease; }
+.bento-segmented .bento-chip:hover { color: var(--bento-primary); background: rgba(0, 105, 180, 0.08); }
+.bento-segmented .bento-chip.on { background: var(--bento-primary) !important; color: #FFFFFF !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18); position: relative; z-index: 1; }
 .bento-segmented .bento-chip svg { vertical-align: -2px; margin-right: 4px; }
 
 /* ── Compact form field (date / number / select inline controls) ───── */

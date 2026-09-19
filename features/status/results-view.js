@@ -319,7 +319,11 @@
     function transcriptHtml(completed, inProgress, gpaRows, summary, info, profile) {
         const gpaBySemester = new Map((gpaRows || []).map(r => [String(r.semester), r]));
         const groups = groupBySemester(completed || []);
-        const semesters = Object.keys(groups).sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
+        const semesters = Array.from(groups.keys()).sort((a, b) => {
+            const na = parseFloat(a), nb = parseFloat(b);
+            if (!isNaN(na) && !isNaN(nb)) return na - nb;
+            return String(a).localeCompare(String(b));
+        });
         const generated = new Date().toLocaleString();
         const program = (profile && profile.programCode) || '';
 
@@ -330,7 +334,7 @@
         ].filter(Boolean).join(' &middot; ');
 
         const semesterBlock = (code) => {
-            const rows = groups[code] || [];
+            const rows = groups.get(code) || [];
             const g = gpaBySemester.get(String(code));
             const credits = rows.reduce((sum, c) => sum + (c.credits || 0), 0);
             const meta = [
@@ -374,27 +378,27 @@
 <style>
   @page { size: A4 portrait; margin: 16mm 14mm; }
   * { box-sizing: border-box; }
-  body { font: 11px/1.45 "Segoe UI", system-ui, sans-serif; color: #12211f; margin: 0; }
-  header { border-bottom: 2px solid #0D9488; padding-bottom: 10px; margin-bottom: 14px; }
-  h1 { font-size: 17px; margin: 0 0 2px; letter-spacing: -.01em; }
-  .sub { color: #4B7A76; font-size: 11px; }
-  .badge { display:inline-block; margin-top:6px; padding:2px 7px; border:1px solid #D97706; color:#92400e;
-           border-radius:999px; font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  body { font: 11px/1.45 "Segoe UI", system-ui, sans-serif; color: #0B2545; margin: 0; }
+  header { border-bottom: 2px solid #0069B4; padding-bottom: 10px; margin-bottom: 14px; }
+  h1 { font-size: 17px; margin: 0 0 2px; letter-spacing: -.01em; color: #0069B4; }
+  .sub { color: #3A5A80; font-size: 11px; }
+  .badge { display:inline-block; margin-top:6px; padding:2px 7px; border:1px solid #F58220; color:#C25E00;
+           border-radius:999px; font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; background:#FFF8F0; }
   .summary { display:flex; flex-wrap:wrap; gap:18px; margin:0 0 16px; padding:9px 12px;
-             background:#F0FDFA; border:1px solid #99F6E4; border-radius:6px; }
-  .summary div { font-size:10.5px; color:#4B7A76; }
-  .summary b { display:block; font-size:14px; color:#134E4A; }
+             background:#F4F7FA; border:1px solid #D0DFE9; border-radius:6px; }
+  .summary div { font-size:10.5px; color:#3A5A80; }
+  .summary b { display:block; font-size:14px; color:#0069B4; }
   section.sem { margin-bottom: 13px; page-break-inside: avoid; }
-  h2 { font-size: 12px; margin: 0 0 5px; padding-bottom: 3px; border-bottom: 1px solid #cfe9e5; }
-  h2 .meta { float: right; font-weight: 400; color: #4B7A76; font-size: 10.5px; }
+  h2 { font-size: 12px; margin: 0 0 5px; padding-bottom: 3px; border-bottom: 1px solid #D0DFE9; color: #0B2545; }
+  h2 .meta { float: right; font-weight: 400; color: #3A5A80; font-size: 10.5px; }
   table { width: 100%; border-collapse: collapse; }
   th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .05em;
-       color: #4B7A76; border-bottom: 1px solid #cfe9e5; padding: 4px 6px; }
-  td { padding: 3.5px 6px; border-bottom: 1px solid #edf5f4; }
+       color: #0069B4; border-bottom: 1px solid #D0DFE9; padding: 4px 6px; }
+  td { padding: 3.5px 6px; border-bottom: 1px solid #EBF5FC; }
   .r { text-align: right; } .b { font-weight: 700; }
-  .mono { font-family: ui-monospace, Consolas, monospace; }
-  footer { margin-top: 16px; padding-top: 8px; border-top: 1px solid #cfe9e5;
-           color: #6B8E8B; font-size: 9.5px; }
+  .mono { font-family: ui-monospace, Consolas, monospace; font-weight: 700; color: #0069B4; }
+  footer { margin-top: 16px; padding-top: 8px; border-top: 1px solid #D0DFE9;
+           color: #5A7A9E; font-size: 9.5px; }
 </style></head><body>
 <header>
   <h1>Academic Transcript</h1>

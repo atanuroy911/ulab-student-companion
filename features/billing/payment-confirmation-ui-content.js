@@ -91,9 +91,30 @@
                         <a class="confirmation-cancel" href="${esc(details.cancelHref)}">Cancel and change amount</a>
                     </div>
                 </div>`;
-            view.querySelector('#ulab-confirm-bkash').addEventListener('click', () => {
-                if (details.bkashButton) details.bkashButton.click();
-                else alert('bKash checkout is not available on this page.');
+            view.querySelector('#ulab-confirm-bkash').addEventListener('click', (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('bKash_button') || document.querySelector('[id*="bKash"]') || document.querySelector('[src*="bKash"]');
+                if (btn) {
+                    try { btn.click(); } catch(err) {}
+                }
+                const script = document.createElement('script');
+                script.textContent = `
+                    (function() {
+                        var b = document.getElementById('bKash_button') || document.querySelector('[id*="bKash"]');
+                        if (typeof ClickPayButton === 'function') {
+                            ClickPayButton();
+                        } else if (b) {
+                            if (window.jQuery) { window.jQuery(b).trigger('click'); }
+                            else { b.click(); }
+                        } else if (window.bKash && typeof window.bKash.create === 'function') {
+                            window.bKash.create().click();
+                        } else {
+                            alert('bKash checkout is not ready on this page.');
+                        }
+                    })();
+                `;
+                (document.head || document.documentElement).appendChild(script);
+                script.remove();
             });
         });
     }

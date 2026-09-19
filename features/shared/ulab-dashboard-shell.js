@@ -349,6 +349,13 @@
                 display: flex; align-items: center; gap: 14px;
             }
             #ulab-app-header .ulab-app-brand { display:flex; align-items:center; gap:12px; color:var(--bento-fg,#0B1957); text-decoration:none; }
+            #ulab-app-header .ulab-app-logo-img {
+                width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+                background: #fff; padding: 4px; object-fit: contain; box-sizing: border-box;
+                box-shadow: 0 2px 8px rgba(11,25,87,.12); border: 1px solid var(--bento-border, #E6D8C7);
+                transition: transform .2s ease;
+            }
+            #ulab-app-header .ulab-app-brand:hover .ulab-app-logo-img { transform: scale(1.05); }
             #ulab-app-header .ulab-app-brand strong { display:block; font-size:14px; letter-spacing:.01em; }
             #ulab-app-header .ulab-app-brand small { display:block; margin-top:2px; color:var(--bento-fg-muted,#35478C); font-size:11px; }
             #ulab-app-header .ulab-app-context { color:var(--bento-fg-muted,#35478C); font-size:11.5px; text-align:right; }
@@ -366,33 +373,25 @@
             body.ulab-dark #ulab-app-header .ulab-app-context { color:#F8F3EA; }
             body.ulab-dark #ulab-app-header .ulab-app-brand small { color:#D2E5FA; }
             body.ulab-dark #ulab-app-footer { background:#070E2E; border-top-color:#263E9B; color:#D2E5FA; }
-            body.ulab-dark #ulab-app-footer strong { color:#F8F3EA; }
+            body.ulab-dark #ulab-app-footer strong { color:#F8F8EA; }
 
-            /* Topbar embedded hamburger toggle button */
+            /* Sidebar top hamburger toggle button */
             #${TOPBAR_TOGGLE_ID} {
-                display: none; align-items: center; justify-content: center;
-                width: 38px; height: 38px; border-radius: 10px;
-                background: var(--bento-card, #FFFFFF); color: var(--bento-fg, #0B1957);
-                border: 1px solid var(--bento-border, #E6D8C7);
-                cursor: pointer; flex-shrink: 0; outline: none;
-                appearance: none; -webkit-appearance: none;
+                display: inline-flex; align-items: center; justify-content: center;
+                width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+                background: var(--ulab-rail-bg-alt, #132778); color: var(--ulab-rail-fg, #F8F3EA);
+                border: 1px solid var(--ulab-rail-border);
+                cursor: pointer; outline: none; appearance: none; -webkit-appearance: none;
                 transition: background .18s ease, color .18s ease, border-color .18s ease, transform .15s ease, box-shadow .18s ease;
             }
-            body.ulab-shell-mounted #${TOPBAR_TOGGLE_ID} { display: inline-flex; }
             #${TOPBAR_TOGGLE_ID}:hover {
-                background: #9ECCFA;
-                color: #0B1957;
-                border-color: #9ECCFA;
+                background: var(--ulab-rail-active-bg, #1B328F);
+                color: var(--ulab-rail-accent, #9ECCFA);
+                border-color: var(--ulab-rail-accent, #9ECCFA);
                 transform: translateY(-1px);
-                box-shadow: 0 2px 8px rgba(158,204,250,.35);
+                box-shadow: 0 2px 8px rgba(158,204,250,.25);
             }
             #${TOPBAR_TOGGLE_ID}:active { transform: translateY(0); }
-            body.ulab-dark #${TOPBAR_TOGGLE_ID} {
-                background: #152985; color: #F8F3EA; border-color: #263E9B;
-            }
-            body.ulab-dark #${TOPBAR_TOGGLE_ID}:hover {
-                background: #9ECCFA; color: #0B1957; border-color: #9ECCFA;
-            }
 
             /* The stock #menubar row is replaced by the sidebar's own nav —
                hide it (never remove: links inside stay usable to any script
@@ -443,15 +442,6 @@
                 display: flex; align-items: center; gap: 12px;
                 height: 64px; min-height: 64px; padding: 0 16px; flex-shrink: 0; box-sizing: border-box;
                 border-bottom: 1px solid var(--ulab-rail-border);
-            }
-            #${SIDEBAR_ID} .ulab-sb-brand .ulab-sb-logo-dot {
-                width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
-                background: #fff; padding: 4px; object-fit: contain; box-sizing: border-box;
-                box-shadow: 0 2px 8px rgba(0,0,0,.22);
-                transition: transform .2s ease;
-            }
-            #${SIDEBAR_ID} .ulab-sb-brand:hover .ulab-sb-logo-dot {
-                transform: scale(1.05);
             }
             #${SIDEBAR_ID} .ulab-sb-brand span { font-weight: 700; font-size: .94rem; color: #fff; white-space: nowrap; overflow: hidden; display: inline-block; }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-brand {
@@ -828,7 +818,7 @@
 
         const brand = document.createElement('div');
         brand.className = 'ulab-sb-brand';
-        brand.innerHTML = `<img class="ulab-sb-logo-dot" src="${chrome.runtime.getURL('icons/ulab.svg')}" alt="ULAB"><span>Student Companion</span>`;
+        brand.innerHTML = `<button type="button" id="${TOPBAR_TOGGLE_ID}" aria-label="Toggle sidebar" title="Toggle sidebar (Ctrl+B)">${svg('menu', 18)}</button><span>Student Companion</span>`;
         sidebar.appendChild(brand);
 
         const navWrap = document.createElement('div');
@@ -959,33 +949,30 @@
     }
 
     function buildHamburger() {
-        if (document.getElementById(TOPBAR_TOGGLE_ID)) return;
-        const btn = document.createElement('button');
-        btn.id = TOPBAR_TOGGLE_ID;
-        btn.type = 'button';
-        btn.setAttribute('aria-label', 'Toggle sidebar');
-        btn.setAttribute('title', 'Toggle sidebar (Ctrl+B)');
-        btn.innerHTML = svg('menu', 18);
-        btn.addEventListener('click', () => {
-            if (window.matchMedia(MOBILE_QUERY).matches) {
-                document.body.classList.toggle('ulab-sidebar-open');
-                return;
+        let btn = document.getElementById(TOPBAR_TOGGLE_ID);
+        if (!btn) {
+            const brand = document.querySelector('#ulab-sidebar .ulab-sb-brand');
+            if (brand) {
+                btn = document.createElement('button');
+                btn.id = TOPBAR_TOGGLE_ID;
+                btn.type = 'button';
+                btn.setAttribute('aria-label', 'Toggle sidebar');
+                btn.setAttribute('title', 'Toggle sidebar (Ctrl+B)');
+                btn.innerHTML = svg('menu', 18);
+                brand.insertBefore(btn, brand.firstChild);
             }
-            const collapsed = !document.body.classList.contains('ulab-sidebar-collapsed');
-            document.body.classList.toggle('ulab-sidebar-collapsed', collapsed);
-            chrome.storage.local.set({ [KEYS.collapsed]: collapsed });
-        });
-
-        const headerLeft = document.querySelector('#ulab-app-header .ulab-app-header-left');
-        if (headerLeft) {
-            headerLeft.insertBefore(btn, headerLeft.firstChild);
-        } else {
-            const header = document.getElementById('ulab-app-header');
-            if (header) {
-                header.insertBefore(btn, header.firstChild);
-            } else {
-                document.body.appendChild(btn);
-            }
+        }
+        if (btn && !btn._ulabWired) {
+            btn._ulabWired = true;
+            btn.addEventListener('click', () => {
+                if (window.matchMedia(MOBILE_QUERY).matches) {
+                    document.body.classList.toggle('ulab-sidebar-open');
+                    return;
+                }
+                const collapsed = !document.body.classList.contains('ulab-sidebar-collapsed');
+                document.body.classList.toggle('ulab-sidebar-collapsed', collapsed);
+                chrome.storage.local.set({ [KEYS.collapsed]: collapsed });
+            });
         }
 
         if (!window._ulabKeyShortcutBound) {
@@ -1251,12 +1238,23 @@
         header.id = 'ulab-app-header';
         const name = info && info.studentName ? `Signed in as ${esc(info.studentName)}` : 'Student portal';
         const avatar = info && info.photoUrl ? `<img class="ulab-app-avatar" src="${esc(info.photoUrl)}" alt="${esc(info.studentName || 'Student')}">` : '<span class="ulab-app-avatar"></span>';
-        header.innerHTML = `<div class="ulab-app-header-left"><a class="ulab-app-brand" href="/index.php"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a></div><span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;
+        const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
+        header.innerHTML = `<div class="ulab-app-header-left"><a class="ulab-app-brand" href="/index.php"><img class="ulab-app-logo-img" src="${logoUrl}" alt="ULAB Logo"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a></div><span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;
         document.body.insertBefore(header, document.body.firstChild);
         const footer = document.createElement('footer');
         footer.id = 'ulab-app-footer';
         footer.innerHTML = '<span><strong>ULAB Student Companion</strong> · Your academic workspace</span><span>Built for clearer decisions, every semester.</span>';
         document.body.appendChild(footer);
+
+        const appBrand = header.querySelector('.ulab-app-brand');
+        if (appBrand) {
+            appBrand.addEventListener('click', (e) => {
+                if (window.matchMedia(MOBILE_QUERY).matches) {
+                    e.preventDefault();
+                    document.body.classList.toggle('ulab-sidebar-open');
+                }
+            });
+        }
     }
 
     // mount(pageBodyClass, onModernChange?, onMount?) — call once

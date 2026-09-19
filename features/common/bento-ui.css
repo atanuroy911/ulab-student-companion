@@ -21,28 +21,30 @@
 
 /* ── Light (default) tokens ─────────────────────────────────────────── */
 :root {
-    --bento-bg:          #F0FDFA;
-    --bento-bg-alt:      #F8FAFC;
+    /* 4-Color Palette: #F8F3EA (Cream), #0B1957 (Navy), #9ECCFA (Sky Blue), #E6D8C7 (Sand) */
+    --bento-bg:          #F8F3EA;
+    --bento-bg-alt:      #E6D8C7;
     --bento-card:        #FFFFFF;
-    --bento-card-alt:    #F5F5F7;
-    --bento-border:      #99F6E4;
-    --bento-border-soft: rgba(13, 148, 136, 0.14);
-    --bento-fg:          #134E4A;
-    --bento-fg-muted:    #4B7A76;
-    --bento-fg-subtle:   #6B8E8B;
+    --bento-card-alt:    #F5EFE6;
+    --bento-border:      #E6D8C7;
+    --bento-border-soft: rgba(11, 25, 87, 0.14);
+    --bento-fg:          #0B1957;
+    --bento-fg-muted:    #35478C;
+    --bento-fg-subtle:   #5D6EAA;
 
-    --bento-primary:     #0D9488;
-    --bento-primary-alt: #14B8A6;
-    --bento-accent:      #EA580C;
-    --bento-accent-fg:   #FFFFFF;
-    --bento-destructive: #DC2626;
-    --bento-success:     #16A34A;
-    --bento-warning:     #D97706;
+    --bento-primary:     #0B1957;
+    --bento-primary-alt: #1F338A;
+    --bento-primary-light: #EBF4FE;
+    --bento-accent:      #9ECCFA;
+    --bento-accent-fg:   #0B1957;
+    --bento-destructive: #E11D48;
+    --bento-success:     #10B981;
+    --bento-warning:     #F59E0B;
 
-    --bento-shadow-rgb:  15, 42, 40;
-    --bento-shadow-sm:   0 1px 2px rgba(var(--bento-shadow-rgb), 0.06);
-    --bento-shadow-md:   0 4px 14px rgba(var(--bento-shadow-rgb), 0.08);
-    --bento-shadow-hover:0 10px 24px rgba(var(--bento-shadow-rgb), 0.12);
+    --bento-shadow-rgb:  11, 25, 87;
+    --bento-shadow-sm:   0 1px 3px rgba(var(--bento-shadow-rgb), 0.08);
+    --bento-shadow-md:   0 4px 14px rgba(var(--bento-shadow-rgb), 0.10);
+    --bento-shadow-hover:0 10px 24px rgba(var(--bento-shadow-rgb), 0.15);
 
     --bento-radius-lg:   20px;
     --bento-radius-md:   16px;
@@ -65,22 +67,23 @@
 
 /* ── Dark tokens — content-script pages (body.ulab-dark) ──────────────── */
 body.ulab-dark {
-    --bento-bg:          #0f141b;
-    --bento-bg-alt:      #151c25;
-    --bento-card:        #1b2430;
-    --bento-card-alt:    #222d3a;
-    --bento-border:      #405064;
-    --bento-border-soft: rgba(148, 163, 184, 0.28);
-    --bento-fg:          #f4f7fb;
-    --bento-fg-muted:    #c4ceda;
-    --bento-fg-subtle:   #91a0b2;
+    --bento-bg:          #050C2A;
+    --bento-bg-alt:      #0B1957;
+    --bento-card:        #0E206D;
+    --bento-card-alt:    #152985;
+    --bento-border:      #263E9B;
+    --bento-border-soft: rgba(158, 204, 250, 0.22);
+    --bento-fg:          #F8F3EA;
+    --bento-fg-muted:    #D2E5FA;
+    --bento-fg-subtle:   #9ECCFA;
 
-    --bento-primary:     #2DD4BF;
-    --bento-primary-alt: #14B8A6;
-    --bento-accent:      #FB923C;
-    --bento-accent-fg:   #14100B;
-    --bento-destructive: #F87171;
-    --bento-success:     #4ADE80;
+    --bento-primary:     #9ECCFA;
+    --bento-primary-alt: #74B3F7;
+    --bento-primary-light: rgba(158, 204, 250, 0.15);
+    --bento-accent:      #9ECCFA;
+    --bento-accent-fg:   #0B1957;
+    --bento-destructive: #FB7185;
+    --bento-success:     #34D399;
     --bento-warning:     #FBBF24;
 
     --bento-shadow-rgb:  0, 0, 0;
@@ -91,33 +94,27 @@ body.ulab-dark {
 }
 
 /* ── Dark tokens — side panel (data-theme + prefers-color-scheme fallback) */
-/* Scoped to html.ulab-panel (sidebar.html only — see its <html class>) so
- * this OS-preference fallback never leaks onto content-script pages
- * (Home/Preregistration/Schedule/Billing/Status/Profile/Teacher+Course
- * Evaluation), which have their OWN explicit light/dark control (the
- * sidebar footer's "Dark mode" switch, toggling body.ulab-dark — see
- * ulab-dashboard-shell.js's setTheme()). Before this scope existed, a
- * student whose OS/browser was set to dark mode would see every
- * content-script page forced dark regardless of that switch's state,
- * because :root has no data-theme attribute at all outside the panel. */
 @media (prefers-color-scheme: dark) {
     html.ulab-panel:not([data-theme]) {
-        --bento-bg:          #0f141b;
-        --bento-bg-alt:      #151c25;
-        --bento-card:        #1b2430;
-        --bento-card-alt:    #222d3a;
-        --bento-border:      #405064;
-        --bento-border-soft: rgba(148, 163, 184, 0.28);
-        --bento-fg:          #f4f7fb;
-        --bento-fg-muted:    #c4ceda;
-        --bento-fg-subtle:   #91a0b2;
-        --bento-primary:     #2DD4BF;
-        --bento-primary-alt: #14B8A6;
-        --bento-accent:      #FB923C;
-        --bento-accent-fg:   #14100B;
-        --bento-destructive: #F87171;
-        --bento-success:     #4ADE80;
+        --bento-bg:          #050C2A;
+        --bento-bg-alt:      #0B1957;
+        --bento-card:        #0E206D;
+        --bento-card-alt:    #152985;
+        --bento-border:      #263E9B;
+        --bento-border-soft: rgba(158, 204, 250, 0.22);
+        --bento-fg:          #F8F3EA;
+        --bento-fg-muted:    #D2E5FA;
+        --bento-fg-subtle:   #9ECCFA;
+
+        --bento-primary:     #9ECCFA;
+        --bento-primary-alt: #74B3F7;
+        --bento-primary-light: rgba(158, 204, 250, 0.15);
+        --bento-accent:      #9ECCFA;
+        --bento-accent-fg:   #0B1957;
+        --bento-destructive: #FB7185;
+        --bento-success:     #34D399;
         --bento-warning:     #FBBF24;
+
         --bento-shadow-rgb:  0, 0, 0;
         --bento-shadow-sm:   0 1px 2px rgba(0,0,0,0.35);
         --bento-shadow-md:   0 4px 14px rgba(0,0,0,0.4);
@@ -126,22 +123,25 @@ body.ulab-dark {
     }
 }
 :root[data-theme="dark"] {
-    --bento-bg:          #0f141b;
-    --bento-bg-alt:      #151c25;
-    --bento-card:        #1b2430;
-    --bento-card-alt:    #222d3a;
-    --bento-border:      #405064;
-    --bento-border-soft: rgba(148, 163, 184, 0.28);
-    --bento-fg:          #f4f7fb;
-    --bento-fg-muted:    #c4ceda;
-    --bento-fg-subtle:   #91a0b2;
-    --bento-primary:     #2DD4BF;
-    --bento-primary-alt: #14B8A6;
-    --bento-accent:      #FB923C;
-    --bento-accent-fg:   #14100B;
-    --bento-destructive: #F87171;
-    --bento-success:     #4ADE80;
+    --bento-bg:          #050C2A;
+    --bento-bg-alt:      #0B1957;
+    --bento-card:        #0E206D;
+    --bento-card-alt:    #152985;
+    --bento-border:      #263E9B;
+    --bento-border-soft: rgba(158, 204, 250, 0.22);
+    --bento-fg:          #F8F3EA;
+    --bento-fg-muted:    #D2E5FA;
+    --bento-fg-subtle:   #9ECCFA;
+
+    --bento-primary:     #9ECCFA;
+    --bento-primary-alt: #74B3F7;
+    --bento-primary-light: rgba(158, 204, 250, 0.15);
+    --bento-accent:      #9ECCFA;
+    --bento-accent-fg:   #0B1957;
+    --bento-destructive: #FB7185;
+    --bento-success:     #34D399;
     --bento-warning:     #FBBF24;
+
     --bento-shadow-rgb:  0, 0, 0;
     --bento-shadow-sm:   0 1px 2px rgba(0,0,0,0.35);
     --bento-shadow-md:   0 4px 14px rgba(0,0,0,0.4);

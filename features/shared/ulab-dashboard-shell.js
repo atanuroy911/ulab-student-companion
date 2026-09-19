@@ -270,18 +270,15 @@
             :root {
                 --ulab-sidebar-w: 240px;
                 --ulab-sidebar-w-collapsed: 64px;
-                /* Fixed dark-teal rail surface — sits alongside bento-ui.css's
-                   light/dark tokens rather than reacting to them, same as
-                   faculty's always-dark sidebar. Values match bento-ui.css's
-                   own dark-mode custom properties so it reads as one system. */
-                --ulab-rail-bg: #111820;
-                --ulab-rail-bg-alt: #1A2531;
-                --ulab-rail-border: rgba(148, 163, 184, 0.20);
-                --ulab-rail-fg: #F4F7FB;
-                --ulab-rail-fg-muted: #AEBCCC;
-                --ulab-rail-active-bg: #263545;
-                --ulab-rail-accent: #5EEAD4;
-                --ulab-rail-accent-alt: #2DD4BF;
+                /* 4-Color Palette: #0B1957 (Navy background), #9ECCFA (Sky Blue accent), #F8F3EA (Cream text), #E6D8C7 (Sand border) */
+                --ulab-rail-bg: #0B1957;
+                --ulab-rail-bg-alt: #132778;
+                --ulab-rail-border: rgba(230, 216, 199, 0.22);
+                --ulab-rail-fg: #F8F3EA;
+                --ulab-rail-fg-muted: #E6D8C7;
+                --ulab-rail-active-bg: #1B328F;
+                --ulab-rail-accent: #9ECCFA;
+                --ulab-rail-accent-alt: #74B3F7;
                 --ulab-rail-danger: #FB7185;
             }
 
@@ -310,7 +307,7 @@
                 max-width: 100% !important;
                 border-collapse: collapse !important;
                 border: 0 !important;
-                background: var(--bento-bg, #F0FDFA) !important;
+                background: var(--bento-bg, #F8F3EA) !important;
             }
             body.ulab-shell-mounted table.main > tbody > tr:first-child,
             body.ulab-shell-mounted table.main > tr:first-child,
@@ -330,71 +327,71 @@
                 padding: 0 28px 48px !important;
                 vertical-align: top;
                 border: 0 !important;
-                background: var(--bento-bg, #F0FDFA) !important;
+                background: var(--bento-bg, #F8F3EA) !important;
             }
             body.ulab-shell-mounted,
-            body.ulab-shell-mounted #ulab-app-footer { background: var(--bento-bg, #F0FDFA) !important; }
+            body.ulab-shell-mounted #ulab-app-footer { background: var(--bento-bg, #F8F3EA) !important; }
             body.ulab-shell-mounted .bento-root {
                 width: 100%; max-width: none; margin: 0; min-height: 100%;
-                background: var(--bento-bg, #F0FDFA);
+                background: var(--bento-bg, #F8F3EA);
             }
 
             #ulab-app-header {
                 position: sticky; top: 0; z-index: 100010;
                 display: flex; align-items: center; justify-content: space-between;
                 height: 64px; min-height: 64px; padding: 0 24px; box-sizing: border-box;
-                background: rgba(255,255,255,.94); border-bottom: 1px solid var(--bento-border-soft, rgba(13,136,120,.14));
-                box-shadow: 0 4px 18px rgba(15,42,40,.06); backdrop-filter: blur(12px);
+                background: rgba(248, 243, 234, .96); border-bottom: 1px solid var(--bento-border, #E6D8C7);
+                box-shadow: 0 4px 18px rgba(11,25,87,.06); backdrop-filter: blur(12px);
                 font-family: var(--bento-font-ui, -apple-system, "Segoe UI", sans-serif);
                 transition: background-color .2s ease, border-color .2s ease;
             }
             #ulab-app-header .ulab-app-header-left {
                 display: flex; align-items: center; gap: 14px;
             }
-            #ulab-app-header .ulab-app-brand { display:flex; align-items:center; gap:12px; color:var(--bento-fg,#134E4A); text-decoration:none; }
+            #ulab-app-header .ulab-app-brand { display:flex; align-items:center; gap:12px; color:var(--bento-fg,#0B1957); text-decoration:none; }
             #ulab-app-header .ulab-app-brand strong { display:block; font-size:14px; letter-spacing:.01em; }
-            #ulab-app-header .ulab-app-brand small { display:block; margin-top:2px; color:var(--bento-fg-muted,#4B7A76); font-size:11px; }
-            #ulab-app-header .ulab-app-context { color:var(--bento-fg-muted,#4B7A76); font-size:11.5px; text-align:right; }
+            #ulab-app-header .ulab-app-brand small { display:block; margin-top:2px; color:var(--bento-fg-muted,#35478C); font-size:11px; }
+            #ulab-app-header .ulab-app-context { color:var(--bento-fg-muted,#35478C); font-size:11.5px; text-align:right; }
             #ulab-app-header .ulab-app-user { display:flex; align-items:center; gap:9px; }
-            #ulab-app-header .ulab-app-avatar { width:34px; height:34px; border-radius:50%; object-fit:cover; border:2px solid var(--bento-primary,#0D9488); background:var(--bento-card-alt,#F5F5F7); }
+            #ulab-app-header .ulab-app-avatar { width:34px; height:34px; border-radius:50%; object-fit:cover; border:2px solid var(--bento-primary,#0B1957); background:var(--bento-card-alt,#F5EFE6); }
             #ulab-app-footer {
                 display:flex; justify-content:space-between; gap:16px; align-items:center;
-                padding:18px 28px; color:var(--bento-fg-muted,#4B7A76); background:var(--bento-card,#fff);
-                border-top:1px solid var(--bento-border-soft, rgba(13,136,120,.14));
+                padding:18px 28px; color:var(--bento-fg-muted,#35478C); background:var(--bento-card,#fff);
+                border-top:1px solid var(--bento-border, #E6D8C7);
                 font: 11px var(--bento-font-ui, -apple-system, "Segoe UI", sans-serif);
             }
-            #ulab-app-footer strong { color:var(--bento-fg,#134E4A); }
-            body.ulab-dark #ulab-app-header { background:#18212C; border-bottom-color:#3B4C60; box-shadow:0 4px 18px rgba(0,0,0,.24); }
+            #ulab-app-footer strong { color:var(--bento-fg,#0B1957); }
+            body.ulab-dark #ulab-app-header { background:#0B1957; border-bottom-color:#263E9B; box-shadow:0 4px 18px rgba(0,0,0,.24); }
             body.ulab-dark #ulab-app-header .ulab-app-brand,
-            body.ulab-dark #ulab-app-header .ulab-app-context { color:#F4F7FB; }
-            body.ulab-dark #ulab-app-header .ulab-app-brand small { color:#AEBCCC; }
-            body.ulab-dark #ulab-app-footer { background:#151C25; border-top-color:#3B4C60; color:#AEBCCC; }
-            body.ulab-dark #ulab-app-footer strong { color:#F4F7FB; }
+            body.ulab-dark #ulab-app-header .ulab-app-context { color:#F8F3EA; }
+            body.ulab-dark #ulab-app-header .ulab-app-brand small { color:#D2E5FA; }
+            body.ulab-dark #ulab-app-footer { background:#070E2E; border-top-color:#263E9B; color:#D2E5FA; }
+            body.ulab-dark #ulab-app-footer strong { color:#F8F3EA; }
 
             /* Topbar embedded hamburger toggle button */
             #${TOPBAR_TOGGLE_ID} {
                 display: none; align-items: center; justify-content: center;
                 width: 38px; height: 38px; border-radius: 10px;
-                background: var(--bento-card-alt, #F4F4F7); color: var(--bento-fg, #134E4A);
-                border: 1px solid var(--bento-border-soft, rgba(13,136,120,.18));
+                background: var(--bento-card, #FFFFFF); color: var(--bento-fg, #0B1957);
+                border: 1px solid var(--bento-border, #E6D8C7);
                 cursor: pointer; flex-shrink: 0; outline: none;
                 appearance: none; -webkit-appearance: none;
                 transition: background .18s ease, color .18s ease, border-color .18s ease, transform .15s ease, box-shadow .18s ease;
             }
             body.ulab-shell-mounted #${TOPBAR_TOGGLE_ID} { display: inline-flex; }
             #${TOPBAR_TOGGLE_ID}:hover {
-                background: var(--bento-primary-light, #E6FFFA);
-                color: var(--bento-primary, #0D9488);
-                border-color: var(--bento-primary, #0D9488);
+                background: #9ECCFA;
+                color: #0B1957;
+                border-color: #9ECCFA;
                 transform: translateY(-1px);
-                box-shadow: 0 2px 8px rgba(13,148,136,.15);
+                box-shadow: 0 2px 8px rgba(158,204,250,.35);
             }
             #${TOPBAR_TOGGLE_ID}:active { transform: translateY(0); }
             body.ulab-dark #${TOPBAR_TOGGLE_ID} {
-                background: #24303F; color: #F4F7FB; border-color: #3B4C60;
+                background: #152985; color: #F8F3EA; border-color: #263E9B;
             }
             body.ulab-dark #${TOPBAR_TOGGLE_ID}:hover {
-                background: #2D3D50; color: #5EEAD4; border-color: #5EEAD4;
+                background: #9ECCFA; color: #0B1957; border-color: #9ECCFA;
             }
 
             /* The stock #menubar row is replaced by the sidebar's own nav —

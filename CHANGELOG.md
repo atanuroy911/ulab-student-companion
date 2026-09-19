@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.1] - 2026-09-19
+
+### Improved
+- **Comprehensive Mobile & Responsive Layout Optimizations**:
+  - **Single-Column Info Grids on Mobile**: `.bento-infogrid` automatically collapses into single-column key-value pairs on mobile viewports (`<= 680px`), eliminating cramped text wrapping.
+  - **Responsive Stat Strips**: `.bento-statstrip` transforms into a 2x2 grid on mobile (`<= 680px`) and stacked single-column cards on small mobile screens (`<= 440px`).
+  - **Touch Target Sizes**: Scaled interactive buttons, action links, and chips to `28px–36px` touch target height.
+  - **Responsive App Header & Branding**: Adjusted `#ulab-app-header` mobile padding and header height (`56px`), hiding secondary sub-headings on narrow viewports (`<= 540px`) to prevent logo overlap.
+  - **Home Dashboard Launcher Grid**: Responsive 2-column mobile launcher layout for `.home-grid` on screens `< 480px`.
+  - **Mobile Table Scrolling**: Added smooth `-webkit-overflow-scrolling: touch` momentum scrolling and padding adjustments for all `.bento-tablewrap` containers.
+
+---
+
 ## [1.1.0] - 2026-09-19
 
 ### Added

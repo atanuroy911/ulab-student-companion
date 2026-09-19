@@ -692,33 +692,59 @@
         return html;
     }
 
-    function renderModalMyJourney(cat, completedRows, inProgressRows) {
+    function renderModalMyJourney(cat, completedRows, inProgressRows, scheduleRows, preregRows) {
         if (!cat || !cat.semesterPlan || !cat.semesterPlan.length) {
             return `<div class="bento-notice info" style="margin:12px;">No standard semester-by-semester plan defined for this program yet.</div>`;
         }
 
+        const norm = str => String(str || '').replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+
         const completedMap = new Map();
-        (completedRows || []).forEach(item => {
-            if (item && item.code) completedMap.set(normCode(item.code), item);
+        const completedList = Array.isArray(completedRows) ? completedRows : [];
+        completedList.forEach(item => {
+            if (!item) return;
+            const code = norm(item.code || item.courseId || item.CourseID || item.CourseId || item.unescoCode || '');
+            if (code) completedMap.set(code, item);
+            const nameMatch = String(item.name || item.courseName || item.title || '').match(/^([A-Za-z]{2,6}\s*[-]?\s*\d{3,4}[A-Za-z]?)/);
+            if (nameMatch) {
+                const nameCode = norm(nameMatch[1]);
+                if (nameCode && !completedMap.has(nameCode)) completedMap.set(nameCode, item);
+            }
         });
 
-        const inProgressSet = new Set();
-        (inProgressRows || []).forEach(item => {
-            if (item && item.code) inProgressSet.add(normCode(item.code));
-        });
+        const inProgressMap = new Map();
+        const addInProgressItem = (item, source) => {
+            if (!item) return;
+            const code = norm(item.code || item.courseId || item.CourseID || item.CourseId || item.unescoCode || '');
+            const rec = {
+                code: item.code || item.courseId || code,
+                name: item.name || item.title || item.courseName || '',
+                semester: item.semester || 'Current Term',
+                source: source
+            };
+            if (code && !inProgressMap.has(code)) inProgressMap.set(code, rec);
+            const nameMatch = String(item.name || item.courseName || item.title || '').match(/^([A-Za-z]{2,6}\s*[-]?\s*\d{3,4}[A-Za-z]?)/);
+            if (nameMatch) {
+                const nameCode = norm(nameMatch[1]);
+                if (nameCode && !inProgressMap.has(nameCode)) inProgressMap.set(nameCode, rec);
+            }
+        };
+
+        (Array.isArray(inProgressRows) ? inProgressRows : []).forEach(item => addInProgressItem(item, 'Status'));
+        (Array.isArray(scheduleRows) ? scheduleRows : []).forEach(item => addInProgressItem(item, 'Schedule'));
+        (Array.isArray(preregRows) ? preregRows : []).filter(item => item && (item.registeredThisPlan || /Enrolled|Registered|Selected/i.test(item.status || ''))).forEach(item => addInProgressItem(item, 'Prereg'));
 
         const semSet = new Set();
-        (completedRows || []).forEach(item => {
+        completedList.forEach(item => {
             if (item && item.semester) semSet.add(item.semester.trim());
         });
         const estCurrentSemIdx = Math.max(0, semSet.size);
 
         let totalPassedCr = 0;
         let passedCount = 0;
-        let inProgressCount = (inProgressRows || []).length;
         let retakeCount = 0;
 
-        (completedRows || []).forEach(item => {
+        completedList.forEach(item => {
             const g = (item.grade || '').trim().toUpperCase();
             if (g === 'F') {
                 retakeCount++;
@@ -727,6 +753,7 @@
                 totalPassedCr += Number(item.credits || item.credit || 3);
             }
         });
+        const inProgressCount = inProgressMap.size;
 
         let html = `
             <div class="bento-statstrip" style="margin-bottom:12px; border-bottom:1px solid var(--bento-border-soft);">
@@ -735,7 +762,7 @@
                     <span class="bento-stat-value">${passedCount} <span style="font-size:11px;font-weight:600;">(${totalPassedCr} cr)</span></span>
                 </div>
                 <div class="bento-stat">
-                    <span class="bento-stat-label">In Progress</span>
+                    <span class="bento-stat-label">In Progress / Enrolled</span>
                     <span class="bento-stat-value">${inProgressCount}</span>
                 </div>
                 <div class="bento-stat ${retakeCount > 0 ? 'destructive' : ''}">
@@ -745,6 +772,8 @@
             </div>
         `;
 
+        const matchedKeys = new Set();
+
         cat.semesterPlan.forEach((sem, semIdx) => {
             let semPassed = 0;
             let semTotal = sem.courses.length;
@@ -752,37 +781,49 @@
             const courseRowsHtml = sem.courses.map(code => {
                 const co = cat.resolve(code);
                 const candidates = new Set();
-                candidates.add(normCode(code));
+                candidates.add(norm(code));
                 if (co) {
-                    if (co.code) candidates.add(normCode(co.code));
-                    if (co.unescoCode) candidates.add(normCode(co.unescoCode));
-                    if (Array.isArray(co.oldCodes)) co.oldCodes.forEach(oc => candidates.add(normCode(oc)));
+                    if (co.code) candidates.add(norm(co.code));
+                    if (co.unescoCode) candidates.add(norm(co.unescoCode));
+                    if (Array.isArray(co.oldCodes)) co.oldCodes.forEach(oc => candidates.add(norm(oc)));
                 }
 
                 let status = null;
+
+                // Check in-progress / schedule
                 for (const cand of candidates) {
-                    if (inProgressSet.has(cand)) {
-                        status = { label: 'In Progress', pillClass: 'pill-primary', rowClass: '', note: 'Current Term' };
+                    if (inProgressMap.has(cand)) {
+                        const item = inProgressMap.get(cand);
+                        matchedKeys.add(cand);
+                        candidates.forEach(c => matchedKeys.add(c));
+                        const sourceLabel = item.source ? ` (${item.source})` : '';
+                        status = { label: 'In Progress', pillClass: 'pill-primary', rowClass: '', note: `Currently Enrolled${sourceLabel}` };
                         break;
                     }
                 }
+
+                // Check completed
                 if (!status) {
                     for (const cand of candidates) {
                         if (completedMap.has(cand)) {
                             const item = completedMap.get(cand);
+                            matchedKeys.add(cand);
+                            candidates.forEach(c => matchedKeys.add(c));
                             const g = (item.grade || '').trim().toUpperCase();
+                            const termLabel = item.semester ? ` (${item.semester})` : '';
                             if (g === 'F') {
-                                status = { label: `Failed (${g})`, pillClass: 'pill-destructive', rowClass: '', note: 'Retake Needed' };
+                                status = { label: `Failed (${g})`, pillClass: 'pill-destructive', rowClass: '', note: `Retake Needed${termLabel}` };
                             } else if (g === 'W' || g === 'WF' || g === 'WP') {
-                                status = { label: `Withdrawn (${g})`, pillClass: 'pill-warning', rowClass: '', note: 'Withdrawn' };
+                                status = { label: `Withdrawn (${g})`, pillClass: 'pill-warning', rowClass: '', note: `Withdrawn${termLabel}` };
                             } else {
                                 semPassed++;
-                                status = { label: `Passed (${g || 'P'})`, pillClass: 'pill-success', rowClass: 'is-ok', note: `Grade: ${g || 'P'}` };
+                                status = { label: `Passed (${g || 'P'})`, pillClass: 'pill-success', rowClass: 'is-ok', note: `Grade: ${g || 'P'}${termLabel}` };
                             }
                             break;
                         }
                     }
                 }
+
                 if (!status) {
                     if (semIdx < estCurrentSemIdx) {
                         status = { label: 'Skipped', pillClass: 'pill-accent', rowClass: '', note: 'Not Taken' };
@@ -837,10 +878,98 @@
             `;
         });
 
+        // Additional, Elective & Custom Courses section
+        const unmatchedItems = [];
+        const seenUnmatchedCodes = new Set();
+
+        inProgressMap.forEach((item, key) => {
+            if (!matchedKeys.has(key) && !seenUnmatchedCodes.has(key)) {
+                seenUnmatchedCodes.add(key);
+                const sourceLabel = item.source ? ` (${item.source})` : '';
+                unmatchedItems.push({
+                    code: item.code || key,
+                    title: item.name || (cat ? cat.titleFor(item.code || key) : '') || '—',
+                    credits: 3,
+                    statusLabel: 'In Progress',
+                    pillClass: 'pill-primary',
+                    note: item.semester ? `Enrolled ${item.semester}${sourceLabel}` : `Current Schedule${sourceLabel}`
+                });
+            }
+        });
+
+        completedList.forEach(item => {
+            if (!item) return;
+            const primaryCode = norm(item.code || item.name || '');
+            let isMatched = false;
+            if (primaryCode && matchedKeys.has(primaryCode)) isMatched = true;
+            const nameMatch = String(item.name || item.title || '').match(/^([A-Za-z]{2,6}\s*[-]?\s*\d{3,4}[A-Za-z]?)/);
+            if (nameMatch && matchedKeys.has(norm(nameMatch[1]))) isMatched = true;
+
+            if (!isMatched && primaryCode && !seenUnmatchedCodes.has(primaryCode)) {
+                seenUnmatchedCodes.add(primaryCode);
+                if (nameMatch) seenUnmatchedCodes.add(norm(nameMatch[1]));
+
+                const g = (item.grade || '').trim().toUpperCase();
+                let statusLabel = `Passed (${g || 'P'})`;
+                let pillClass = 'pill-success';
+                if (g === 'F') { statusLabel = `Failed (${g})`; pillClass = 'pill-destructive'; }
+                else if (g === 'W' || g === 'WF' || g === 'WP') { statusLabel = `Withdrawn (${g})`; pillClass = 'pill-warning'; }
+
+                const termLabel = item.semester ? `Taken in ${item.semester}` : 'Completed';
+                unmatchedItems.push({
+                    code: item.code || primaryCode,
+                    title: item.name || (cat ? cat.titleFor(item.code) : '') || '—',
+                    credits: item.credits != null ? item.credits : 3,
+                    statusLabel: statusLabel,
+                    pillClass: pillClass,
+                    note: termLabel
+                });
+            }
+        });
+
+        if (unmatchedItems.length > 0) {
+            const passedUnmatchedCount = unmatchedItems.filter(i => i.pillClass === 'pill-success').length;
+            html += `
+                <details class="bento-panel standalone" style="margin-bottom:10px;" open>
+                    <summary style="padding:8px 12px; font-weight:800; font-size:12px; cursor:pointer; background:var(--bento-card-alt); color:var(--bento-fg); display:flex; justify-content:space-between; align-items:center;">
+                        <span>Additional, Elective & Custom Courses Taken (${unmatchedItems.length})</span>
+                        <span style="font-size:11px; font-weight:600; color:var(--bento-fg-muted);">${passedUnmatchedCount} Passed</span>
+                    </summary>
+                    <div style="padding:10px;">
+                        <p style="font-size:11.5px; color:var(--bento-fg-muted); margin-bottom:8px;">Courses taken outside the standard semester plan template (electives, custom sequence, or completed in different terms):</p>
+                        <div class="bento-tablewrap">
+                            <table class="bento-compact">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Title</th>
+                                        <th class="c-center">Credits</th>
+                                        <th class="c-center">Status</th>
+                                        <th>Details / Term</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${unmatchedItems.map(item => `
+                                        <tr>
+                                            <td class="c-code">${esc(item.code)}</td>
+                                            <td>${esc(item.title)}</td>
+                                            <td class="c-center">${esc(item.credits)}</td>
+                                            <td class="c-center"><span class="pill ${item.pillClass}">${esc(item.statusLabel)}</span></td>
+                                            <td class="c-sub">${esc(item.note)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </details>
+            `;
+        }
+
         return html;
     }
 
-    function openRecommendationModal(recs, extras, haveHistory, programCode, completedRows, inProgressRows) {
+    function openRecommendationModal(recs, extras, haveHistory, programCode, completedRows, inProgressRows, scheduleRows, preregRows) {
         const existing = document.getElementById('ulab-prereg-rec-modal');
         if (existing) existing.remove();
 
@@ -849,7 +978,7 @@
 
         const offeredRecsHtml = renderRecommendationBody(recs, extras, haveHistory, programCode);
         const planHtml = renderModalTypicalPlan(cat);
-        const journeyHtml = renderModalMyJourney(cat, completedRows, inProgressRows);
+        const journeyHtml = renderModalMyJourney(cat, completedRows, inProgressRows, scheduleRows, preregRows);
 
         const opener = document.activeElement;
         const overlay = document.createElement('div');
@@ -1226,7 +1355,7 @@
         const recBtn = view.querySelector('#ulab-prereg-rec-btn');
         if (recBtn) {
             recBtn.addEventListener('click', () => {
-                openRecommendationModal(recs, extras, haveHistory, profile.programCode, completed, registered);
+                openRecommendationModal(recs, extras, haveHistory, profile.programCode, completed, inProgress, store.ulabClassSchedule, registered);
             });
         }
     }
@@ -1291,7 +1420,7 @@
             const parsed = scrapeAndPersist();
             const courses = parsed.courses;
             const extras = parsed.extras;
-            const keys = ['ulabCompletedCourses', 'ulabInProgressCourses', 'ulabStudentProfile'];
+            const keys = ['ulabCompletedCourses', 'ulabInProgressCourses', 'ulabClassSchedule', 'ulabPreregCourses', 'ulabStudentProfile'];
             const start = (store) => {
                 const initial = store || {};
                 const needsFetch = !(Array.isArray(initial.ulabCompletedCourses) && initial.ulabCompletedCourses.length)

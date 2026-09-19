@@ -59,12 +59,90 @@
             #${VIEW_ID} .confirmation-cancel { display:inline-block; margin-top:16px; color:var(--bento-fg-muted); font-size:12px; text-decoration:none; }
             #${VIEW_ID} .confirmation-cancel:hover { color:var(--bento-primary); }
             @media (max-width:720px) { #${VIEW_ID} .confirmation-layout { grid-template-columns:1fr; } #${VIEW_ID} h1 { font-size:24px; } }
+
+            /* bKash Merchant Modal Overlay */
+            #app.app, div[data-v-app] {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                z-index: 9999999 !important;
+                background: rgba(11, 25, 87, 0.75) !important;
+                backdrop-filter: blur(8px) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 20px !important;
+                box-sizing: border-box !important;
+                overflow-y: auto !important;
+            }
+            #app .container {
+                background: #ffffff !important;
+                border-radius: 20px !important;
+                box-shadow: 0 24px 72px rgba(11, 25, 87, 0.35), 0 0 0 1px rgba(11, 25, 87, 0.08) !important;
+                width: 100% !important;
+                max-width: 420px !important;
+                padding: 28px 24px 20px !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+                font-family: var(--bento-font-ui, system-ui, -apple-system, sans-serif) !important;
+                animation: ulabBkashPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+                position: relative !important;
+            }
+            @keyframes ulabBkashPop {
+                from { opacity: 0; transform: scale(0.94) translateY(12px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            #app .header { display: flex !important; justify-content: center !important; align-items: center !important; padding-bottom: 12px !important; }
+            #app .header__logo { height: 48px !important; width: auto !important; }
+            #app .hr { display: block !important; height: 1px !important; background: #e2e8f0 !important; margin: 12px 0 16px !important; }
+            #app .merchant { display: flex !important; align-items: center !important; gap: 14px !important; padding: 14px 16px !important; background: #f8fafc !important; border-radius: 12px !important; margin-bottom: 18px !important; border: 1px solid #e2e8f0 !important; }
+            #app .merchant__logo { width: 42px !important; height: 42px !important; object-fit: contain !important; border-radius: 8px !important; }
+            #app .merchant__details { flex: 1 !important; }
+            #app .merchant__details__name { margin: 0 !important; font-size: 15px !important; font-weight: 700 !important; color: #0b1957 !important; }
+            #app .merchant__details__invoice { margin: 2px 0 0 !important; font-size: 11px !important; color: #64748b !important; }
+            #app .merchant__amount { font-size: 18px !important; font-weight: 800 !important; color: #e2136e !important; }
+            #app .form, #app .card { background: linear-gradient(135deg, #e2136e, #d10056) !important; padding: 20px 18px !important; border-radius: 14px !important; color: #ffffff !important; text-align: center !important; box-shadow: 0 8px 24px rgba(226, 19, 110, 0.25) !important; margin-bottom: 18px !important; }
+            #app .form__label { display: block !important; font-size: 13px !important; font-weight: 700 !important; margin-bottom: 12px !important; color: #ffffff !important; letter-spacing: 0.02em !important; }
+            #app input.form-input, #app input#WALLET, #app input[type="text"], #app input[type="password"] { width: 100% !important; box-sizing: border-box !important; padding: 12px 14px !important; font-size: 18px !important; font-weight: 700 !important; text-align: center !important; letter-spacing: 0.08em !important; border-radius: 10px !important; border: 2px solid rgba(255, 255, 255, 0.4) !important; background: #ffffff !important; color: #0b1957 !important; outline: none !important; transition: all 0.2s ease !important; }
+            #app input:focus { border-color: #ffffff !important; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3) !important; }
+            #app .form__info { margin-top: 12px !important; font-size: 11px !important; color: rgba(255, 255, 255, 0.9) !important; }
+            #app .form__info a { color: #ffffff !important; text-decoration: underline !important; }
+            #app .btn-group { display: flex !important; gap: 12px !important; margin-bottom: 16px !important; }
+            #app .btn { flex: 1 !important; padding: 12px 18px !important; font-size: 14px !important; font-weight: 700 !important; border-radius: 10px !important; cursor: pointer !important; border: none !important; transition: all 0.2s ease !important; }
+            #app .btn-group__btn-close { background: #f1f5f9 !important; color: #475569 !important; border: 1px solid #cbd5e1 !important; }
+            #app .btn-group__btn-close:hover { background: #e2e8f0 !important; color: #0f172a !important; }
+            #app .btn-group__btn-confirm { background: #e2136e !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(226, 19, 110, 0.3) !important; }
+            #app .btn-group__btn-confirm:hover:not(:disabled) { background: #c80d5e !important; transform: translateY(-1px) !important; }
+            #app .btn-group__btn-confirm:disabled { opacity: 0.55 !important; cursor: not-allowed !important; }
+            #app .footer { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 6px !important; padding-top: 12px !important; border-top: 1px solid #f1f5f9 !important; font-size: 11px !important; color: #94a3b8 !important; }
+            #app .footer__helpline { display: flex !important; align-items: center !important; gap: 6px !important; color: #e2136e !important; text-decoration: none !important; font-weight: 700 !important; }
+            #app .footer__helpline-number { color: #e2136e !important; text-decoration: none !important; }
         `;
         document.head.appendChild(style);
     }
 
+    function observeBkashModal() {
+        function checkAndLift() {
+            const bkashApp = document.getElementById('app') || document.querySelector('.app[data-v-app]');
+            if (bkashApp && bkashApp.parentElement && bkashApp.parentElement !== document.body) {
+                document.body.appendChild(bkashApp);
+            }
+        }
+        checkAndLift();
+        const observer = new MutationObserver(() => {
+            checkAndLift();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        if (document.documentElement) {
+            observer.observe(document.documentElement, { childList: true, subtree: true });
+        }
+    }
+
     function init() {
         if (!window.ULAB_SHELL) return;
+        observeBkashModal();
         window.ULAB_SHELL.mount('ulab-page-payment-confirmation', null, (info) => {
             const details = getPaymentDetails();
             const contentCell = window.ULAB_SHELL.wrapLegacyContent() || document.querySelector('td.content') || document.body;

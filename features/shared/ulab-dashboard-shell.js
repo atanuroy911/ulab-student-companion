@@ -829,8 +829,7 @@
 
         const brand = document.createElement('div');
         brand.className = 'ulab-sb-brand';
-        const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
-        brand.innerHTML = `<img class="ulab-sb-logo-img" src="${logoUrl}" alt="ULAB Logo"><span>Student Companion</span>`;
+        brand.innerHTML = `<button type="button" id="${TOPBAR_TOGGLE_ID}" aria-label="Toggle sidebar" title="Toggle sidebar (Ctrl+B)">${svg('menu', 18)}</button><span>Student Companion</span>`;
         sidebar.appendChild(brand);
 
         const simpleMode = isSimpleMode();
@@ -981,15 +980,15 @@
     function buildHamburger() {
         let btn = document.getElementById(TOPBAR_TOGGLE_ID);
         if (!btn) {
-            const headerLeft = document.querySelector('#ulab-app-header .ulab-app-header-left');
-            if (headerLeft) {
+            const brand = document.querySelector('#ulab-sidebar .ulab-sb-brand');
+            if (brand) {
                 btn = document.createElement('button');
                 btn.id = TOPBAR_TOGGLE_ID;
                 btn.type = 'button';
                 btn.setAttribute('aria-label', 'Toggle sidebar');
                 btn.setAttribute('title', 'Toggle sidebar (Ctrl+B)');
                 btn.innerHTML = svg('menu', 18);
-                headerLeft.insertBefore(btn, headerLeft.firstChild);
+                brand.insertBefore(btn, brand.firstChild);
             }
         }
         if (btn && !btn._ulabWired) {
@@ -1271,7 +1270,6 @@
         const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
         header.innerHTML = `
             <div class="ulab-app-header-left">
-                <button type="button" id="${TOPBAR_TOGGLE_ID}" aria-label="Toggle sidebar" title="Toggle sidebar (Ctrl+B)">${svg('menu', 18)}</button>
                 <a class="ulab-app-brand" href="/index.php"><img class="ulab-app-logo-img" src="${logoUrl}" alt="ULAB Logo"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a>
             </div>
             <span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;

@@ -279,10 +279,7 @@
         'no-prereq': ['pill-muted', 'No prereqs listed'],
         'in-progress': ['pill-warning', 'Prereq in progress'],
         missing: ['pill-destructive', 'Missing prereq'],
-        // "Already passed" rather than the old bare "Retake": the state is
-        // the same one, but this is the label a student reads as "I have
-        // taken this" — which is the whole point of surfacing it here.
-        retake: ['pill-accent', 'Already passed'],
+        retake: null,
         unknown: ['pill-muted', 'Unknown'],
         'no-history': ['pill-muted', '—'],
     };
@@ -353,14 +350,14 @@
     // captured in reference-html/.
     function renderRow(course, index, info, selectionLocked) {
         const e = course.elig;
-        const [pillClass, pillLabel] = ELIG_PILL[e.state] || ELIG_PILL.unknown;
+        const pillInfo = ELIG_PILL[e.state] || ELIG_PILL.unknown;
         const fallbackAction = portalAction(
             `/Preregistration.php?task=changeTakenStatus&studentID=${encodeURIComponent(info.studentId || '')}&course=${encodeURIComponent(course.code)}&taken=${course.registeredThisPlan ? '0' : '1'}`,
             course.registeredThisPlan ? 'Unselect' : 'Select',
             course.registeredThisPlan
         );
 
-        let eligCell = `<span class="pill ${pillClass}">${esc(pillLabel)}</span>`;
+        let eligCell = (pillInfo && pillInfo[1]) ? `<span class="pill ${pillInfo[0]}">${esc(pillInfo[1])}</span>` : '';
         if (e.state === 'missing' || e.state === 'in-progress') {
             const list = e.unmet.map(c => esc(c)).join(', ');
             eligCell += `<div class="c-sub">Needs ${list}</div>`;
@@ -1143,7 +1140,6 @@
         const chipDefs = [
             ['all', 'All'], ['eligible', 'Eligible'], ['missing', 'Missing prereq'],
             ['registered', 'Registered'], ['unregistered', 'Not registered'],
-            ['passed', 'Already passed'],
         ];
 
         // ── Flow state (see registration-flow.md) ────────────────────────

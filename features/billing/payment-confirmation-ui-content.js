@@ -10,9 +10,12 @@
 
     function getPaymentDetails() {
         const cell = document.querySelector('td.content') || document.body;
-        const text = (cell.textContent || '').replace(/\s+/g, ' ').trim();
-        const amountMatch = text.match(/Amount\s*:\s*([\d,]+(?:\.\d+)?)[^\d]*(?:BDT|Tk)/i);
-        const wordsMatch = text.match(/IN WORD:\s*([^<]+?)(?=\s*Summary|\s*City|$)/i);
+        const clone = cell.cloneNode(true);
+        clone.querySelectorAll('script, style').forEach(el => el.remove());
+        const text = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+        const amountMatch = text.match(/Amount\s*:\s*([\d,]+(?:\.\d+)?)[^\d]*(?:BDT|Tk)/i)
+            || text.match(/([\d,]+(?:\.\d+)?)\s*(?:BDT|Tk)/i);
+        const wordsMatch = text.match(/IN WORD\s*:?\s*([A-Za-z\s,]+?)(?=\s*Var|\s*function|\s*\$|\s*Summary|\s*City|\s*Amount|\s*Tk|\d|$)/i);
         const amount = amountMatch ? parseFloat(amountMatch[1].replace(/,/g, '')) : null;
         const cityLink = Array.from(cell.querySelectorAll('a')).find(link => /CityCreateOrder/i.test(link.href || ''));
         const cancelLink = Array.from(cell.querySelectorAll('a')).find(link => /PaymentInfo/i.test(link.href || ''));

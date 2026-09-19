@@ -53,10 +53,14 @@
     const KEYS = {
         modern: 'ulabModernUI',
         theme: 'ulabModernTheme',         // 'light' | 'dark'
+        mode: 'ulabUiMode',               // 'simple' | 'advanced'
         collapsed: 'ulabSidebarCollapsed',
         fontScale: 'ulabFontScale',        // percentage, e.g. 100
         navGroups: 'ulabNavGroupsCollapsed' // { [groupLabel]: boolean }
     };
+    let currentUiMode = 'simple';
+    function getUiMode() { return currentUiMode; }
+    function isSimpleMode() { return currentUiMode === 'simple'; }
     const FONT_SCALE_MIN = 80;
     const FONT_SCALE_MAX = 150;
     const FONT_SCALE_STEP = 10;
@@ -444,8 +448,15 @@
                 border-bottom: 1px solid var(--ulab-rail-border);
             }
             #${SIDEBAR_ID} .ulab-sb-brand span { font-weight: 700; font-size: .94rem; color: #fff; white-space: nowrap; overflow: hidden; display: inline-block; }
+            #${SIDEBAR_ID} .ulab-sb-logo-img {
+                width: 36px; height: 36px; border-radius: 10px; background: #fff; padding: 3px; object-fit: contain; flex-shrink: 0;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.2); transition: transform .2s ease;
+            }
             body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-brand {
                 justify-content: center; padding: 0; width: var(--ulab-sidebar-w-collapsed);
+            }
+            body.ulab-sidebar-collapsed #${SIDEBAR_ID} .ulab-sb-brand .ulab-sb-logo-img {
+                width: 38px; height: 38px; margin: 0 auto;
             }
 
             #${SIDEBAR_ID} .ulab-sb-group-label {
@@ -818,11 +829,20 @@
 
         const brand = document.createElement('div');
         brand.className = 'ulab-sb-brand';
-        brand.innerHTML = `<button type="button" id="${TOPBAR_TOGGLE_ID}" aria-label="Toggle sidebar" title="Toggle sidebar (Ctrl+B)">${svg('menu', 18)}</button><span>Student Companion</span>`;
+        const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
+        brand.innerHTML = `<img class="ulab-sb-logo-img" src="${logoUrl}" alt="ULAB Logo"><span>Student Companion</span>`;
         sidebar.appendChild(brand);
+
+        const simpleMode = isSimpleMode();
+        const allowedSimpleTools = ['open-tool:capstone', 'open-tool:catalogue', 'open-tool:marks'];
 
         const navWrap = document.createElement('div');
         NAV_GROUPS.forEach((group) => {
+            let itemsToRender = group.items;
+            if (group.label === 'My Tools' && simpleMode) {
+                itemsToRender = group.items.filter(item => allowedSimpleTools.includes(item.action));
+            }
+            if (!itemsToRender.length) return;
             const itemsWrap = document.createElement('div');
             itemsWrap.className = 'ulab-sb-group-items';
 
@@ -844,7 +864,7 @@
                 navWrap.appendChild(header);
             }
 
-            group.items.forEach((item) => {
+            itemsToRender.forEach((item) => {
                 const el = document.createElement(item.href ? 'a' : 'button');
                 el.className = 'ulab-sb-link';
                 el.setAttribute('title', item.label);
@@ -875,6 +895,21 @@
         userRow.innerHTML = `${svg('people', 14)}<span>${userLabel}</span>`;
         footer.appendChild(userRow);
 
+        const modeRow = document.createElement('div');
+        modeRow.className = 'ulab-sb-row';
+        modeRow.id = 'ulab-mode-row';
+        modeRow.setAttribute('title', 'Toggle Simple / Advanced UI Mode');
+        modeRow.innerHTML = `<span class="ulab-sb-row-label">${svg('swap', 14)}<span class="ulab-sb-text">${isSimpleMode() ? 'Simple Mode' : 'Advanced Mode'}</span></span><span class="ulab-switch-sm ${isSimpleMode() ? 'on' : ''}"></span>`;
+        footer.appendChild(modeRow);
+
+        modeRow.addEventListener('click', () => {
+            const nextMode = isSimpleMode() ? 'advanced' : 'simple';
+            currentUiMode = nextMode;
+            chrome.storage.local.set({ [KEYS.mode]: nextMode }, () => {
+                location.reload();
+            });
+        });
+
         const themeRow = document.createElement('div');
         themeRow.className = 'ulab-sb-row';
         themeRow.id = 'ulab-theme-row';
@@ -901,11 +936,6 @@
             </span>`;
         footer.appendChild(fontRow);
 
-        // Plain navigation, not a form submit — this site's logout is a
-        // real `<a href="index.php?logout=1">` link (see reference-html/
-        // dashboard.html's #menubar), unlike faculty's antiforgery-token
-        // POST form. No token to preserve, so a direct navigation is
-        // correct and simplest.
         const logoutLink = document.createElement('a');
         logoutLink.className = 'ulab-sb-logout';
         logoutLink.href = LOGOUT_HREF;
@@ -951,15 +981,15 @@
     function buildHamburger() {
         let btn = document.getElementById(TOPBAR_TOGGLE_ID);
         if (!btn) {
-            const brand = document.querySelector('#ulab-sidebar .ulab-sb-brand');
-            if (brand) {
+            const headerLeft = document.querySelector('#ulab-app-header .ulab-app-header-left');
+            if (headerLeft) {
                 btn = document.createElement('button');
                 btn.id = TOPBAR_TOGGLE_ID;
                 btn.type = 'button';
                 btn.setAttribute('aria-label', 'Toggle sidebar');
                 btn.setAttribute('title', 'Toggle sidebar (Ctrl+B)');
                 btn.innerHTML = svg('menu', 18);
-                brand.insertBefore(btn, brand.firstChild);
+                headerLeft.insertBefore(btn, headerLeft.firstChild);
             }
         }
         if (btn && !btn._ulabWired) {
@@ -1239,7 +1269,12 @@
         const name = info && info.studentName ? `Signed in as ${esc(info.studentName)}` : 'Student portal';
         const avatar = info && info.photoUrl ? `<img class="ulab-app-avatar" src="${esc(info.photoUrl)}" alt="${esc(info.studentName || 'Student')}">` : '<span class="ulab-app-avatar"></span>';
         const logoUrl = chrome.runtime.getURL('icons/ulab.svg');
-        header.innerHTML = `<div class="ulab-app-header-left"><a class="ulab-app-brand" href="/index.php"><img class="ulab-app-logo-img" src="${logoUrl}" alt="ULAB Logo"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a></div><span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;
+        header.innerHTML = `
+            <div class="ulab-app-header-left">
+                <button type="button" id="${TOPBAR_TOGGLE_ID}" aria-label="Toggle sidebar" title="Toggle sidebar (Ctrl+B)">${svg('menu', 18)}</button>
+                <a class="ulab-app-brand" href="/index.php"><img class="ulab-app-logo-img" src="${logoUrl}" alt="ULAB Logo"><span><strong>ULAB STUDENT URMS PORTAL</strong><small>University of Liberal Arts Bangladesh</small></span></a>
+            </div>
+            <span class="ulab-app-user">${avatar}<span class="ulab-app-context">${name}</span></span>`;
         document.body.insertBefore(header, document.body.firstChild);
         const footer = document.createElement('footer');
         footer.id = 'ulab-app-footer';

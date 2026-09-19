@@ -138,6 +138,12 @@
     // both rendered up front so switching is instant and needs no re-fetch.
     function renderGpaSection(gpaRows) {
         if (!gpaRows || !gpaRows.length) return '';
+        const isSimple = window.ULAB_SHELL && window.ULAB_SHELL.isSimpleMode();
+        if (isSimple) {
+            return `
+                <h2 class="bento-sectitle" style="margin-bottom:8px;">Semester-wise GPA</h2>
+                <div data-gpa-panel="table">${renderGpaTable(gpaRows, true)}</div>`;
+        }
         return `
             <div class="gpa-head">
                 <h2 class="bento-sectitle" style="margin:0;">Semester-wise GPA</h2>
@@ -167,19 +173,20 @@
 
     function renderGpaTable(gpaRows, headless) {
         if (!gpaRows || !gpaRows.length) return '';
+        const isSimple = window.ULAB_SHELL && window.ULAB_SHELL.isSimpleMode();
         const max = Math.max(...gpaRows.map(r => r.gpa || 0), 4);
         return `
             ${headless ? '' : '<h2 class="bento-sectitle">Semester-wise GPA</h2>'}
             <div class="bento-tablewrap">
                 <table class="bento-compact">
-                    <thead><tr><th>Semester</th><th>Credit Hours Completed</th><th>GPA</th><th>CGPA</th><th>Trend</th></tr></thead>
+                    <thead><tr><th>Semester</th><th>Credit Hours Completed</th><th>GPA</th><th>CGPA</th>${isSimple ? '' : '<th>Trend</th>'}</tr></thead>
                     <tbody>${gpaRows.map(r => `
                         <tr>
                             <td class="c-code">${esc(r.semester)}</td>
                             <td class="c-right">${r.creditHours != null ? esc(r.creditHours) : '—'}</td>
                             <td class="c-right">${r.gpa != null ? esc(r.gpa.toFixed(2)) : '—'}</td>
                             <td class="c-right">${r.cgpa != null ? esc(r.cgpa.toFixed(2)) : '—'}</td>
-                            <td style="width:120px"><span class="bento-meter"><i style="width:${Math.max(2, Math.round((r.gpa || 0) / max * 100))}%"></i></span></td>
+                            ${isSimple ? '' : `<td style="width:120px"><span class="bento-meter"><i style="width:${Math.max(2, Math.round((r.gpa || 0) / max * 100))}%"></i></span></td>`}
                         </tr>`).join('')}</tbody>
                 </table>
             </div>`;

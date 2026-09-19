@@ -121,7 +121,20 @@
 
         const doneCount = rows.filter(r => (r.evaluate || '').trim().toLowerCase() === 'done').length;
         const banners = [];
-        if (deadlineBanner) banners.push({ text: deadlineBanner, tone: 'warning' });
+        const isSimple = window.ULAB_SHELL && window.ULAB_SHELL.isSimpleMode();
+        let prominentDeadlineHtml = '';
+
+        if (deadlineBanner || isSimple) {
+            const msg = deadlineBanner || 'Deadline is over. No changes can be made.';
+            prominentDeadlineHtml = `
+                <div style="color: #DC2626; font-size: 1.2rem; font-weight: 700; padding: 14px 18px; background: #FEF2F2; border: 2px solid #FCA5A5; border-radius: 12px; margin: 16px 0; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(220,38,38,0.1);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span>${esc(msg)} Section is read-only.</span>
+                </div>`;
+        } else if (deadlineBanner) {
+            banners.push({ text: deadlineBanner, tone: 'warning' });
+        }
+
         const stats = [
             { label: 'Total', value: rows.length },
             { label: 'Submitted', value: doneCount },
@@ -129,12 +142,13 @@
         ];
         const headerCardHtml = window.ULAB_SHELL.renderHeaderCard(info, {
             title: config.pageTitle,
-            banners,   // the "Deadline is over..." banner, kept verbatim
+            banners,
             stats,
         });
 
         view.innerHTML = `
             ${headerCardHtml}
+            ${prominentDeadlineHtml}
             <h2 class="bento-sectitle">${config.mode === 'teacher' ? 'Teachers' : 'Courses'}</h2>
             ${rows.length ? renderTable(rows, config) : '<div class="bento-empty">No evaluation rows found.</div>'}
         `;

@@ -1227,27 +1227,42 @@
         // Credit meter numbers are server-side as of page load. The Select /
         // Unselect links navigate the whole page, so there is no client-side
         // live total to keep in sync (and faking one would desync).
+        const isSimple = window.ULAB_SHELL && window.ULAB_SHELL.isSimpleMode();
+
+        const registrationLocked = !!extras.registrationBanner;
+        const preAdvisingComplete = !!extras.preAdvisingComplete;
+        const preAdvLocked = preAdvisingComplete || registrationLocked;
+        const selectionLocked = preAdvLocked;
+        const preAdvTitle = registrationLocked
+            ? 'Registration is complete — no changes can be made'
+            : (preAdvisingComplete ? 'Pre-advising is already complete' : 'Mark your pre-advising as complete');
+
+        if (registrationLocked || (isSimple && preAdvisingComplete)) {
+            notices.unshift(`
+                <div style="color: #DC2626; font-size: 1.25rem; font-weight: 700; padding: 14px 18px; background: #FEF2F2; border: 2px solid #FCA5A5; border-radius: 12px; margin: 16px 0; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(220,38,38,0.1);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span>Registration complete. No changes can be made.</span>
+                </div>`);
+        }
+
+        const headerRows = [['Program', profile.programCode]];
+        if (!isSimple) {
+            headerRows.push(['Max Credit', extras.maxCredit]);
+            headerRows.push(['Used Credit', extras.totalUsedCredit]);
+            headerRows.push(['Courses Taken', extras.totalTaken]);
+        }
+
+        const headerPills = [];
+        if (!isSimple) {
+            if (extras.registrationBanner) headerPills.push({ text: extras.registrationBanner, tone: 'info' });
+            headerPills.push({ text: `${registered.length} registered / ${courses.length} offered`, tone: 'muted' });
+        }
+
         const headerHtml = window.ULAB_SHELL.renderHeaderCard(info, {
             title: 'Preregistration — Course Plan',
-            rows: [
-                ['Program', profile.programCode],
-                ['Max Credit', extras.maxCredit],
-                ['Used Credit', extras.totalUsedCredit],
-                ['Courses Taken', extras.totalTaken],
-            ],
-            // DUPLICATE CONTROL REMOVED (same call as schedule.php's advising
-            // pill): the "Pre-advising complete/incomplete" pill that used to
-            // sit here restated exactly what the actions row below both states
-            // and performs. The actionable control wins; the report-only pill
-            // goes. The "Registration complete" pill STAYS — that one has no
-            // counterpart in the actions row, it is the page's own lock
-            // statement, and it is what explains why everything below is
-            // inert.
-            pills: [
-                extras.registrationBanner ? { text: extras.registrationBanner, tone: 'info' } : null,
-                { text: `${registered.length} registered / ${courses.length} offered`, tone: 'muted' },
-            ].filter(Boolean),
-            meter: (extras.totalUsedCredit != null && extras.maxCredit != null)
+            rows: headerRows,
+            pills: headerPills,
+            meter: (!isSimple && extras.totalUsedCredit != null && extras.maxCredit != null)
                 ? {
                     label: 'Credit load',
                     value: extras.totalUsedCredit,
@@ -1257,13 +1272,22 @@
                 : null,
         });
 
+        const creditSummaryCardHtml = isSimple ? `
+            <div class="bento-panel standalone" style="margin: 14px 0; padding: 14px 18px;">
+                <h3 class="bento-sectitle" style="margin-top:0; margin-bottom:10px;">Credit / Course Summary</h3>
+                <div class="bento-statstrip">
+                    <div class="bento-stat"><span class="bento-stat-label">Max Credit</span><span class="bento-stat-value">${extras.maxCredit != null ? extras.maxCredit : '—'}</span></div>
+                    <div class="bento-stat"><span class="bento-stat-label">Used Credit</span><span class="bento-stat-value">${extras.totalUsedCredit != null ? extras.totalUsedCredit : '—'}</span></div>
+                    <div class="bento-stat"><span class="bento-stat-label">Courses Taken</span><span class="bento-stat-value">${extras.totalTaken != null ? extras.totalTaken : '—'}</span></div>
+                </div>
+            </div>` : '';
+
         const counts = {
             all: main.length,
             eligible: main.filter(c => c.elig.state === 'eligible').length,
             missing: main.filter(c => c.elig.state === 'missing').length,
             registered: main.filter(c => c.registeredThisPlan).length,
             unregistered: main.filter(c => !c.registeredThisPlan).length,
-            // Offered-again courses the student has already passed.
             passed: main.filter(c => c.elig.state === 'retake').length,
         };
         const chipDefs = [
@@ -1271,28 +1295,13 @@
             ['registered', 'Registered'], ['unregistered', 'Not registered'],
         ];
 
-        // ── Flow state (see registration-flow.md) ────────────────────────
-        // "Registration complete. No changes can be made." is the hard lock:
-        // when the page says it, every control on this page is dead. Below
-        // that, it is per-step — a step the page reports COMPLETE is disabled,
-        // an incomplete one stays live. Both facts come straight off the
-        // page's own banner text and ✅/❌ tick image; nothing is inferred.
-        const registrationLocked = !!extras.registrationBanner;
-        const preAdvisingComplete = !!extras.preAdvisingComplete;
-        const preAdvLocked = preAdvisingComplete || registrationLocked;
-        // Course selection is step 1 and pre-advising is step 2, so completing
-        // pre-advising closes course selection too.
-        const selectionLocked = preAdvLocked;
-        const preAdvTitle = registrationLocked
-            ? 'Registration is complete — no changes can be made'
-            : (preAdvisingComplete ? 'Pre-advising is already complete' : 'Mark your pre-advising as complete');
-
         const controlLinks = [];
         if (extras.retakeHref) controlLinks.push(portalAction(extras.retakeHref, 'Add retake courses', false));
         if (extras.coCurricularHref && coCurricular.length) controlLinks.push(portalAction(extras.coCurricularHref, 'Co-curricular courses', false));
 
         view.innerHTML = `
             ${headerHtml}
+            ${creditSummaryCardHtml}
 
             ${notices.join('')}
 
@@ -1321,7 +1330,7 @@
 
             ${coCurricular.length ? `<h2 class="bento-sectitle">Co-curricular Courses</h2>${renderTable(coCurricular, info, selectionLocked)}` : ''}
 
-            ${renderPassedSection(completed)}
+            ${isSimple ? '' : renderPassedSection(completed)}
 
             <p class="bento-footnote">Prerequisite, category and degree-requirement data comes from a hand-transcribed course catalogue and is <b>advisory only</b>. Electives and non-core categories are classified heuristically, and only Math, Basic Science, Other Engineering and Major Core courses declare prerequisites at all. Always confirm your plan with your adviser before finalising registration.</p>
         `;

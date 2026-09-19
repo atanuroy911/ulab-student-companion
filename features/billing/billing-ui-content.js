@@ -217,17 +217,23 @@
         if (!payments.length) return '<div class="bento-empty">No payments recorded.</div>';
         const groups = paymentGroups(payments);
         const years = [...new Set(groups.map(([key]) => key.split('-')[0]).filter(year => year !== 'Unknown'))].sort().reverse();
-        const body = groups.map(([key, rows]) => `
-            <tr class="is-group" data-group-month="${esc(key)}"><td colspan="6">${esc(paymentMonthLabel(key))} <span class="c-muted">— ${rows.length} payment${rows.length === 1 ? '' : 's'} · ${esc(fmtMoney(rows.reduce((sum, row) => sum + (row.amount || 0), 0)))}</span></td></tr>
-            ${rows.slice().reverse().map(p => `
-                <tr data-payment-month="${esc(key)}" data-payment-search="${esc(`${p.date} ${p.mrNo} ${p.chequeNo} ${p.comments}`.toLowerCase())}">
+        const body = groups.map(([key, rows]) => {
+            const groupSem = rows.length ? roughTermBucket(rows[0].date) : 'Unknown';
+            return `
+            <tr class="is-group" data-group-month="${esc(key)}" data-payment-semester="${esc(groupSem)}"><td colspan="6">${esc(paymentMonthLabel(key))} <span class="c-muted">— ${rows.length} payment${rows.length === 1 ? '' : 's'} · ${esc(fmtMoney(rows.reduce((sum, row) => sum + (row.amount || 0), 0)))}</span></td></tr>
+            ${rows.slice().reverse().map(p => {
+                const pSem = roughTermBucket(p.date);
+                return `
+                <tr data-payment-month="${esc(key)}" data-payment-semester="${esc(pSem)}" data-payment-search="${esc(`${p.date} ${p.mrNo} ${p.chequeNo} ${p.comments}`.toLowerCase())}">
                     <td class="c-nowrap">${esc(p.date)}</td>
                     <td class="c-code">${esc(p.mrNo || '—')}</td>
                     <td class="c-right">${esc(fmtMoney(p.amount))}</td>
                     <td class="c-nowrap">${esc(p.chequeNo || '—')}</td>
                     <td class="c-sub">${esc(p.comments || '—')}</td>
                     <td class="c-center"><button type="button" class="bento-chip" data-receipt-mr="${esc(p.mrNo || '')}" data-receipt-date="${esc(p.date || '')}" title="Print this receipt">Receipt</button></td>
-                </tr>`).join('')}`).join('');
+                </tr>`;
+            }).join('')}`;
+        }).join('');
 
         return `
             <div class="bento-toolbar">
@@ -250,11 +256,6 @@
             </div>`;
     }
 
-    // ── Printable billing documents (print / Save as PDF) ───────────────
-    // Standalone documents: the print iframe inherits none of this page's
-    // CSS, so styles are inlined and colours are literal — printed ink, with
-    // no --bento-* vars in scope. Both are explicitly unofficial: they are
-    // assembled from what this student's own portal page displays.
     const PRINT_CSS = `
   @page { size: A4 portrait; margin: 16mm 14mm; }
   * { box-sizing: border-box; }
@@ -346,7 +347,7 @@ ${printFooter()}</body></html>`;
     function wirePaymentHistory(view, payments, summary, dues, info) {
         const duesSemSelect = view.querySelector('#ulab-dues-semester');
         if (duesSemSelect) {
-            duesSemSelect.addEventListener('change', () => {
+            const applySemesterFilter = () => {
                 const selected = duesSemSelect.value;
                 const duesRows = view.querySelectorAll('tr[data-dues-semester]');
                 duesRows.forEach(row => {
@@ -356,7 +357,17 @@ ${printFooter()}</body></html>`;
                         row.classList.add('bento-hidden');
                     }
                 });
-            });
+                const paymentRows = view.querySelectorAll('tr[data-payment-semester]');
+                paymentRows.forEach(row => {
+                    if (selected === 'all' || row.dataset.paymentSemester === selected) {
+                        row.classList.remove('bento-hidden-sem');
+                    } else {
+                        row.classList.add('bento-hidden-sem');
+                    }
+                });
+            };
+            duesSemSelect.addEventListener('change', applySemesterFilter);
+            applySemesterFilter();
         }
 
         const search = view.querySelector('#ulab-payment-search');
@@ -365,9 +376,6 @@ ${printFooter()}</body></html>`;
         if (!search || !year || !status) return;
         const groupRows = Array.from(view.querySelectorAll('tr[data-group-month]'));
         const rows = Array.from(view.querySelectorAll('tr[data-payment-search]'));
-        // Both controls write to the SAME visibility pass, so they compose
-        // instead of overwriting each other's hidden state. A month's
-        // sub-header row hides with its last visible payment row.
         const applyFilter = () => {
             const query = search.value.trim().toLowerCase();
             const selectedYear = year.value;
@@ -412,15 +420,11 @@ ${printFooter()}</body></html>`;
             });
         }
 
-        // Per-payment receipts. Delegated, so the buttons keep working across
-        // the show/hide passes the search + year filters do.
         view.addEventListener('click', (event) => {
             const btn = event.target.closest('[data-receipt-mr]');
             if (!btn || !view.contains(btn)) return;
             const mr = btn.dataset.receiptMr;
             const date = btn.dataset.receiptDate;
-            // Match on MR number where present, else fall back to the date —
-            // MR is the portal's own receipt id and is the reliable key.
             const payment = payments.find(p => (mr && String(p.mrNo) === mr))
                 || payments.find(p => String(p.date) === date);
             if (payment) print(receiptHtml(payment, info || {}), 'ulab-receipt-print-frame');
@@ -431,13 +435,11 @@ ${printFooter()}</body></html>`;
         if (document.getElementById(STYLE_ID)) return;
         const style = document.createElement('style');
         style.id = STYLE_ID;
-        // Dues / payments / summary / filters now use bento-ui.css's shared
-        // compact layer. Only this view's visibility rules and the small
-        // cash-flow strip remain page-specific.
         style.textContent = `
             #${VIEW_ID} { display: none; padding: 10px 0 28px; text-align: left; font-family: var(--bento-font-ui); color: var(--bento-fg); }
             body.ulab-page-billing.ulab-shell-mounted #${VIEW_ID} { display: block; }
             body.ulab-page-billing.ulab-shell-mounted .ulab-legacy-billing-table { display: none !important; }
+            .bento-hidden-sem { display: none !important; }
             #${VIEW_ID} .billing-spark { display:flex; align-items:flex-end; gap:8px; height:64px; padding:0 2px; overflow-x:auto; border-bottom:1px solid var(--bento-border-soft); }
             #${VIEW_ID} .billing-spark-col { display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:2px; min-width:58px; height:100%; }
             #${VIEW_ID} .billing-spark-col i { display:block; width:22px; min-height:4px; border-radius:3px 3px 0 0; background:var(--bento-primary); }
@@ -473,10 +475,15 @@ ${printFooter()}</body></html>`;
         hideLegacyTables();
         const view = mountView(contentCell);
         const payHref = paymentHref();
-        // Summary figures move from three large stat tiles to the compact
-        // stat strip, plus a Paid-vs-Payable meter. The "Make Payment"
-        // button (→ PaymentInfo.php, href read from the portal's own input)
-        // and the red ledger-discrepancy warning both keep a home.
+        const isSimple = window.ULAB_SHELL && window.ULAB_SHELL.isSimpleMode();
+
+        const warningMsg = ledgerNotice || "Please check your ledger for any discrepancies before making your final payment.";
+        const prominentWarningHtml = `
+            <div style="color: #DC2626; font-size: 1.15rem; font-weight: 700; padding: 14px 18px; background: #FEF2F2; border: 2px solid #FCA5A5; border-radius: 12px; margin: 16px 0; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(220,38,38,0.1);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+                <span>${esc(warningMsg)}</span>
+            </div>`;
+
         const headerCardHtml = window.ULAB_SHELL.renderHeaderCard(info, {
             title: 'Billing',
             stats: [
@@ -488,16 +495,17 @@ ${printFooter()}</body></html>`;
                 ? { label: 'Paid of payable', value: summary.totalPaid, max: summary.totalPayable, note: 'Figures as reported by the portal at page load.' }
                 : null,
             links: [{ label: 'Make a payment', href: payHref }],
-            banners: ledgerNotice ? [{ text: ledgerNotice, tone: 'warning' }] : [],
         });
+
         view.innerHTML = `
             ${headerCardHtml}
-            ${renderPaymentInsight(payments)}
-            <h2 class="bento-sectitle">Dues</h2>
+            ${prominentWarningHtml}
+            ${isSimple ? '' : renderPaymentInsight(payments)}
+            <h2 class="bento-sectitle">Dues & History by Semester</h2>
             ${renderDuesSections(dues)}
             <h2 class="bento-sectitle">Payment History</h2>
             ${renderPayments(payments)}
-            <p class="bento-footnote">Dues are grouped by calendar year + a coarse Spring / Summer / Fall bucket read off each row's date. Billing.php does <b>not</b> publish a semester code per due, and no semester calendar is bundled with this extension, so an exact semester mapping would be a guess rather than a derivation.</p>
+            <p class="bento-footnote">Dues & History are grouped by calendar year + a coarse Spring / Summer / Fall bucket read off each row's date.</p>
         `;
         wirePaymentHistory(view, payments, summary, dues, info);
     }

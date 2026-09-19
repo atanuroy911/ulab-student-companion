@@ -551,10 +551,28 @@
             ? 'Registration is complete — no changes can be made'
             : (advisingComplete ? 'Advising is already complete' : 'Mark your advising as complete');
 
+        const isSimple = window.ULAB_SHELL && window.ULAB_SHELL.isSimpleMode();
+        const activeMode = isSimple ? 'table' : mode;
+
+        const academicCalendarLinkHtml = `<div style="margin: 12px 0 16px;"><a href="https://ulab.edu.bd/academic-calendar" target="_blank" rel="noopener" class="bento-action" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;">📅 View Current Semester Academic Calendar (Official Link)</a></div>`;
+
+        const scheduleToolsHtml = isSimple ? '' : `
+            <div class="schedule-tools">
+                <div class="bento-segmented" role="group" aria-label="Schedule view">
+                    <button type="button" class="bento-chip${activeMode === 'table' ? ' on' : ''}" data-view-mode="table" aria-pressed="${activeMode === 'table'}">${icon(ICON_TABLE, 12)}Table</button>
+                    <button type="button" class="bento-chip${activeMode === 'calendar' ? ' on' : ''}" data-view-mode="calendar" aria-pressed="${activeMode === 'calendar'}">${icon(ICON_CAL, 12)}Calendar</button>
+                </div>
+                <label class="bento-field" for="ulab-calendar-start">Start date <input id="ulab-calendar-start" type="date" value="${todayIso()}"></label>
+                <label class="bento-field" for="ulab-calendar-weeks">Weeks <input id="ulab-calendar-weeks" type="number" min="1" max="52" value="13" style="width:64px"></label>
+                <button id="ulab-download-ics" class="bento-action" type="button">Download all .ics</button>
+            </div>`;
+
         view.innerHTML = `
             ${headerCardHtml}
 
             ${notices.join('')}
+
+            ${academicCalendarLinkHtml}
 
             <div class="bento-actions">
                 ${(extras.actionMarkup || []).map(markup => actionControl(markup, advisingLocked, advisingTitle)).join('')}
@@ -566,21 +584,13 @@
             </div>
 
             <h2 class="bento-sectitle">Weekly meetings</h2>
-            <div class="schedule-tools">
-                <div class="bento-segmented" role="group" aria-label="Schedule view">
-                    <button type="button" class="bento-chip${mode === 'table' ? ' on' : ''}" data-view-mode="table" aria-pressed="${mode === 'table'}">${icon(ICON_TABLE, 12)}Table</button>
-                    <button type="button" class="bento-chip${mode === 'calendar' ? ' on' : ''}" data-view-mode="calendar" aria-pressed="${mode === 'calendar'}">${icon(ICON_CAL, 12)}Calendar</button>
-                </div>
-                <label class="bento-field" for="ulab-calendar-start">Start date <input id="ulab-calendar-start" type="date" value="${todayIso()}"></label>
-                <label class="bento-field" for="ulab-calendar-weeks">Weeks <input id="ulab-calendar-weeks" type="number" min="1" max="52" value="13" style="width:64px"></label>
-                <button id="ulab-download-ics" class="bento-action" type="button">Download all .ics</button>
-            </div>
-            <div id="ulab-schedule-body">${renderScheduleBody(courses, mode, todayIso(), 13)}</div>
+            ${scheduleToolsHtml}
+            <div id="ulab-schedule-body">${renderScheduleBody(courses, activeMode, todayIso(), 13)}</div>
 
             <h2 class="bento-sectitle">Registered courses</h2>
             ${renderCourseList(courses, sectionLocked)}
 
-            <p class="bento-footnote">Calendar export builds a weekly repeating event per class meeting from the start date and week count above; it does not know the university's holiday calendar. <b>Class Link</b> and <b>Section</b> are the portal's own controls, passed through unchanged.${
+            <p class="bento-footnote"><b>Class Link</b> and <b>Section</b> are the portal's own controls, passed through unchanged.${
                 sectionLocked ? ' Section changes are shown but not clickable because this step is already complete.' : ''
             }</p>
         `;

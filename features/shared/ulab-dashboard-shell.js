@@ -270,11 +270,11 @@
             :root {
                 --ulab-sidebar-w: 240px;
                 --ulab-sidebar-w-collapsed: 64px;
-                /* 4-Color Palette: #0B1957 (Navy background), #9ECCFA (Sky Blue accent), #F8F3EA (Cream text), #E6D8C7 (Sand border) */
+                /* Palette: #0B1957 (Navy background), #9ECCFA (Sky Blue accent), #FFFFFF (White text), #E6D8C7 (Sand border) */
                 --ulab-rail-bg: #0B1957;
                 --ulab-rail-bg-alt: #132778;
                 --ulab-rail-border: rgba(230, 216, 199, 0.22);
-                --ulab-rail-fg: #F8F3EA;
+                --ulab-rail-fg: #FFFFFF;
                 --ulab-rail-fg-muted: #E6D8C7;
                 --ulab-rail-active-bg: #1B328F;
                 --ulab-rail-accent: #9ECCFA;
@@ -307,7 +307,7 @@
                 max-width: 100% !important;
                 border-collapse: collapse !important;
                 border: 0 !important;
-                background: var(--bento-bg, #F8F3EA) !important;
+                background: var(--bento-bg, #FFFFFF) !important;
             }
             body.ulab-shell-mounted table.main > tbody > tr:first-child,
             body.ulab-shell-mounted table.main > tr:first-child,
@@ -327,20 +327,20 @@
                 padding: 0 28px 48px !important;
                 vertical-align: top;
                 border: 0 !important;
-                background: var(--bento-bg, #F8F3EA) !important;
+                background: var(--bento-bg, #FFFFFF) !important;
             }
             body.ulab-shell-mounted,
-            body.ulab-shell-mounted #ulab-app-footer { background: var(--bento-bg, #F8F3EA) !important; }
+            body.ulab-shell-mounted #ulab-app-footer { background: var(--bento-bg, #FFFFFF) !important; }
             body.ulab-shell-mounted .bento-root {
                 width: 100%; max-width: none; margin: 0; min-height: 100%;
-                background: var(--bento-bg, #F8F3EA);
+                background: var(--bento-bg, #FFFFFF);
             }
 
             #ulab-app-header {
                 position: sticky; top: 0; z-index: 100010;
                 display: flex; align-items: center; justify-content: space-between;
                 height: 64px; min-height: 64px; padding: 0 24px; box-sizing: border-box;
-                background: rgba(248, 243, 234, .96); border-bottom: 1px solid var(--bento-border, #E6D8C7);
+                background: rgba(255, 255, 255, .96); border-bottom: 1px solid var(--bento-border, #E6D8C7);
                 box-shadow: 0 4px 18px rgba(11,25,87,.06); backdrop-filter: blur(12px);
                 font-family: var(--bento-font-ui, -apple-system, "Segoe UI", sans-serif);
                 transition: background-color .2s ease, border-color .2s ease;
@@ -360,7 +360,7 @@
             #ulab-app-header .ulab-app-brand small { display:block; margin-top:2px; color:var(--bento-fg-muted,#35478C); font-size:11px; }
             #ulab-app-header .ulab-app-context { color:var(--bento-fg-muted,#35478C); font-size:11.5px; text-align:right; }
             #ulab-app-header .ulab-app-user { display:flex; align-items:center; gap:9px; }
-            #ulab-app-header .ulab-app-avatar { width:34px; height:34px; border-radius:50%; object-fit:cover; border:2px solid var(--bento-primary,#0B1957); background:var(--bento-card-alt,#F5EFE6); }
+            #ulab-app-header .ulab-app-avatar { width:34px; height:34px; border-radius:50%; object-fit:cover; border:2px solid var(--bento-primary,#0B1957); background:var(--bento-card-alt,#F4F6FB); }
             #ulab-app-footer {
                 display:flex; justify-content:space-between; gap:16px; align-items:center;
                 padding:18px 28px; color:var(--bento-fg-muted,#35478C); background:var(--bento-card,#fff);
@@ -370,10 +370,10 @@
             #ulab-app-footer strong { color:var(--bento-fg,#0B1957); }
             body.ulab-dark #ulab-app-header { background:#0B1957; border-bottom-color:#263E9B; box-shadow:0 4px 18px rgba(0,0,0,.24); }
             body.ulab-dark #ulab-app-header .ulab-app-brand,
-            body.ulab-dark #ulab-app-header .ulab-app-context { color:#F8F3EA; }
+            body.ulab-dark #ulab-app-header .ulab-app-context { color:#FFFFFF; }
             body.ulab-dark #ulab-app-header .ulab-app-brand small { color:#D2E5FA; }
             body.ulab-dark #ulab-app-footer { background:#070E2E; border-top-color:#263E9B; color:#D2E5FA; }
-            body.ulab-dark #ulab-app-footer strong { color:#F8F8EA; }
+            body.ulab-dark #ulab-app-footer strong { color:#FFFFFF; }
 
             /* Sidebar top hamburger toggle button */
             #${TOPBAR_TOGGLE_ID} {

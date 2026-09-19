@@ -21,13 +21,13 @@
 
 /* ── Light (default) tokens ─────────────────────────────────────────── */
 :root {
-    /* 4-Color Palette: #F8F3EA (Cream), #0B1957 (Navy), #9ECCFA (Sky Blue), #E6D8C7 (Sand) */
-    --bento-bg:          #F8F3EA;
-    --bento-bg-alt:      #E6D8C7;
+    /* 4-Color Palette: #FFFFFF (White background), #0B1957 (Navy), #9ECCFA (Sky Blue), #E6D8C7 (Sand) */
+    --bento-bg:          #FFFFFF;
+    --bento-bg-alt:      #F4F6FB;
     --bento-card:        #FFFFFF;
-    --bento-card-alt:    #F5EFE6;
+    --bento-card-alt:    #F4F6FB;
     --bento-border:      #E6D8C7;
-    --bento-border-soft: rgba(11, 25, 87, 0.14);
+    --bento-border-soft: rgba(11, 25, 87, 0.12);
     --bento-fg:          #0B1957;
     --bento-fg-muted:    #35478C;
     --bento-fg-subtle:   #5D6EAA;
@@ -73,7 +73,7 @@ body.ulab-dark {
     --bento-card-alt:    #152985;
     --bento-border:      #263E9B;
     --bento-border-soft: rgba(158, 204, 250, 0.22);
-    --bento-fg:          #F8F3EA;
+    --bento-fg:          #FFFFFF;
     --bento-fg-muted:    #D2E5FA;
     --bento-fg-subtle:   #9ECCFA;
 
@@ -102,7 +102,7 @@ body.ulab-dark {
         --bento-card-alt:    #152985;
         --bento-border:      #263E9B;
         --bento-border-soft: rgba(158, 204, 250, 0.22);
-        --bento-fg:          #F8F3EA;
+        --bento-fg:          #FFFFFF;
         --bento-fg-muted:    #D2E5FA;
         --bento-fg-subtle:   #9ECCFA;
 
@@ -129,7 +129,7 @@ body.ulab-dark {
     --bento-card-alt:    #152985;
     --bento-border:      #263E9B;
     --bento-border-soft: rgba(158, 204, 250, 0.22);
-    --bento-fg:          #F8F3EA;
+    --bento-fg:          #FFFFFF;
     --bento-fg-muted:    #D2E5FA;
     --bento-fg-subtle:   #9ECCFA;
 

@@ -21,27 +21,27 @@
 
 /* ── Light (default) tokens ─────────────────────────────────────────── */
 :root {
-    /* 4-Color Palette: #FFFFFF (White background), #0B1957 (Navy), #9ECCFA (Sky Blue), #E6D8C7 (Sand) */
+    /* ULAB Logo Palette: #FFFFFF (White bg), #0069B4 (ULAB Royal Blue), #0B2545 (Deep Navy), #F58220 (ULAB Gold Accent), #006837 (ULAB Green) */
     --bento-bg:          #FFFFFF;
-    --bento-bg-alt:      #F4F6FB;
+    --bento-bg-alt:      #F4F7FA;
     --bento-card:        #FFFFFF;
-    --bento-card-alt:    #F4F6FB;
-    --bento-border:      #E6D8C7;
-    --bento-border-soft: rgba(11, 25, 87, 0.12);
-    --bento-fg:          #0B1957;
-    --bento-fg-muted:    #35478C;
-    --bento-fg-subtle:   #5D6EAA;
+    --bento-card-alt:    #F4F7FA;
+    --bento-border:      #D0DFE9;
+    --bento-border-soft: rgba(0, 105, 180, 0.12);
+    --bento-fg:          #0B2545;
+    --bento-fg-muted:    #3A5A80;
+    --bento-fg-subtle:   #5A7A9E;
 
-    --bento-primary:     #0B1957;
-    --bento-primary-alt: #1F338A;
-    --bento-primary-light: #EBF4FE;
-    --bento-accent:      #9ECCFA;
-    --bento-accent-fg:   #0B1957;
+    --bento-primary:     #0069B4;
+    --bento-primary-alt: #005086;
+    --bento-primary-light: #EBF5FC;
+    --bento-accent:      #F58220;
+    --bento-accent-fg:   #FFFFFF;
     --bento-destructive: #E11D48;
-    --bento-success:     #10B981;
-    --bento-warning:     #F59E0B;
+    --bento-success:     #006837;
+    --bento-warning:     #F58220;
 
-    --bento-shadow-rgb:  11, 25, 87;
+    --bento-shadow-rgb:  11, 37, 69;
     --bento-shadow-sm:   0 1px 3px rgba(var(--bento-shadow-rgb), 0.08);
     --bento-shadow-md:   0 4px 14px rgba(var(--bento-shadow-rgb), 0.10);
     --bento-shadow-hover:0 10px 24px rgba(var(--bento-shadow-rgb), 0.15);
@@ -67,23 +67,23 @@
 
 /* ── Dark tokens — content-script pages (body.ulab-dark) ──────────────── */
 body.ulab-dark {
-    --bento-bg:          #050C2A;
-    --bento-bg-alt:      #0B1957;
-    --bento-card:        #0E206D;
-    --bento-card-alt:    #152985;
-    --bento-border:      #263E9B;
-    --bento-border-soft: rgba(158, 204, 250, 0.22);
+    --bento-bg:          #06152B;
+    --bento-bg-alt:      #0B2545;
+    --bento-card:        #0E2F56;
+    --bento-card-alt:    #143B6B;
+    --bento-border:      #1E4E85;
+    --bento-border-soft: rgba(0, 105, 180, 0.25);
     --bento-fg:          #FFFFFF;
-    --bento-fg-muted:    #D2E5FA;
-    --bento-fg-subtle:   #9ECCFA;
+    --bento-fg-muted:    #C5DCF0;
+    --bento-fg-subtle:   #8BBCE5;
 
-    --bento-primary:     #9ECCFA;
-    --bento-primary-alt: #74B3F7;
-    --bento-primary-light: rgba(158, 204, 250, 0.15);
-    --bento-accent:      #9ECCFA;
-    --bento-accent-fg:   #0B1957;
+    --bento-primary:     #3399FF;
+    --bento-primary-alt: #66B2FF;
+    --bento-primary-light: rgba(0, 105, 180, 0.2);
+    --bento-accent:      #F58220;
+    --bento-accent-fg:   #FFFFFF;
     --bento-destructive: #FB7185;
-    --bento-success:     #34D399;
+    --bento-success:     #00A859;
     --bento-warning:     #FBBF24;
 
     --bento-shadow-rgb:  0, 0, 0;
@@ -96,23 +96,23 @@ body.ulab-dark {
 /* ── Dark tokens — side panel (data-theme + prefers-color-scheme fallback) */
 @media (prefers-color-scheme: dark) {
     html.ulab-panel:not([data-theme]) {
-        --bento-bg:          #050C2A;
-        --bento-bg-alt:      #0B1957;
-        --bento-card:        #0E206D;
-        --bento-card-alt:    #152985;
-        --bento-border:      #263E9B;
-        --bento-border-soft: rgba(158, 204, 250, 0.22);
+        --bento-bg:          #06152B;
+        --bento-bg-alt:      #0B2545;
+        --bento-card:        #0E2F56;
+        --bento-card-alt:    #143B6B;
+        --bento-border:      #1E4E85;
+        --bento-border-soft: rgba(0, 105, 180, 0.25);
         --bento-fg:          #FFFFFF;
-        --bento-fg-muted:    #D2E5FA;
-        --bento-fg-subtle:   #9ECCFA;
+        --bento-fg-muted:    #C5DCF0;
+        --bento-fg-subtle:   #8BBCE5;
 
-        --bento-primary:     #9ECCFA;
-        --bento-primary-alt: #74B3F7;
-        --bento-primary-light: rgba(158, 204, 250, 0.15);
-        --bento-accent:      #9ECCFA;
-        --bento-accent-fg:   #0B1957;
+        --bento-primary:     #3399FF;
+        --bento-primary-alt: #66B2FF;
+        --bento-primary-light: rgba(0, 105, 180, 0.2);
+        --bento-accent:      #F58220;
+        --bento-accent-fg:   #FFFFFF;
         --bento-destructive: #FB7185;
-        --bento-success:     #34D399;
+        --bento-success:     #00A859;
         --bento-warning:     #FBBF24;
 
         --bento-shadow-rgb:  0, 0, 0;
@@ -123,23 +123,23 @@ body.ulab-dark {
     }
 }
 :root[data-theme="dark"] {
-    --bento-bg:          #050C2A;
-    --bento-bg-alt:      #0B1957;
-    --bento-card:        #0E206D;
-    --bento-card-alt:    #152985;
-    --bento-border:      #263E9B;
-    --bento-border-soft: rgba(158, 204, 250, 0.22);
+    --bento-bg:          #06152B;
+    --bento-bg-alt:      #0B2545;
+    --bento-card:        #0E2F56;
+    --bento-card-alt:    #143B6B;
+    --bento-border:      #1E4E85;
+    --bento-border-soft: rgba(0, 105, 180, 0.25);
     --bento-fg:          #FFFFFF;
-    --bento-fg-muted:    #D2E5FA;
-    --bento-fg-subtle:   #9ECCFA;
+    --bento-fg-muted:    #C5DCF0;
+    --bento-fg-subtle:   #8BBCE5;
 
-    --bento-primary:     #9ECCFA;
-    --bento-primary-alt: #74B3F7;
-    --bento-primary-light: rgba(158, 204, 250, 0.15);
-    --bento-accent:      #9ECCFA;
-    --bento-accent-fg:   #0B1957;
+    --bento-primary:     #3399FF;
+    --bento-primary-alt: #66B2FF;
+    --bento-primary-light: rgba(0, 105, 180, 0.2);
+    --bento-accent:      #F58220;
+    --bento-accent-fg:   #FFFFFF;
     --bento-destructive: #FB7185;
-    --bento-success:     #34D399;
+    --bento-success:     #00A859;
     --bento-warning:     #FBBF24;
 
     --bento-shadow-rgb:  0, 0, 0;

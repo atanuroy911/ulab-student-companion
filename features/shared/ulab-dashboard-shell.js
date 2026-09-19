@@ -270,15 +270,15 @@
             :root {
                 --ulab-sidebar-w: 240px;
                 --ulab-sidebar-w-collapsed: 64px;
-                /* Palette: #0B1957 (Navy background), #9ECCFA (Sky Blue accent), #FFFFFF (White text), #E6D8C7 (Sand border) */
-                --ulab-rail-bg: #0B1957;
-                --ulab-rail-bg-alt: #132778;
-                --ulab-rail-border: rgba(230, 216, 199, 0.22);
+                /* ULAB Logo Palette: #0069B4 (ULAB Royal Blue), #0B2545 (Deep Navy), #F58220 (ULAB Gold Accent), #FFFFFF (White) */
+                --ulab-rail-bg: #0B2545;
+                --ulab-rail-bg-alt: #103058;
+                --ulab-rail-border: rgba(255, 255, 255, 0.12);
                 --ulab-rail-fg: #FFFFFF;
-                --ulab-rail-fg-muted: #E6D8C7;
-                --ulab-rail-active-bg: #1B328F;
-                --ulab-rail-accent: #9ECCFA;
-                --ulab-rail-accent-alt: #74B3F7;
+                --ulab-rail-fg-muted: #CBD5E1;
+                --ulab-rail-active-bg: #0069B4;
+                --ulab-rail-accent: #F58220;
+                --ulab-rail-accent-alt: #FF9933;
                 --ulab-rail-danger: #FB7185;
             }
 

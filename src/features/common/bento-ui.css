@@ -785,3 +785,42 @@ table.bento-compact .pill { padding: 1px 7px; font-size: 10px; }
     }
 }
 
+/* ==========================================================================
+   DARK MODE LEGACY TABLE FIX (TARGETING body.ulab-dark)
+   ========================================================================== */
+
+/* 1. Force dark background on legacy table containers, rows, and cells */
+body.ulab-dark table,
+body.ulab-dark table *,
+body.ulab-dark tr,
+body.ulab-dark td,
+body.ulab-dark th,
+body.ulab-dark .content,
+body.ulab-dark .table_grid,
+body.ulab-dark .bento-tablewrap,
+body.ulab-dark .bento-card table {
+  background: #1e293b !important;
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+/* 2. Strip hardcoded white/light inline backgrounds from text inside table cells */
+body.ulab-dark td *,
+body.ulab-dark th * {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #f8fafc !important;
+}
+
+/* 3. Keep links clearly legible in dark mode */
+body.ulab-dark table a,
+body.ulab-dark table a * {
+  color: #38bdf8 !important;
+}
+
+/* 4. Alternate row shading for better table readability */
+body.ulab-dark tr:nth-child(even),
+body.ulab-dark tr:nth-child(even) td {
+  background-color: #0f172a !important;
+}
